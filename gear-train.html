@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Involute Gear Train — Vijay Prajwal Rajasekar</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    padding: clamp(1.25rem, 3vw, 2rem) 0 0;
+    transition: color 0.15s ease;
+  }
+  .back-link:hover { color: var(--signal); }
+
+  .case-head { padding: 1.5rem 0 0; }
+  .case-head h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); margin: 0.5em 0 0; }
+
+  .case-meta {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin: 1.5rem 0 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .case-meta div b {
+    color: var(--text);
+    display: block;
+    font-size: 0.95rem;
+    margin-top: 2px;
+    font-family: var(--font-body);
+    font-weight: 600;
+  }
+
+  /* ---- Case body ---- */
+  .case-body {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    margin-top: 0;
+  }
+  @media (max-width: 880px) { .case-body { grid-template-columns: 1fr; gap: 2rem; } }
+  .case-body h3 { font-size: 1.15rem; margin: 2rem 0 0.75rem; }
+  .case-body h3:first-child { margin-top: 0; }
+  .case-body p, .case-body li { color: var(--text-dim); font-size: 0.98rem; margin-bottom: 0.9rem; }
+  .case-body ul { padding-left: 1.1rem; }
+  .case-body li::marker { color: var(--signal); }
+
+  .spec-sidebar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    align-self: start;
+    position: sticky;
+    top: 90px;
+  }
+  .spec-sidebar h4 {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+    margin-bottom: 1rem;
+  }
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border-soft);
+    font-size: 0.88rem;
+    gap: 0.5rem;
+  }
+  .spec-row:last-child { border-bottom: none; }
+  .spec-row span:first-child { color: var(--text-dim); flex-shrink: 0; }
+  .spec-row span:last-child { font-family: var(--font-mono); font-weight: 600; text-align: right; }
+
+  .process-note {
+    background: rgba(255,107,53,0.06);
+    border: 1px solid var(--signal-dim);
+    border-radius: 8px;
+    padding: 1.1rem 1.3rem;
+    margin: 1.5rem 0;
+    font-size: 0.92rem;
+    color: var(--text);
+  }
+  .process-note b { color: var(--signal); }
+
+  /* ---- Gallery ---- */
+  .gallery-section-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    margin: 3rem 0 0.75rem;
+  }
+
+  .case-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.6rem;
+    margin-bottom: 0.5rem;
+  }
+  @media (max-width: 900px) { .case-gallery { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 580px) { .case-gallery { grid-template-columns: repeat(2, 1fr); } }
+  .case-gallery figure {
+    margin: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .case-gallery figure img {
+    width: 100%; height: 160px; object-fit: cover; display: block;
+    cursor: zoom-in;
+    transition: opacity 0.15s ease;
+  }
+  .case-gallery figure img:hover { opacity: 0.85; }
+  figcaption {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    padding: 6px 8px 8px;
+  }
+
+  /* ---- Video grid ---- */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  @media (max-width: 640px) { .video-grid { grid-template-columns: 1fr; } }
+  .video-wrap {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .video-wrap video {
+    width: 100%;
+    display: block;
+    height: auto;
+    object-fit: contain;
+    background: #000;
+  }
+  .video-caption {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    padding: 6px 10px 9px;
+  }
+
+  /* ---- Lightbox ---- */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox-inner {
+    position: relative;
+    max-width: min(90vw, 1100px);
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .lightbox-inner img {
+    max-width: 100%;
+    max-height: 82vh;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    display: block;
+  }
+  .lightbox-caption {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    text-align: center;
+  }
+  .lightbox-close {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.5rem;
+    color: rgba(255,255,255,0.6);
+    font-size: 1.6rem;
+    cursor: pointer;
+    line-height: 1;
+    background: none;
+    border: none;
+    transition: color 0.15s ease;
+  }
+  .lightbox-close:hover { color: #fff; }
+  .lightbox-nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50%;
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background 0.15s ease;
+    z-index: 1001;
+  }
+  .lightbox-nav:hover { background: rgba(255,255,255,0.18); }
+  .lightbox-prev { left: 1rem; }
+  .lightbox-next { right: 1rem; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name">Vijay Prajwal Rajasekar</span>
+      <span class="brand-sub">/ MECHANICAL+AEROSPACE</span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">About me</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle active">
+          Projects
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+            <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="school.html"><span class="menu-dot"></span>School</a>
+          <a href="club.html"><span class="menu-dot"></span>Club</a>
+          <a href="personal.html" class="active"><span class="menu-dot"></span>Personal</a>
+        </div>
+      </div>
+      <a href="certifications.html">Certifications</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <a href="personal.html" class="back-link">← Back to Personal projects</a>
+  </div>
+
+  <section class="case-head">
+    <div class="wrap">
+      <span class="tag tag-personal">PERSONAL</span>
+      <h1>Involute Gear Train</h1>
+
+      <div class="case-meta">
+        <div>TYPE<b>Personal build</b></div>
+        <div>CAD<b>SolidWorks (equation-driven)</b></div>
+        <div>MANUFACTURING<b>FDM 3D printing — Prusa i3</b></div>
+        <div>LOCATION<b>UBCO Makerspace</b></div>
+      </div>
+
+      <!-- Info first -->
+      <div class="case-body">
+        <div>
+          <h3>Why I built this</h3>
+          <p>I wanted to understand two things at the same time: how involute gear geometry is actually derived mathematically, and how accurately I could translate a parametric CAD model into a physical, meshing gear train using the university's 3D printers. Gear ratios come up constantly in mechanical and aerospace systems — actuators, propulsion, drivetrains — so working through them hands-on made sense before I encountered them in a more formal context.</p>
+
+          <h3>Deriving the tooth profile in SolidWorks</h3>
+          <p>Rather than pulling a gear from a library, I modelled each gear from the involute equation directly in SolidWorks. The involute curve is parameterised by the base circle radius and the roll angle — I entered these as driven equations in the sketch so that changing the tooth count or pressure angle automatically regenerated the entire profile.</p>
+          <ul>
+            <li>Pressure angle set to 20° (standard for spur gears) — this controls tooth thickness and contact ratio.</li>
+            <li>Module kept consistent across all four gears so they could mesh correctly regardless of tooth count.</li>
+            <li>Addendum and dedendum circles derived from the pitch diameter, with clearance built into the equation so printed teeth wouldn't bind.</li>
+            <li>Used SolidWorks Gear Generator as a cross-check to validate that pitch diameters and centre distances were correct before committing to a print.</li>
+          </ul>
+
+          <div class="process-note">
+            <b>The equation-driven sketch approach</b> means every dimension — pitch circle, base circle, tip and root radii — updates automatically when you change a single input. It's slower to set up than using a gear macro, but you end up actually understanding what each parameter controls.
+          </div>
+
+          <h3>Gear ratios in the train</h3>
+          <p>The train uses four gears with different tooth counts to produce different output speeds from a single input. A 12-tooth pinion drives a 30-tooth gear (ratio 1:2.5), which is axle-connected to a 14-tooth pinion driving a 28-tooth gear (ratio 1:2) — giving an overall compound ratio of 1:5 from the smallest to the largest gear. A secondary pair runs at 1:5 as a direct stage for comparison.</p>
+
+          <h3>3D printing at the UBCO Makerspace</h3>
+          <p>All four gears were printed on the Prusa i3 MK3S at UBCO's Makerspace in PLA at 0.1mm layer height. Getting the tooth clearance right took iteration — the first print came out with teeth that were too tight and wouldn't rotate freely. I added 0.2mm radial clearance to the dedendum and reprinted, which fixed the binding.</p>
+          <ul>
+            <li>Each gear printed separately in a different colour to make the ratio stages visually distinct.</li>
+            <li>Foam inserts pressed into the centre bores act as friction bearings against the axle pins.</li>
+            <li>The failed first print (teeth meshing too tight) is kept as a reference — it clearly shows where the profile overlapped.</li>
+          </ul>
+
+          <h3>What I learned</h3>
+          <p>Working through the involute maths manually before printing gave me a much clearer mental model of why standard pressure angles and module systems exist — they exist precisely so that gears from different designs can mesh without custom clearance calculations every time. The 3D printing side taught me that theoretical clearance and printed clearance aren't the same thing: FDM parts swell slightly on the outer walls, so you need to account for that in the model, not just in the slicer.</p>
+        </div>
+
+        <aside class="spec-sidebar">
+          <h4>PROJECT SPECS</h4>
+          <div class="spec-row"><span>Gear type</span><span>Spur, involute</span></div>
+          <div class="spec-row"><span>Compound ratio</span><span style="color:var(--telemetry)">1:5</span></div>
+          <div class="spec-row"><span>CAD method</span><span>Equation-driven sketch</span></div>
+          <div class="spec-row"><span>Printer</span><span>Prusa i3 MK3S</span></div>
+          <div class="spec-row"><span>Material</span><span>PLA</span></div>
+          <div class="spec-row"><span>Layer height</span><span>0.1 mm</span></div>
+          <div class="spec-row"><span>Location</span><span>UBCO Makerspace</span></div>
+        </aside>
+      </div>
+
+      <!-- Photos -->
+      <p class="gallery-section-label">CAD &amp; design</p>
+      <div class="case-gallery">
+        <figure>
+          <img src="images/gear-involute-sketch.jpg" alt="SolidWorks sketch showing involute gear tooth profile with equation-driven dimensions and pitch circles">
+          <figcaption>Equation-driven involute sketch in SolidWorks — pitch, base and tip circles visible.</figcaption>
+        </figure>
+        <figure>
+          <img src="images/gear-isometric-3d.jpg" alt="Isometric SolidWorks render of four-gear assembly in red, blue, orange and green">
+          <figcaption>Isometric render of the full assembly — all four gears positioned on their centre distances.</figcaption>
+        </figure>
+        <figure>
+          <img src="images/gear-generator-tool.jpg" alt="Gear Generator software showing gear parameters and meshing simulation">
+          <figcaption>Gear Generator used to cross-check pitch diameters and centre distances before printing.</figcaption>
+        </figure>
+      </div>
+
+      <p class="gallery-section-label">Printing &amp; results</p>
+      <div class="case-gallery">
+        <figure>
+          <img src="images/gear-printing-prusa.jpg" alt="Prusa i3 MK3S 3D printer mid-print with red gear on the build plate">
+          <figcaption>Prusa i3 MK3S mid-print — red large gear on the build plate.</figcaption>
+        </figure>
+        <figure>
+          <img src="images/gear-printed-layout.jpg" alt="All four 3D printed gears laid out on a notebook — red, blue, orange and green">
+          <figcaption>Final four gears — each colour corresponds to a different stage in the gear train.</figcaption>
+        </figure>
+        <figure>
+          <img src="images/gear-printed-closeup.jpg" alt="Close-up of all four printed gears meshing together showing tooth detail — orange, blue, red and green">
+          <figcaption>Close-up showing tooth mesh detail across all four gears.</figcaption>
+        </figure>
+      </div>
+
+      <!-- Videos -->
+      <p class="gallery-section-label">In motion</p>
+      <div class="video-grid">
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="images/gear-video-1.mp4" type="video/mp4">
+          </video>
+          <div class="video-caption">Gear train running — all four gears meshing under hand input.</div>
+        </div>
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="images/gear-video-2.mp4" type="video/mp4">
+          </video>
+          <div class="video-caption">Close-up of tooth engagement between the 12T pinion and 30T gear.</div>
+        </div>
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="images/gear-video-3.mp4" type="video/mp4">
+          </video>
+          <div class="video-caption">Compound stage — 14T driving 28T, showing the speed reduction.</div>
+        </div>
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="images/gear-video-4.mp4" type="video/mp4">
+          </video>
+          <div class="video-caption">Full train running end-to-end, input to output.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button class="lightbox-close" id="lbClose" aria-label="Close">&times;</button>
+  <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Previous">&#8592;</button>
+  <div class="lightbox-inner">
+    <img id="lbImg" src="" alt="">
+    <p class="lightbox-caption" id="lbCaption"></p>
+  </div>
+  <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Next">&#8594;</button>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="mailto:vj0501@student.ubc.ca">Email</a>
+      <a href="https://www.linkedin.com/in/vijayprajwalrajasekar/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/VijayPrajwal/Projects-" target="_blank" rel="noopener">GitHub</a>
+      <a href="contact.html">Resume</a>
+    </div>
+    <div class="footer-meta">Vijay Prajwal Rajasekar · UBC Okanagan</div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var imgs = Array.from(document.querySelectorAll('.case-gallery figure img'));
+  var current = 0;
+  var lb    = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lbImg');
+  var lbCap = document.getElementById('lbCaption');
+
+  function open(index) {
+    current = (index + imgs.length) % imgs.length;
+    var fig = imgs[current].closest('figure');
+    var cap = fig ? fig.querySelector('figcaption') : null;
+    lbImg.src = imgs[current].src;
+    lbImg.alt = imgs[current].alt;
+    lbCap.textContent = cap ? cap.textContent.trim() : '';
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  imgs.forEach(function(img, i) { img.addEventListener('click', function() { open(i); }); });
+  document.getElementById('lbClose').addEventListener('click', close);
+  document.getElementById('lbPrev').addEventListener('click', function(e) { e.stopPropagation(); open(current - 1); });
+  document.getElementById('lbNext').addEventListener('click', function(e) { e.stopPropagation(); open(current + 1); });
+  lb.addEventListener('click', function(e) { if (e.target === lb) close(); });
+  document.addEventListener('keydown', function(e) {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') open(current - 1);
+    if (e.key === 'ArrowRight') open(current + 1);
+  });
+})();
+</script>
+
+<script>
+(function() {
+  var toggle = document.querySelector('.nav-dropdown-toggle');
+  var menu   = document.querySelector('.nav-dropdown-menu');
+  if (!toggle || !menu) return;
+  var closeTimer = null;
+  function openMenu() { clearTimeout(closeTimer); toggle.classList.add('open'); menu.classList.add('open'); }
+  function scheduleClose() { closeTimer = setTimeout(function() { toggle.classList.remove('open'); menu.classList.remove('open'); }, 150); }
+  toggle.addEventListener('mouseenter', openMenu);
+  toggle.addEventListener('mouseleave', scheduleClose);
+  menu.addEventListener('mouseenter', openMenu);
+  menu.addEventListener('mouseleave', scheduleClose);
+  toggle.addEventListener('click', function() {
+    menu.classList.contains('open') ? (toggle.classList.remove('open'), menu.classList.remove('open')) : openMenu();
+  });
+  document.addEventListener('click', function(e) {
+    if (!toggle.contains(e.target) && !menu.contains(e.target)) { toggle.classList.remove('open'); menu.classList.remove('open'); }
+  });
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Projects — Vijay Prajwal Rajasekar</title>
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  .page-head { padding: clamp(2.5rem, 6vw, 4rem) 0 1rem; }
+  .page-head h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); margin: 0.5em 0 0.5em; }
+
+  .proj-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  @media (max-width: 760px) {
+    .proj-grid { grid-template-columns: 1fr; }
+  }
+  .proj-card {
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .proj-thumb {
+    aspect-ratio: 16/10;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-faint);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    border-bottom: 1px dashed var(--border);
+  }
+  .proj-info { padding: 1.4rem; flex-grow: 1; display: flex; flex-direction: column; }
+  .proj-info h3 { font-size: 1.05rem; color: var(--text-dim); margin-bottom: 0.5rem; }
+  .proj-info p { color: var(--text-faint); font-size: 0.88rem; flex-grow: 1; }
+  .proj-info .mono { font-size: 0.7rem; color: var(--text-faint); margin-top: 1rem; letter-spacing: 0.04em; }
+
+  .intro-note {
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 2rem;
+    font-size: 0.92rem;
+    color: var(--text-dim);
+  }
+  .intro-note b { color: var(--text); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <span class="brand-mark"></span>
+      <span class="brand-name">Vijay Prajwal Rajasekar</span>
+      <span class="brand-sub">/ MECHANICAL+AEROSPACE</span>
+    </a>
+        <nav class="main-nav">
+      <a href="index.html">About me</a>
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle active">
+          Projects
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+            <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div class="nav-dropdown-menu">
+          <a href="school.html" class="active"><span class="menu-dot"></span>School</a>
+          <a href="club.html" ><span class="menu-dot"></span>Club</a>
+          <a href="personal.html" ><span class="menu-dot"></span>Personal</a>
+        </div>
+      </div>
+      <a href="certifications.html">Certifications</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="page-head">
+    <div class="wrap">
+      <p class="eyebrow">Category 01</p>
+      <h1>School Projects</h1>
+      <p class="section-lede">Coursework, design competitions, and capstone work from my time in UBC Okanagan's mechanical &amp; aerospace engineering program.</p>
+
+      <div class="intro-note">
+        <b>This page is set up and ready</b> — drop in your coursework projects (design competitions, capstone, lab reports with real builds) using the same card layout as the club case study. Each card below is a placeholder slot.
+      </div>
+
+      <div class="proj-grid">
+        <div class="proj-card">
+          <div class="proj-thumb">[ PROJECT IMAGE ]</div>
+          <div class="proj-info">
+            <h3>Add a school project</h3>
+            <p>Course name, term, and a one-line summary of what you designed or built.</p>
+            <span class="mono">PLACEHOLDER · TAG_SCHOOL</span>
+          </div>
+        </div>
+        <div class="proj-card">
+          <div class="proj-thumb">[ PROJECT IMAGE ]</div>
+          <div class="proj-info">
+            <h3>Add a school project</h3>
+            <p>Course name, term, and a one-line summary of what you designed or built.</p>
+            <span class="mono">PLACEHOLDER · TAG_SCHOOL</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-links">
+      <a href="mailto:vj0501@student.ubc.ca">Email</a>
+      <a href="https://www.linkedin.com/in/vijayprajwalrajasekar/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/VijayPrajwal/Projects-" target="_blank" rel="noopener">GitHub</a>
+      <a href="contact.html">Resume</a>
+    </div>
+    <div class="footer-meta">Vijay Prajwal Rajasekar · UBC Okanagan</div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  var toggle = document.querySelector('.nav-dropdown-toggle');
+  var menu   = document.querySelector('.nav-dropdown-menu');
+  if (!toggle || !menu) return;
+  var closeTimer = null;
+
+  function openMenu() {
+    clearTimeout(closeTimer);
+    toggle.classList.add('open');
+    menu.classList.add('open');
+  }
+  function scheduleClose() {
+    closeTimer = setTimeout(function() {
+      toggle.classList.remove('open');
+      menu.classList.remove('open');
+    }, 150);
+  }
+
+  toggle.addEventListener('mouseenter', openMenu);
+  toggle.addEventListener('mouseleave', scheduleClose);
+  menu.addEventListener('mouseenter', openMenu);
+  menu.addEventListener('mouseleave', scheduleClose);
+
+  // Also toggle on click (for touch/keyboard users)
+  toggle.addEventListener('click', function() {
+    var isOpen = menu.classList.contains('open');
+    if (isOpen) {
+      toggle.classList.remove('open');
+      menu.classList.remove('open');
+    } else {
+      openMenu();
+    }
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+      toggle.classList.remove('open');
+      menu.classList.remove('open');
+    }
+  });
+})();
+</script>
+</body>
+</html>
