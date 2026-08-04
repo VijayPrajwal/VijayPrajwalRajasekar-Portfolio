@@ -205,11 +205,11 @@
       <form class="msg-form" id="contactForm">
         <h3 style="margin-top: 2.5rem; font-size: 1.15rem;">Or send a quick message</h3>
         <label for="name">NAME</label>
-        <input type="text" id="name" placeholder="Your name" required>
+        <input type="text" id="name" name="name" placeholder="Your name" required>
         <label for="email">EMAIL</label>
-        <input type="email" id="email" placeholder="Your email" required>
+        <input type="email" id="email" name="email" placeholder="Your email" required>
         <label for="msg">MESSAGE</label>
-        <textarea id="msg" rows="5" placeholder="Your message" required></textarea>
+        <textarea id="msg" name="message" rows="5" placeholder="Your message" required></textarea>
         <button type="submit" class="btn btn-solid" style="align-self: flex-start; margin-top: 0.5rem;">Send message</button>
         <div class="form-success" id="formSuccess" role="status">
           <svg class="form-success-icon" viewBox="0 0 24 24" fill="none">
@@ -283,17 +283,56 @@
 (function() {
   var form    = document.getElementById('contactForm');
   var success = document.getElementById('formSuccess');
-  if (!form || !success) return;
+  var btn     = form ? form.querySelector('button[type="submit"]') : null;
+  if (!form || !success || !btn) return;
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-    // Show inline success
-    success.classList.add('show');
-    // Reset form after short delay
-    setTimeout(function() {
-      form.reset();
-      setTimeout(function() { success.classList.remove('show'); }, 4000);
-    }, 600);
+
+    // Disable button while sending
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    var data = new FormData(form);
+
+    fetch('https://formspree.io/f/mgawwapr', {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    })
+    .then(function(res) {
+      if (res.ok) {
+        // Show success message
+        success.style.color = 'var(--telemetry)';
+        success.style.borderColor = 'rgba(74,222,128,0.25)';
+        success.style.background  = 'rgba(74,222,128,0.07)';
+        success.querySelector('svg').style.display = '';
+        success.childNodes[success.childNodes.length - 1].textContent = " Message sent — I'll get back to you soon.";
+        success.classList.add('show');
+        form.reset();
+        setTimeout(function() { success.classList.remove('show'); }, 6000);
+      } else {
+        // Show error inline
+        success.style.color = '#f87171';
+        success.style.borderColor = 'rgba(248,113,113,0.3)';
+        success.style.background  = 'rgba(248,113,113,0.07)';
+        success.querySelector('svg').style.display = 'none';
+        success.childNodes[success.childNodes.length - 1].textContent = ' Something went wrong — please try emailing me directly.';
+        success.classList.add('show');
+      }
+    })
+    .catch(function() {
+      success.style.color = '#f87171';
+      success.style.borderColor = 'rgba(248,113,113,0.3)';
+      success.style.background  = 'rgba(248,113,113,0.07)';
+      success.querySelector('svg').style.display = 'none';
+      success.childNodes[success.childNodes.length - 1].textContent = ' Network error — please try emailing me directly.';
+      success.classList.add('show');
+    })
+    .finally(function() {
+      btn.disabled = false;
+      btn.textContent = 'Send message';
+    });
   });
 })();
 </script>
