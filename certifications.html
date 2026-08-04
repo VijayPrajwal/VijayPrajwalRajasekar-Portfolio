@@ -43,6 +43,10 @@
     height: 100%;
     object-fit: cover;
     object-position: top;
+    transition: transform 0.4s ease;
+  }
+  .cert-card:hover .cert-thumb img {
+    transform: scale(1.03);
   }
   .cert-info { padding: 1.4rem; }
   .cert-info h3 { font-size: 1.05rem; margin-bottom: 0.35rem; }
@@ -106,11 +110,13 @@
     overflow: hidden;
     border: 1px solid var(--border);
     background: var(--surface);
+    max-width: 420px;
   }
   .comp-cert img {
     width: 100%;
     height: auto;
     display: block;
+    border-radius: 8px;
   }
 
   .gallery-section-label {

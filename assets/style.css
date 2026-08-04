@@ -274,6 +274,7 @@ nav.main-nav a.active::after {
 .btn:hover {
   border-color: var(--signal);
   background: rgba(255,107,53,0.08);
+  transform: translateY(-1px);
 }
 .btn-solid {
   background: var(--signal);
@@ -377,7 +378,7 @@ figcaption {
   padding: 6px 8px 8px;
 }
 
-section { padding: 5rem 0; }
+section { padding: 5rem 0; scroll-margin-top: 80px; }
 @media (max-width: 640px) {
   section { padding: 3.25rem 0; }
 }

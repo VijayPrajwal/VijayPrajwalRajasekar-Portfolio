@@ -183,6 +183,7 @@
       overflow: hidden;
       border: 1px solid var(--border);
       background: var(--surface);
+      position: relative;
     }
 
     .case-gallery figure img {
@@ -191,11 +192,31 @@
       object-fit: cover;
       display: block;
       cursor: zoom-in;
-      transition: opacity 0.15s ease;
+      transition: opacity 0.15s ease, transform 0.3s ease;
     }
 
     .case-gallery figure img:hover {
       opacity: 0.85;
+      transform: scale(1.03);
+    }
+
+    /* Zoom hint badge on gallery images */
+    .case-gallery figure::after {
+      content: '';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 26px;
+      height: 26px;
+      background: rgba(11,13,15,0.7) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none'%3E%3Ccircle cx='11' cy='11' r='8' stroke='%23e8e6e1' stroke-width='1.8'/%3E%3Cpath d='M21 21l-4.35-4.35' stroke='%23e8e6e1' stroke-width='1.8' stroke-linecap='round'/%3E%3Cpath d='M11 8v6M8 11h6' stroke='%23e8e6e1' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center/14px no-repeat;
+      border-radius: 5px;
+      border: 1px solid rgba(255,255,255,0.12);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+    .case-gallery figure:hover::after {
+      opacity: 1;
     }
 
     figcaption {
@@ -242,14 +263,103 @@
     }
 
     /* ---- 3D Viewer ---- */
+    .viewer-wrap {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
     model-viewer {
       width: 100%;
       height: 500px;
       background-color: var(--surface-raised);
       border: 1px solid var(--border);
       border-radius: 10px;
-      margin-bottom: 1rem;
       --poster-color: transparent;
+      display: block;
+    }
+
+    /* Interactive badge top-right */
+    .viewer-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      color: var(--telemetry);
+      background: rgba(11, 13, 15, 0.72);
+      border: 1px solid rgba(74, 222, 128, 0.25);
+      border-radius: 999px;
+      padding: 4px 10px 4px 8px;
+      backdrop-filter: blur(8px);
+      pointer-events: none;
+      z-index: 10;
+      transition: opacity 0.4s ease;
+    }
+
+    .viewer-badge-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--telemetry);
+      box-shadow: 0 0 6px rgba(74, 222, 128, 0.7);
+      animation: pulse-dot 2s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+
+    /* Legend panel — overlays the model-viewer using viewer-wrap as anchor */
+    .viewer-legend {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      background: rgba(11, 13, 15, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 10px;
+      padding: 11px 14px;
+      backdrop-filter: blur(12px);
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+      z-index: 10;
+    }
+
+    .viewer-legend.faded {
+      opacity: 0;
+    }
+
+    .viewer-wrap:hover .viewer-legend.faded {
+      opacity: 0.65;
+    }
+
+    .legend-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: rgba(232, 230, 225, 0.7);
+      white-space: nowrap;
+    }
+
+    .legend-icon {
+      width: 28px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .legend-icon svg {
+      opacity: 0.75;
     }
 
     /* ---- Lightbox ---- */
@@ -464,9 +574,57 @@
 
         <!-- 3D Interactive Model -->
         <p class="gallery-section-label">Interactive 3D Model</p>
-        <model-viewer src="CAD_Model/Compound_Gear_Train_Assembly_FOR_3D_PRINT.glb" auto-rotate camera-controls
-          shadow-intensity="1" environment-image="neutral" exposure="1.0" interaction-prompt="hover">
-        </model-viewer>
+        <div class="viewer-wrap">
+          <!-- Pulsing interactive badge (top-right overlay) -->
+          <div class="viewer-badge" id="viewerBadge">
+            <span class="viewer-badge-dot"></span>
+            INTERACTIVE
+          </div>
+
+          <!-- Control legend overlay (bottom-left) -->
+          <div class="viewer-legend" id="viewerLegend">
+            <div class="legend-row">
+              <span class="legend-icon">
+                <!-- Mouse drag icon -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2C9.79 2 8 3.79 8 6V12L6.5 10.5C6.1 10.1 5.5 10.1 5.1 10.5C4.7 10.9 4.7 11.5 5.1 11.9L9.3 16.1C10.1 17.3 11.4 18 12.8 18H14C16.2 18 18 16.2 18 14V9C18 7.9 17.1 7 16 7C15.6 7 15.3 7.1 15 7.3V6C15 4.9 14.1 4 13 4V3.5C13 2.7 12.6 2 12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span>Drag — Rotate</span>
+            </div>
+            <div class="legend-row">
+              <span class="legend-icon">
+                <!-- Scroll / pinch icon -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M12 5V2M12 22V19M5 12H2M22 12H19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M7 7L5 5M19 5L17 7M7 17L5 19M17 17L19 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span>Scroll — Zoom</span>
+            </div>
+            <div class="legend-row">
+              <span class="legend-icon">
+                <!-- Pan icon -->
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M5 9L2 12L5 15M19 9L22 12L19 15M12 5L9 2L6 5M12 19L15 22L18 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <span>Right-drag — Pan</span>
+            </div>
+          </div>
+
+          <model-viewer
+            id="gearViewer"
+            src="CAD_Model/Compound_Gear_Train_Assembly_FOR_3D_PRINT.glb"
+            auto-rotate
+            camera-controls
+            shadow-intensity="1"
+            environment-image="neutral"
+            exposure="1.0"
+            interaction-prompt="none">
+          </model-viewer>
+        </div>
 
         <!-- Photos -->
         <p class="gallery-section-label">CAD &amp; design</p>
@@ -598,6 +756,45 @@
         if (e.key === 'ArrowLeft') open(current - 1);
         if (e.key === 'ArrowRight') open(current + 1);
       });
+    })();
+  </script>
+
+  <!-- 3D Viewer legend auto-fade logic -->
+  <script>
+    (function () {
+      var legend = document.getElementById('viewerLegend');
+      var viewer = document.getElementById('gearViewer');
+      var badge  = document.getElementById('viewerBadge');
+      if (!legend || !viewer) return;
+
+      var interacted = false;
+      var fadeTimer = null;
+
+      // Auto-fade after 5 seconds on page load
+      fadeTimer = setTimeout(function () {
+        if (!interacted) scheduleFade();
+      }, 5000);
+
+      function scheduleFade() {
+        legend.classList.add('faded');
+      }
+
+      // Fade legend on first interaction
+      function onInteract() {
+        if (interacted) return;
+        interacted = true;
+        clearTimeout(fadeTimer);
+        // Small delay so user sees they grabbed it before it fades
+        setTimeout(scheduleFade, 800);
+        // Fade the badge too after first interaction
+        setTimeout(function () {
+          badge.style.opacity = '0';
+        }, 3000);
+      }
+
+      viewer.addEventListener('mousedown', onInteract);
+      viewer.addEventListener('touchstart', onInteract, { passive: true });
+      viewer.addEventListener('wheel',      onInteract, { passive: true });
     })();
   </script>
 

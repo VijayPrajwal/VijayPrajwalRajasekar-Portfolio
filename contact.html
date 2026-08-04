@@ -97,6 +97,29 @@
     letter-spacing: 0.04em;
     margin-bottom: -0.5rem;
   }
+
+  .form-success {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    background: rgba(74, 222, 128, 0.07);
+    border: 1px solid rgba(74, 222, 128, 0.25);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    font-size: 0.9rem;
+    color: var(--telemetry);
+    margin-top: 0.5rem;
+    animation: fadeInUp 0.4s ease;
+  }
+  .form-success.show { display: flex; }
+  .form-success-icon {
+    width: 20px; height: 20px; flex-shrink: 0;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 </style>
 </head>
 <body>
@@ -179,7 +202,7 @@
         </div>
       </div>
 
-      <form class="msg-form" onsubmit="event.preventDefault(); alert('Hook this up to a form service (Formspree, EmailJS, etc.) or your own backend.');">
+      <form class="msg-form" id="contactForm">
         <h3 style="margin-top: 2.5rem; font-size: 1.15rem;">Or send a quick message</h3>
         <label for="name">NAME</label>
         <input type="text" id="name" placeholder="Your name" required>
@@ -188,7 +211,13 @@
         <label for="msg">MESSAGE</label>
         <textarea id="msg" rows="5" placeholder="Your message" required></textarea>
         <button type="submit" class="btn btn-solid" style="align-self: flex-start; margin-top: 0.5rem;">Send message</button>
-      </form>
+        <div class="form-success" id="formSuccess" role="status">
+          <svg class="form-success-icon" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Message sent — I'll get back to you soon.
+        </div>
     </div>
   </section>
 </main>
@@ -246,6 +275,25 @@
       toggle.classList.remove('open');
       menu.classList.remove('open');
     }
+  });
+})();
+</script>
+
+<script>
+(function() {
+  var form    = document.getElementById('contactForm');
+  var success = document.getElementById('formSuccess');
+  if (!form || !success) return;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Show inline success
+    success.classList.add('show');
+    // Reset form after short delay
+    setTimeout(function() {
+      form.reset();
+      setTimeout(function() { success.classList.remove('show'); }, 4000);
+    }, 600);
   });
 })();
 </script>
