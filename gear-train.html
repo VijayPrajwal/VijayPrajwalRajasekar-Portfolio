@@ -786,10 +786,6 @@
         clearTimeout(fadeTimer);
         // Small delay so user sees they grabbed it before it fades
         setTimeout(scheduleFade, 800);
-        // Fade the badge too after first interaction
-        setTimeout(function () {
-          badge.style.opacity = '0';
-        }, 3000);
       }
 
       viewer.addEventListener('mousedown', onInteract);
