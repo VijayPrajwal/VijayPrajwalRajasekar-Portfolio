@@ -202,7 +202,9 @@ nav.main-nav a.active::after {
 .nav-dropdown-toggle svg {
   transition: transform 0.2s ease;
 }
-.nav-dropdown-toggle.open svg {
+.nav-dropdown-toggle.open svg,
+.nav-dropdown:hover .nav-dropdown-toggle svg,
+.nav-dropdown:focus-within .nav-dropdown-toggle svg {
   transform: rotate(180deg);
 }
 .nav-dropdown-menu {
@@ -221,7 +223,17 @@ nav.main-nav a.active::after {
   z-index: 200;
   box-shadow: 0 8px 24px rgba(0,0,0,0.4);
 }
-.nav-dropdown-menu.open {
+.nav-dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+.nav-dropdown-menu.open,
+.nav-dropdown:hover .nav-dropdown-menu,
+.nav-dropdown:focus-within .nav-dropdown-menu {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
