@@ -16,8 +16,8 @@
   --text: #e8e6e1;
   --text-dim: #9aa0a6;
   --text-faint: #5f656c;
-  --signal: #ff6b35;
-  --signal-dim: #c2511f;
+  --signal: #ff7542;
+  --signal-dim: #d95e2b;
   --telemetry: #4ade80;
   --telemetry-dim: #2f8a52;
 
@@ -99,14 +99,17 @@ img { max-width: 100%; display: block; }
   .site-header .wrap {
     height: auto;
     flex-wrap: wrap;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    gap: 0.6rem;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: clamp(0.75rem, 3vw, 1.25rem);
+    padding-right: clamp(0.75rem, 3vw, 1.25rem);
+    gap: 0.5rem;
   }
   nav.main-nav {
     width: 100%;
     overflow-x: auto;
     justify-content: flex-start;
+    gap: clamp(0.6rem, 2.5vw, 1rem);
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
@@ -157,6 +160,7 @@ nav.main-nav a {
   position: relative;
   padding: 6px 0;
   transition: color 0.15s ease;
+  white-space: nowrap;
 }
 nav.main-nav a:hover,
 nav.main-nav a.active {
@@ -285,12 +289,14 @@ nav.main-nav a.active::after {
   background: transparent;
   color: var(--text);
   cursor: pointer;
-  transition: border-color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
 }
-.btn:hover {
+.btn:hover,
+.btn:focus-visible {
   border-color: var(--signal);
-  background: rgba(255,107,53,0.08);
-  transform: translateY(-1px);
+  background: rgba(255,117,66,0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(255,117,66,0.2);
 }
 .btn-solid {
   background: var(--signal);
@@ -298,9 +304,12 @@ nav.main-nav a.active::after {
   color: #0b0d0f;
   font-weight: 600;
 }
-.btn-solid:hover {
-  background: #ff7e4d;
-  border-color: #ff7e4d;
+.btn-solid:hover,
+.btn-solid:focus-visible {
+  background: #ff8b57;
+  border-color: #ff8b57;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(255,117,66,0.38);
 }
 
 /* ---------- Eyebrow / labels ---------- */
