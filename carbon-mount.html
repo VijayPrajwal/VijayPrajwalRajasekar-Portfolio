@@ -1,536 +1,667 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Forged Carbon Fiber Motor Mount — Vijay Prajwal Rajasekar</title>
-<link rel="stylesheet" href="assets/style.css">
-<style>
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: var(--text-dim);
-    padding: clamp(1.25rem, 3vw, 2rem) 0 0;
-    transition: color 0.15s ease;
-  }
-  .back-link:hover { color: var(--signal); }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forged Carbon Fiber Motor Mount — Vijay Prajwal Rajasekar</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      padding: clamp(1.25rem, 3vw, 2rem) 0 0;
+      transition: color 0.15s ease;
+    }
 
-  .case-head { padding: 1.5rem 0 0; }
-  .case-head h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); margin: 0.5em 0 0; }
+    .back-link:hover {
+      color: var(--signal);
+    }
 
-  .case-meta {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--text-dim);
-    margin: 1.5rem 0 2.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border-soft);
-  }
-  .case-meta div b {
-    color: var(--text);
-    display: block;
-    font-size: 0.95rem;
-    margin-top: 2px;
-    font-family: var(--font-body);
-    font-weight: 600;
-  }
+    .case-head {
+      padding: 1.5rem 0 0;
+    }
 
-  .gallery-section-label {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.06em;
-    color: var(--text-faint);
-    text-transform: uppercase;
-    margin: 2.25rem 0 0.75rem;
-  }
-  .gallery-section-label:first-child { margin-top: 0; }
+    .case-head h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin: 0.5em 0 0;
+    }
 
-  .case-gallery {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0.6rem;
-    margin-bottom: 0.5rem;
-  }
-  @media (max-width: 900px) { .case-gallery { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 580px) { .case-gallery { grid-template-columns: repeat(2, 1fr); } }
-  .case-gallery figure {
-    margin: 0;
-    border-radius: 6px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    background: var(--surface);
-  }
-  .case-gallery figure img { width: 100%; height: 160px; object-fit: cover; display: block; }
-  .case-gallery figcaption { padding: 6px 8px 8px; }
-  figcaption {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--text-faint);
-  }
+    .case-meta {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin: 1.5rem 0 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-soft);
+    }
 
-  .case-body {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3rem;
-    margin-top: 3rem;
-  }
-  @media (max-width: 880px) { .case-body { grid-template-columns: 1fr; gap: 2rem; } }
+    .case-meta div b {
+      color: var(--text);
+      display: block;
+      font-size: 0.95rem;
+      margin-top: 2px;
+      font-family: var(--font-body);
+      font-weight: 600;
+    }
 
-  .case-body h3 { font-size: 1.15rem; margin: 2rem 0 0.75rem; }
-  .case-body h3:first-child { margin-top: 0; }
-  .case-body p, .case-body li { color: var(--text-dim); font-size: 0.98rem; margin-bottom: 0.9rem; }
-  .case-body ul { padding-left: 1.1rem; }
-  .case-body li::marker { color: var(--signal); }
+    .gallery-section-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      margin: 2.25rem 0 0.75rem;
+    }
 
-  .spec-sidebar {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.5rem;
-    align-self: start;
-    position: sticky;
-    top: 90px;
-  }
-  .spec-sidebar h4 {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.06em;
-    color: var(--text-faint);
-    margin-bottom: 1rem;
-  }
-  .spec-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.6rem 0;
-    border-bottom: 1px solid var(--border-soft);
-    font-size: 0.88rem;
-  }
-  .spec-row:last-child { border-bottom: none; }
-  .spec-row span:first-child { color: var(--text-dim); }
-  .spec-row span:last-child { font-family: var(--font-mono); font-weight: 600; text-align: right; }
+    .gallery-section-label:first-child {
+      margin-top: 0;
+    }
 
-  .process-note {
-    background: rgba(255,107,53,0.06);
-    border: 1px solid var(--signal-dim);
-    border-radius: 8px;
-    padding: 1.1rem 1.3rem;
-    margin: 1.5rem 0;
-    font-size: 0.92rem;
-    color: var(--text);
-  }
-  .process-note b { color: var(--signal); }
+    .case-gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
 
-  /* ---- Lightbox ---- */
-  .case-gallery figure {
-    position: relative;
-  }
-  .case-gallery figure img {
-    width: 100%; height: 160px; object-fit: cover; display: block;
-    cursor: zoom-in;
-    transition: opacity 0.15s ease, transform 0.3s ease;
-  }
-  .case-gallery figure img:hover { opacity: 0.85; transform: scale(1.03); }
+    @media (max-width: 900px) {
+      .case-gallery {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
 
-  /* Zoom hint badge */
-  .case-gallery figure::after {
-    content: '';
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 26px;
-    height: 26px;
-    background: rgba(11,13,15,0.7) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none'%3E%3Ccircle cx='11' cy='11' r='8' stroke='%23e8e6e1' stroke-width='1.8'/%3E%3Cpath d='M21 21l-4.35-4.35' stroke='%23e8e6e1' stroke-width='1.8' stroke-linecap='round'/%3E%3Cpath d='M11 8v6M8 11h6' stroke='%23e8e6e1' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center/14px no-repeat;
-    border-radius: 5px;
-    border: 1px solid rgba(255,255,255,0.12);
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    pointer-events: none;
-  }
-  .case-gallery figure:hover::after {
-    opacity: 1;
-  }
+    @media (max-width: 580px) {
+      .case-gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
 
-  .lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    background: rgba(0,0,0,0.92);
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem;
-    cursor: zoom-out;
-  }
-  .lightbox.open { display: flex; }
-  .lightbox-inner {
-    position: relative;
-    max-width: min(90vw, 1100px);
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  .lightbox-inner img {
-    max-width: 100%;
-    max-height: 82vh;
-    object-fit: contain;
-    border-radius: 6px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-    display: block;
-  }
-  .lightbox-caption {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.5);
-    text-align: center;
-  }
-  .lightbox-close {
-    position: fixed;
-    top: 1.25rem;
-    right: 1.5rem;
-    color: rgba(255,255,255,0.6);
-    font-size: 1.6rem;
-    cursor: pointer;
-    line-height: 1;
-    background: none;
-    border: none;
-    transition: color 0.15s ease;
-  }
-  .lightbox-close:hover { color: #fff; }
-  .lightbox-nav {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 50%;
-    width: 44px; height: 44px;
-    display: flex; align-items: center; justify-content: center;
-    color: #fff;
-    cursor: pointer;
-    font-size: 1.1rem;
-    transition: background 0.15s ease;
-    z-index: 1001;
-  }
-  .lightbox-nav:hover { background: rgba(255,255,255,0.18); }
-  .lightbox-prev { left: 1rem; }
-  .lightbox-next { right: 1rem; }
+    .case-gallery figure {
+      margin: 0;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
 
-  /* ---- Video section ---- */
-  .video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
-    gap: 1rem;
-    margin-top: 0.5rem;
-  }
+    .case-gallery figure img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+    }
 
-  .video-wrap {
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    display: flex;
-    flex-direction: column;
-  }
+    .case-gallery figcaption {
+      padding: 6px 8px 8px;
+    }
 
-  .video-wrap video {
-    width: 100%;
-    max-height: 380px;
-    display: block;
-    object-fit: contain;
-    background: #000;
-  }
+    figcaption {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-faint);
+    }
 
-  .video-caption {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--text-dim);
-    padding: 6px 10px 9px;
-    flex-grow: 1;
-  }
-</style>
+    .case-body {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 880px) {
+      .case-body {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    .case-body h3 {
+      font-size: 1.15rem;
+      margin: 2rem 0 0.75rem;
+    }
+
+    .case-body h3:first-child {
+      margin-top: 0;
+    }
+
+    .case-body p,
+    .case-body li {
+      color: var(--text-dim);
+      font-size: 0.98rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .case-body ul {
+      padding-left: 1.1rem;
+    }
+
+    .case-body li::marker {
+      color: var(--signal);
+    }
+
+    .spec-sidebar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      align-self: start;
+      position: sticky;
+      top: 90px;
+    }
+
+    .spec-sidebar h4 {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--text-faint);
+      margin-bottom: 1rem;
+    }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 0.88rem;
+    }
+
+    .spec-row:last-child {
+      border-bottom: none;
+    }
+
+    .spec-row span:first-child {
+      color: var(--text-dim);
+    }
+
+    .spec-row span:last-child {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .process-note {
+      background: rgba(255, 107, 53, 0.06);
+      border: 1px solid var(--signal-dim);
+      border-radius: 8px;
+      padding: 1.1rem 1.3rem;
+      margin: 1.5rem 0;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    .process-note b {
+      color: var(--signal);
+    }
+
+    /* ---- Lightbox ---- */
+    .case-gallery figure {
+      position: relative;
+    }
+
+    .case-gallery figure img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+      transition: opacity 0.15s ease, transform 0.3s ease;
+    }
+
+    .case-gallery figure img:hover {
+      opacity: 0.85;
+      transform: scale(1.03);
+    }
+
+    /* Zoom hint badge */
+    .case-gallery figure::after {
+      content: '';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 26px;
+      height: 26px;
+      background: rgba(11, 13, 15, 0.7) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none'%3E%3Ccircle cx='11' cy='11' r='8' stroke='%23e8e6e1' stroke-width='1.8'/%3E%3Cpath d='M21 21l-4.35-4.35' stroke='%23e8e6e1' stroke-width='1.8' stroke-linecap='round'/%3E%3Cpath d='M11 8v6M8 11h6' stroke='%23e8e6e1' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center/14px no-repeat;
+      border-radius: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    .case-gallery figure:hover::after {
+      opacity: 1;
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.92);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      cursor: zoom-out;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-inner {
+      position: relative;
+      max-width: min(90vw, 1100px);
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .lightbox-inner img {
+      max-width: 100%;
+      max-height: 82vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      display: block;
+    }
+
+    .lightbox-caption {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+      text-align: center;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 1.25rem;
+      right: 1.5rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1.6rem;
+      cursor: pointer;
+      line-height: 1;
+      background: none;
+      border: none;
+      transition: color 0.15s ease;
+    }
+
+    .lightbox-close:hover {
+      color: #fff;
+    }
+
+    .lightbox-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background 0.15s ease;
+      z-index: 1001;
+    }
+
+    .lightbox-nav:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .lightbox-prev {
+      left: 1rem;
+    }
+
+    .lightbox-next {
+      right: 1rem;
+    }
+
+    /* ---- Video section ---- */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .video-wrap {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .video-wrap video {
+      width: 100%;
+      max-height: 380px;
+      display: block;
+      object-fit: contain;
+      background: #000;
+    }
+
+    .video-caption {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      padding: 6px 10px 9px;
+      flex-grow: 1;
+    }
+  </style>
 </head>
+
 <body>
 
-<header class="site-header">
-  <div class="wrap">
-    <a href="index.html" class="brand">
-      <span class="brand-mark"></span>
-      <span class="brand-name">Vijay Prajwal Rajasekar</span>
-      <span class="brand-sub">/ MECHANICAL+AEROSPACE</span>
-    </a>
-        <nav class="main-nav">
-      <a href="index.html">About me</a>
-      <div class="nav-dropdown">
-        <button class="nav-dropdown-toggle active">
-          Projects
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-            <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-          </svg>
-        </button>
-        <div class="nav-dropdown-menu">
-          <a href="school.html" ><span class="menu-dot"></span>School</a>
-          <a href="club.html" class="active"><span class="menu-dot"></span>Club</a>
-          <a href="personal.html" ><span class="menu-dot"></span>Personal</a>
-        </div>
-      </div>
-      <a href="certifications.html">Certifications</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<main>
-  <div class="wrap">
-    <a href="club.html" class="back-link">← Back to Club projects</a>
-  </div>
-
-  <section class="case-head">
+  <header class="site-header">
     <div class="wrap">
-      <span class="tag tag-club">CLUB · UBCO AEROSPACE</span>
-      <h1>Forged Carbon Fiber Motor Mount</h1>
+      <a href="index.html" class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-name">Vijay Prajwal Rajasekar</span>
+        <span class="brand-sub">/ MECHANICAL+AEROSPACE</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">About me</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-toggle active">
+            Projects
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+            </svg>
+          </button>
+          <div class="nav-dropdown-menu">
+            <a href="school.html"><span class="menu-dot"></span>School</a>
+            <a href="club.html" class="active"><span class="menu-dot"></span>Club</a>
+            <a href="personal.html"><span class="menu-dot"></span>Personal</a>
+          </div>
+        </div>
+        <a href="certifications.html">Certifications</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
 
-      <div class="case-meta">
-        <div>ROLE<b>Mold design &amp; layup lead</b></div>
-        <div>MATERIAL<b>Chopped-tow carbon + resin</b></div>
-        <div>TOOLS<b>SolidWorks, hand layup, FEA</b></div>
-        <div>RESULT<b>−57.9% mass per mount</b></div>
-      </div>
+  <main>
+    <div class="wrap">
+      <a href="club.html" class="back-link">← Back to Club projects</a>
+    </div>
 
-      <div class="case-body">
-        <div>
-          <h3>The problem</h3>
-          <p>Our drone's motor mounts were originally a 4-piece machined aluminum assembly — one per motor, four per airframe. They worked, but at 114 g each they were carrying weight the airframe didn't need, and every gram on a quad-motor drone gets paid for in flight time and payload capacity.</p>
+    <section class="case-head">
+      <div class="wrap">
+        <span class="tag tag-club">CLUB · UBCO AEROSPACE</span>
+        <h1>Forged Carbon Fiber Motor Mount</h1>
 
-          <h3>The approach</h3>
-          <p>I led the mold design and manufacturing process for a forged carbon fiber replacement, using chopped-tow carbon fiber and resin instead of a traditional woven prepreg layup. Forged carbon lets you pack fiber into a complex 3D shape — like the motor's bolt circle and cable channel — in a way that's difficult with sheet layup.</p>
-          <ul>
-            <li>Designed the mount geometry in SolidWorks around the motor's existing bolt pattern and mounting arm, keeping it interchangeable with the original aluminum part.</li>
-            <li>Ran structural simulation in SolidWorks to check the design against motor thrust and vibration loads before committing to a mold.</li>
-            <li>Built the mold myself through several versions — each round adjusting draft angles, vent placement, and clamping pressure as I learned what was actually causing voids and inconsistent fiber distribution.</li>
-            <li>Hand-packed chopped carbon tow with resin into the mold, then cured, demolded, and trimmed each part to final shape.</li>
-          </ul>
+        <div class="case-meta">
+          <div>ROLE<b>Mold design &amp; layup lead</b></div>
+          <div>MATERIAL<b>Chopped-tow carbon + resin</b></div>
+          <div>TOOLS<b>SolidWorks, hand layup, FEA</b></div>
+          <div>RESULT<b>−57.9% mass per mount</b></div>
+        </div>
 
-          <div class="process-note">
-            <b>What changed between mold versions:</b> early pulls had resin-starved spots near the thinner mounting arm and rough release around the bolt holes. Later mold revisions added draft angle to the side wall and repositioned the vent path, which fixed both.
+        <div class="case-body">
+          <div>
+            <h3>The problem</h3>
+            <p>Our drone's motor mounts were originally a 4-piece machined aluminum assembly — one per motor, four per
+              airframe. They worked, but at 114 g each they were carrying weight the airframe didn't need, and every
+              gram on a quad-motor drone gets paid for in flight time and payload capacity.</p>
+
+            <h3>The approach</h3>
+            <p>I led the mold design and manufacturing process for a forged carbon fiber replacement, using chopped-tow
+              carbon fiber and resin instead of a traditional woven prepreg layup. Forged carbon lets you pack fiber
+              into a complex 3D shape — like the motor's bolt circle and cable channel — in a way that's difficult with
+              sheet layup.</p>
+            <ul>
+              <li>Designed the mount geometry in SolidWorks around the motor's existing bolt pattern and mounting arm,
+                keeping it interchangeable with the original aluminum part.</li>
+              <li>Ran structural simulation in SolidWorks to check the design against motor thrust and vibration loads
+                before committing to a mold.</li>
+              <li>Built the mold myself through several versions — each round adjusting draft angles, vent placement,
+                and clamping pressure as I learned what was actually causing voids and inconsistent fiber distribution.
+              </li>
+              <li>Hand-packed chopped carbon tow with resin into the mold, then cured, demolded, and trimmed each part
+                to final shape.</li>
+            </ul>
+
+            <div class="process-note">
+              <b>What changed between mold versions:</b> early pulls had resin-starved spots near the thinner mounting
+              arm and rough release around the bolt holes. Later mold revisions added draft angle to the side wall and
+              repositioned the vent path, which fixed both.
+            </div>
+
+            <h3>The result</h3>
+            <p>The finished part weighs 48 g, down from 114 g for the equivalent aluminum component — a 57.9% reduction
+              per mount. Across the drone's four motor mounts, that's roughly 264 g of structural weight removed without
+              changing the mounting interface or motor position.</p>
+
+            <h3>What I'd do differently</h3>
+            <p>Next iteration, I'd move to a matched-mold or vacuum-assisted process to get more consistent fiber volume
+              fraction part-to-part — hand-packing chopped tow gives good results but it's sensitive to how evenly you
+              distribute material before clamping.</p>
           </div>
 
-          <h3>The result</h3>
-          <p>The finished part weighs 48 g, down from 114 g for the equivalent aluminum component — a 57.9% reduction per mount. Across the drone's four motor mounts, that's roughly 264 g of structural weight removed without changing the mounting interface or motor position.</p>
-
-          <h3>What I'd do differently</h3>
-          <p>Next iteration, I'd move to a matched-mold or vacuum-assisted process to get more consistent fiber volume fraction part-to-part — hand-packing chopped tow gives good results but it's sensitive to how evenly you distribute material before clamping.</p>
+          <aside class="spec-sidebar">
+            <h4>SPEC SHEET</h4>
+            <div class="spec-row"><span>Aluminum mount (×4)</span><span>114 g each</span></div>
+            <div class="spec-row"><span>Carbon mount (×4)</span><span>48 g each</span></div>
+            <div class="spec-row"><span>Mass saved / mount</span><span>66 g</span></div>
+            <div class="spec-row"><span>Mass saved / airframe</span><span>264 g</span></div>
+            <div class="spec-row"><span>Reduction</span><span style="color:var(--telemetry)">−57.9%</span></div>
+            <div class="spec-row"><span>Material</span><span>Chopped tow CF</span></div>
+            <div class="spec-row"><span>Validation</span><span>SolidWorks FEA</span></div>
+          </aside>
         </div>
 
-        <aside class="spec-sidebar">
-          <h4>SPEC SHEET</h4>
-          <div class="spec-row"><span>Aluminum mount (×4)</span><span>114 g each</span></div>
-          <div class="spec-row"><span>Carbon mount (×4)</span><span>48 g each</span></div>
-          <div class="spec-row"><span>Mass saved / mount</span><span>66 g</span></div>
-          <div class="spec-row"><span>Mass saved / airframe</span><span>264 g</span></div>
-          <div class="spec-row"><span>Reduction</span><span style="color:var(--telemetry)">−57.9%</span></div>
-          <div class="spec-row"><span>Material</span><span>Chopped tow CF</span></div>
-          <div class="spec-row"><span>Validation</span><span>SolidWorks FEA</span></div>
-        </aside>
-      </div>
+        <p class="gallery-section-label" style="margin-top:3rem;">Layup &amp; molding process</p>
+        <div class="case-gallery">
+          <figure>
+            <img src="images/hand-layup-process.jpg"
+              alt="Hand-packing chopped carbon fiber tow with resin into the mold using a wooden stick">
+            <figcaption>Hand-packing chopped tow and resin into the mold.</figcaption>
+          </figure>
+          <figure>
+            <img src="images/mold-halves-open.jpg"
+              alt="3D printed mold halves open, showing the cavity geometry for the motor mount">
+            <figcaption>Mold halves open — cavity geometry.</figcaption>
+          </figure>
+          <figure>
+            <img src="images/mold-parts-flat.jpg" alt="All 3D printed mold components laid out flat before assembly">
+            <figcaption>Mold components before assembly.</figcaption>
+          </figure>
+          <figure>
+            <img src="images/resin-cure-bagged.jpg" alt="Clamped mold wrapped in plastic during resin cure">
+            <figcaption>Clamped and curing — 24 hrs.</figcaption>
+          </figure>
+        </div>
 
-      <p class="gallery-section-label" style="margin-top:3rem;">Layup &amp; molding process</p>
-      <div class="case-gallery">
-        <figure>
-          <img src="images/hand-layup-process.jpg" alt="Hand-packing chopped carbon fiber tow with resin into the mold using a wooden stick">
-          <figcaption>Hand-packing chopped tow and resin into the mold.</figcaption>
-        </figure>
-        <figure>
-          <img src="images/mold-halves-open.jpg" alt="3D printed mold halves open, showing the cavity geometry for the motor mount">
-          <figcaption>Mold halves open — cavity geometry.</figcaption>
-        </figure>
-        <figure>
-          <img src="images/mold-parts-flat.jpg" alt="All 3D printed mold components laid out flat before assembly">
-          <figcaption>Mold components before assembly.</figcaption>
-        </figure>
-        <figure>
-          <img src="images/resin-cure-bagged.jpg" alt="Clamped mold wrapped in plastic during resin cure">
-          <figcaption>Clamped and curing — 24 hrs.</figcaption>
-        </figure>
-      </div>
+        <p class="gallery-section-label">Finished part</p>
+        <div class="case-gallery">
+          <figure>
+            <img src="images/carbon-mount-raw.png" alt="Demolded forged carbon fiber motor mount on a wooden workbench">
+            <figcaption>Freshly demolded, pre-trim.</figcaption>
+          </figure>
+          <figure>
+            <img src="images/mount-clamped-detail.jpg" alt="Close-up of the trimmed carbon fiber mount held in a vise">
+            <figcaption>Mounting arm and bolt hole detail.</figcaption>
+          </figure>
+          <figure>
+            <img src="images/mount-side-profile.jpg" alt="Side profile of the finished carbon fiber mount">
+            <figcaption>Side profile.</figcaption>
+          </figure>
+          <figure>
+            <img src="images/mount-final-topdown.jpg" alt="Top-down view of the finished carbon fiber motor mount">
+            <figcaption>Top-down view, finished mount.</figcaption>
+          </figure>
+          <figure>
+            <img src="images/scale-aluminum-114g.png"
+              alt="Original aluminum motor mount on a digital scale reading 114 grams">
+            <figcaption>Aluminum — 114 g.</figcaption>
+          </figure>
+          <figure>
+            <img src="images/scale-carbon-48g.png"
+              alt="Forged carbon fiber motor mount on a digital scale reading 48 grams">
+            <figcaption>Carbon — 48 g.</figcaption>
+          </figure>
+          <figure>
+            <img src="images/motor-assembly.png"
+              alt="Drone motor mounted via the carbon fiber bracket, viewed from below">
+            <figcaption>Motor seated in the finished mount.</figcaption>
+          </figure>
+        </div>
 
-      <p class="gallery-section-label">Finished part</p>
-      <div class="case-gallery">
-        <figure>
-          <img src="images/carbon-mount-raw.png" alt="Demolded forged carbon fiber motor mount on a wooden workbench">
-          <figcaption>Freshly demolded, pre-trim.</figcaption>
-        </figure>
-        <figure>
-          <img src="images/mount-clamped-detail.jpg" alt="Close-up of the trimmed carbon fiber mount held in a vise">
-          <figcaption>Mounting arm and bolt hole detail.</figcaption>
-        </figure>
-        <figure>
-          <img src="images/mount-side-profile.jpg" alt="Side profile of the finished carbon fiber mount">
-          <figcaption>Side profile.</figcaption>
-        </figure>
-        <figure>
-          <img src="images/mount-final-topdown.jpg" alt="Top-down view of the finished carbon fiber motor mount">
-          <figcaption>Top-down view, finished mount.</figcaption>
-        </figure>
-        <figure>
-          <img src="images/scale-aluminum-114g.png" alt="Original aluminum motor mount on a digital scale reading 114 grams">
-          <figcaption>Aluminum — 114 g.</figcaption>
-        </figure>
-        <figure>
-          <img src="images/scale-carbon-48g.png" alt="Forged carbon fiber motor mount on a digital scale reading 48 grams">
-          <figcaption>Carbon — 48 g.</figcaption>
-        </figure>
-        <figure>
-          <img src="images/motor-assembly.png" alt="Drone motor mounted via the carbon fiber bracket, viewed from below">
-          <figcaption>Motor seated in the finished mount.</figcaption>
-        </figure>
-      </div>
-
-      <!-- Load testing video -->
-      <p class="gallery-section-label" style="margin-top:3rem;">Load testing in action</p>
-      <div class="video-grid">
-        <div class="video-wrap">
-          <video controls playsinline preload="metadata">
-            <source src="images/carbon-load-test.mp4" type="video/mp4">
-            <source src="images/Snapchat-93379272.mp4" type="video/mp4">
-          </video>
-          <div class="video-caption">Load test — measuring pull force on the forged carbon motor mount clamped in a workbench vise.</div>
+        <!-- Load testing video -->
+        <p class="gallery-section-label" style="margin-top:3rem;">Load testing in action</p>
+        <div class="video-grid">
+          <div class="video-wrap">
+            <video controls playsinline preload="metadata">
+              <source src="images/carbon-load-test.mp4" type="video/mp4">
+              <source src="images/Snapchat-93379272.mp4" type="video/mp4">
+            </video>
+            <div class="video-caption">Load test — measuring pull force on the forged carbon motor mount clamped in a
+              workbench vise.</div>
+          </div>
         </div>
       </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-links">
+        <a href="mailto:vj0501@student.ubc.ca">Email</a>
+        <a href="https://www.linkedin.com/in/vijayprajwalrajasekar/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/VijayPrajwal/Projects-" target="_blank" rel="noopener">GitHub</a>
+        <a href="contact.html">Resume</a>
+      </div>
+      <div class="footer-meta">Vijay Prajwal Rajasekar · UBC Okanagan</div>
     </div>
-  </section>
-</main>
+  </footer>
 
-<footer class="site-footer">
-  <div class="wrap">
-    <div class="footer-links">
-      <a href="mailto:vj0501@student.ubc.ca">Email</a>
-      <a href="https://www.linkedin.com/in/vijayprajwalrajasekar/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/VijayPrajwal/Projects-" target="_blank" rel="noopener">GitHub</a>
-      <a href="contact.html">Resume</a>
+  <script>
+    (function () {
+      var toggle = document.querySelector('.nav-dropdown-toggle');
+      var menu = document.querySelector('.nav-dropdown-menu');
+      if (!toggle || !menu) return;
+      var closeTimer = null;
+
+      function openMenu() {
+        clearTimeout(closeTimer);
+        toggle.classList.add('open');
+        menu.classList.add('open');
+      }
+      function scheduleClose() {
+        closeTimer = setTimeout(function () {
+          toggle.classList.remove('open');
+          menu.classList.remove('open');
+        }, 150);
+      }
+
+      toggle.addEventListener('mouseenter', openMenu);
+      toggle.addEventListener('mouseleave', scheduleClose);
+      menu.addEventListener('mouseenter', openMenu);
+      menu.addEventListener('mouseleave', scheduleClose);
+
+      // Also toggle on click (for touch/keyboard users)
+      toggle.addEventListener('click', function () {
+        var isOpen = menu.classList.contains('open');
+        if (isOpen) {
+          toggle.classList.remove('open');
+          menu.classList.remove('open');
+        } else {
+          openMenu();
+        }
+      });
+
+      // Close when clicking outside
+      document.addEventListener('click', function (e) {
+        if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+          toggle.classList.remove('open');
+          menu.classList.remove('open');
+        }
+      });
+    })();
+  </script>
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox-close" id="lbClose" aria-label="Close">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Previous">&#8592;</button>
+    <div class="lightbox-inner">
+      <img id="lbImg" src="" alt="">
+      <p class="lightbox-caption" id="lbCaption"></p>
     </div>
-    <div class="footer-meta">Vijay Prajwal Rajasekar · UBC Okanagan</div>
+    <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Next">&#8594;</button>
   </div>
-</footer>
 
-<script>
-(function() {
-  var toggle = document.querySelector('.nav-dropdown-toggle');
-  var menu   = document.querySelector('.nav-dropdown-menu');
-  if (!toggle || !menu) return;
-  var closeTimer = null;
+  <script>
+    (function () {
+      // Collect all gallery images in order
+      var imgs = Array.from(document.querySelectorAll('.case-gallery figure img'));
+      var current = 0;
+      var lb = document.getElementById('lightbox');
+      var lbImg = document.getElementById('lbImg');
+      var lbCap = document.getElementById('lbCaption');
 
-  function openMenu() {
-    clearTimeout(closeTimer);
-    toggle.classList.add('open');
-    menu.classList.add('open');
-  }
-  function scheduleClose() {
-    closeTimer = setTimeout(function() {
-      toggle.classList.remove('open');
-      menu.classList.remove('open');
-    }, 150);
-  }
+      function open(index) {
+        current = (index + imgs.length) % imgs.length;
+        var fig = imgs[current].closest('figure');
+        var cap = fig ? fig.querySelector('figcaption') : null;
+        lbImg.src = imgs[current].src;
+        lbImg.alt = imgs[current].alt;
+        lbCap.textContent = cap ? cap.textContent.trim() : '';
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
 
-  toggle.addEventListener('mouseenter', openMenu);
-  toggle.addEventListener('mouseleave', scheduleClose);
-  menu.addEventListener('mouseenter', openMenu);
-  menu.addEventListener('mouseleave', scheduleClose);
+      function close() {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+      }
 
-  // Also toggle on click (for touch/keyboard users)
-  toggle.addEventListener('click', function() {
-    var isOpen = menu.classList.contains('open');
-    if (isOpen) {
-      toggle.classList.remove('open');
-      menu.classList.remove('open');
-    } else {
-      openMenu();
-    }
-  });
+      // Click on gallery image to open
+      imgs.forEach(function (img, i) {
+        img.addEventListener('click', function () { open(i); });
+      });
 
-  // Close when clicking outside
-  document.addEventListener('click', function(e) {
-    if (!toggle.contains(e.target) && !menu.contains(e.target)) {
-      toggle.classList.remove('open');
-      menu.classList.remove('open');
-    }
-  });
-})();
-</script>
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
-  <button class="lightbox-close" id="lbClose" aria-label="Close">&times;</button>
-  <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Previous">&#8592;</button>
-  <div class="lightbox-inner">
-    <img id="lbImg" src="" alt="">
-    <p class="lightbox-caption" id="lbCaption"></p>
-  </div>
-  <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Next">&#8594;</button>
-</div>
+      // Close button
+      document.getElementById('lbClose').addEventListener('click', close);
 
-<script>
-(function () {
-  // Collect all gallery images in order
-  var imgs = Array.from(document.querySelectorAll('.case-gallery figure img'));
-  var current = 0;
-  var lb      = document.getElementById('lightbox');
-  var lbImg   = document.getElementById('lbImg');
-  var lbCap   = document.getElementById('lbCaption');
+      // Prev / Next
+      document.getElementById('lbPrev').addEventListener('click', function (e) {
+        e.stopPropagation();
+        open(current - 1);
+      });
+      document.getElementById('lbNext').addEventListener('click', function (e) {
+        e.stopPropagation();
+        open(current + 1);
+      });
 
-  function open(index) {
-    current = (index + imgs.length) % imgs.length;
-    var fig = imgs[current].closest('figure');
-    var cap = fig ? fig.querySelector('figcaption') : null;
-    lbImg.src = imgs[current].src;
-    lbImg.alt = imgs[current].alt;
-    lbCap.textContent = cap ? cap.textContent.trim() : '';
-    lb.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
+      // Click backdrop to close
+      lb.addEventListener('click', function (e) {
+        if (e.target === lb) close();
+      });
 
-  function close() {
-    lb.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  // Click on gallery image to open
-  imgs.forEach(function (img, i) {
-    img.addEventListener('click', function () { open(i); });
-  });
-
-  // Close button
-  document.getElementById('lbClose').addEventListener('click', close);
-
-  // Prev / Next
-  document.getElementById('lbPrev').addEventListener('click', function (e) {
-    e.stopPropagation();
-    open(current - 1);
-  });
-  document.getElementById('lbNext').addEventListener('click', function (e) {
-    e.stopPropagation();
-    open(current + 1);
-  });
-
-  // Click backdrop to close
-  lb.addEventListener('click', function (e) {
-    if (e.target === lb) close();
-  });
-
-  // Keyboard: Escape to close, arrows to navigate
-  document.addEventListener('keydown', function (e) {
-    if (!lb.classList.contains('open')) return;
-    if (e.key === 'Escape')      close();
-    if (e.key === 'ArrowLeft')   open(current - 1);
-    if (e.key === 'ArrowRight')  open(current + 1);
-  });
-})();
-</script>
+      // Keyboard: Escape to close, arrows to navigate
+      document.addEventListener('keydown', function (e) {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') open(current - 1);
+        if (e.key === 'ArrowRight') open(current + 1);
+      });
+    })();
+  </script>
 </body>
+
 </html>
