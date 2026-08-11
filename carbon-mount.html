@@ -221,7 +221,41 @@
   }
   .lightbox-nav:hover { background: rgba(255,255,255,0.18); }
   .lightbox-prev { left: 1rem; }
-  .lightbox-next { right: 1rem; }</style>
+  .lightbox-next { right: 1rem; }
+
+  /* ---- Video section ---- */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .video-wrap {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .video-wrap video {
+    width: 100%;
+    max-height: 380px;
+    display: block;
+    object-fit: contain;
+    background: #000;
+  }
+
+  .video-caption {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    padding: 6px 10px 9px;
+    flex-grow: 1;
+  }
+</style>
 </head>
 <body>
 
@@ -357,6 +391,18 @@
           <img src="images/motor-assembly.png" alt="Drone motor mounted via the carbon fiber bracket, viewed from below">
           <figcaption>Motor seated in the finished mount.</figcaption>
         </figure>
+      </div>
+
+      <!-- Load testing video -->
+      <p class="gallery-section-label" style="margin-top:3rem;">Load testing in action</p>
+      <div class="video-grid">
+        <div class="video-wrap">
+          <video controls playsinline preload="metadata">
+            <source src="images/carbon-load-test.mp4" type="video/mp4">
+            <source src="images/Snapchat-93379272.mp4" type="video/mp4">
+          </video>
+          <div class="video-caption">Load test — measuring pull force on the forged carbon motor mount clamped in a workbench vise.</div>
+        </div>
       </div>
     </div>
   </section>
