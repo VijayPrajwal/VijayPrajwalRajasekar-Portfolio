@@ -501,68 +501,7 @@
     </div>
   </footer>
 
-  <script>
-    (function () {
-      var toggle = document.querySelector('.nav-dropdown-toggle');
-      var menu = document.querySelector('.nav-dropdown-menu');
-      if (!toggle || !menu) return;
-      var closeTimer = null;
-
-      function openMenu() {
-        clearTimeout(closeTimer);
-        toggle.classList.add('open');
-        menu.classList.add('open');
-      }
-      function scheduleClose() {
-        closeTimer = setTimeout(function () {
-          toggle.classList.remove('open');
-          menu.classList.remove('open');
-        }, 150);
-      }
-
-      toggle.addEventListener('mouseenter', openMenu);
-      toggle.addEventListener('mouseleave', scheduleClose);
-      menu.addEventListener('mouseenter', openMenu);
-      menu.addEventListener('mouseleave', scheduleClose);
-
-      // Also toggle on click (for touch/keyboard users)
-      toggle.addEventListener('click', function () {
-        var isOpen = menu.classList.contains('open');
-        if (isOpen) {
-          toggle.classList.remove('open');
-          menu.classList.remove('open');
-        } else {
-          openMenu();
-        }
-      });
-
-      // Close when clicking outside
-      document.addEventListener('click', function (e) {
-        if (!toggle.contains(e.target) && !menu.contains(e.target)) {
-          toggle.classList.remove('open');
-          menu.classList.remove('open');
-        }
-      });
-    })();
-
-    // Scroll fade-in
-    (function () {
-      var els = document.querySelectorAll('.fade-in');
-      if (!('IntersectionObserver' in window)) {
-        els.forEach(function (el) { el.classList.add('visible'); });
-        return;
-      }
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.08 });
-      els.forEach(function (el) { observer.observe(el); });
-    })();
-  </script>
+  <script src="assets/main.js" defer></script>
 </body>
 
 </html>

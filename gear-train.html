@@ -811,26 +811,7 @@
     })();
   </script>
 
-  <script>
-    (function () {
-      var toggle = document.querySelector('.nav-dropdown-toggle');
-      var menu = document.querySelector('.nav-dropdown-menu');
-      if (!toggle || !menu) return;
-      var closeTimer = null;
-      function openMenu() { clearTimeout(closeTimer); toggle.classList.add('open'); menu.classList.add('open'); }
-      function scheduleClose() { closeTimer = setTimeout(function () { toggle.classList.remove('open'); menu.classList.remove('open'); }, 150); }
-      toggle.addEventListener('mouseenter', openMenu);
-      toggle.addEventListener('mouseleave', scheduleClose);
-      menu.addEventListener('mouseenter', openMenu);
-      menu.addEventListener('mouseleave', scheduleClose);
-      toggle.addEventListener('click', function () {
-        menu.classList.contains('open') ? (toggle.classList.remove('open'), menu.classList.remove('open')) : openMenu();
-      });
-      document.addEventListener('click', function (e) {
-        if (!toggle.contains(e.target) && !menu.contains(e.target)) { toggle.classList.remove('open'); menu.classList.remove('open'); }
-      });
-    })();
-  </script>
+  <script src="assets/main.js" defer></script>
 
 </body>
 
