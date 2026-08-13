@@ -1,234 +1,433 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Certifications & Competitions — Vijay Prajwal Rajasekar</title>
-<link rel="stylesheet" href="assets/style.css">
-<style>
-  .page-head { padding: clamp(2.5rem, 6vw, 4rem) 0 1rem; }
-  .page-head h1 { font-size: clamp(1.9rem, 4vw, 2.6rem); margin: 0.5em 0 0.5em; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certifications & Competitions — Vijay Prajwal Rajasekar</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .page-head {
+      padding: clamp(2.5rem, 6vw, 4rem) 0 1rem;
+    }
 
-  .cert-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    margin-top: 2.5rem;
-  }
-  @media (max-width: 760px) {
-    .cert-grid { grid-template-columns: 1fr; }
-  }
+    .page-head h1 {
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+      margin: 0.5em 0 0.5em;
+    }
 
-  .cert-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: border-color 0.18s ease, transform 0.18s ease;
-  }
-  .cert-card:hover {
-    border-color: var(--signal-dim);
-    transform: translateY(-3px);
-  }
-  .cert-thumb {
-    aspect-ratio: 4/2.85;
-    background: #fff;
-    border-bottom: 1px solid var(--border);
-    overflow: hidden;
-  }
-  .cert-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
-    transition: transform 0.4s ease;
-  }
-  .cert-card:hover .cert-thumb img {
-    transform: scale(1.03);
-  }
-  .cert-info { padding: 1.4rem; }
-  .cert-info h3 { font-size: 1.05rem; margin-bottom: 0.35rem; }
-  .cert-info .issuer { color: var(--text-dim); font-size: 0.88rem; margin-bottom: 0.9rem; }
-  .cert-meta-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--text-faint);
-    padding-top: 0.9rem;
-    border-top: 1px solid var(--border-soft);
-  }
-  .cert-meta-row a {
-    color: var(--signal);
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-  }
-  .cert-meta-row a:hover { text-decoration: underline; }
+    /* ---- Section labels ---- */
+    .gallery-section-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--signal);
+      text-transform: uppercase;
+      margin: 0 0 0.75rem;
+    }
 
-  /* ---- Competitions ---- */
-  .comp-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.75rem;
-    display: flex;
-    gap: 1.5rem;
-    align-items: flex-start;
-    margin-top: 1.5rem;
-  }
-  @media (max-width: 600px) {
-    .comp-card { flex-direction: column; }
-  }
-  .comp-icon {
-    width: 52px; height: 52px;
-    border-radius: 10px;
-    background: rgba(255,107,53,0.1);
-    border: 1px solid var(--signal-dim);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--signal);
-    flex-shrink: 0;
-  }
-  .comp-card h3 { font-size: 1.1rem; margin-bottom: 0.4rem; }
-  .comp-card .comp-date {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    color: var(--text-faint);
-    letter-spacing: 0.04em;
-    margin-bottom: 0.6rem;
-  }
-  .comp-card p { color: var(--text-dim); font-size: 0.92rem; }
+    /* ---- CSWP Hero Card ---- */
+    .cswp-hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      margin-top: 1.25rem;
+      transition: border-color 0.18s ease, transform 0.18s ease;
+      position: relative;
+    }
 
-  .section-gap { margin-top: 4rem; }
+    .cswp-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.04) 0%, transparent 60%);
+      pointer-events: none;
+    }
 
-  .comp-cert {
-    margin-top: 1rem;
-    border-radius: 10px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    max-width: 420px;
-  }
-  .comp-cert img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 8px;
-  }
+    .cswp-hero:hover {
+      border-color: var(--signal-dim);
+      transform: translateY(-3px);
+    }
 
-  .gallery-section-label {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.06em;
-    color: var(--text-faint);
-    text-transform: uppercase;
-    margin: 0 0 0.75rem;
-  }
-</style>
+    @media (max-width: 680px) {
+      .cswp-hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cswp-hero-img {
+      background: #fff;
+      border-right: 1px solid var(--border);
+      overflow: hidden;
+      min-height: 220px;
+    }
+
+    @media (max-width: 680px) {
+      .cswp-hero-img {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        min-height: 170px;
+      }
+    }
+
+    .cswp-hero-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+
+    .cswp-hero:hover .cswp-hero-img img {
+      transform: scale(1.03);
+    }
+
+    .cswp-hero-info {
+      padding: 2rem 2rem 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .cswp-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--signal);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0.25rem;
+    }
+
+    .cswp-label::before {
+      content: '';
+      width: 12px;
+      height: 1px;
+      background: var(--signal);
+    }
+
+    .cswp-hero-info h2 {
+      font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+      line-height: 1.2;
+      margin: 0;
+    }
+
+    .cswp-hero-info .issuer {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      margin-top: 0.15rem;
+    }
+
+    .cswp-hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-soft);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-faint);
+    }
+
+    .cswp-hero-meta .year-badge {
+      background: rgba(255, 107, 53, 0.1);
+      border: 1px solid var(--signal-dim);
+      color: var(--signal);
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .cswp-hero-meta a {
+      color: var(--signal);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-left: auto;
+    }
+
+    .cswp-hero-meta a:hover {
+      text-decoration: underline;
+    }
+
+    /* ---- CSWA secondary row ---- */
+    .cswa-row {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-top: 0.75rem;
+      transition: border-color 0.18s ease, transform 0.18s ease;
+    }
+
+    .cswa-row:hover {
+      border-color: var(--signal-dim);
+      transform: translateY(-3px);
+    }
+
+    .cswa-thumb {
+      width: 110px;
+      height: 78px;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #fff;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .cswa-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+
+    .cswa-row-info {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .cswa-row-text .cswa-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .cswa-row-text .cswa-sub {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-faint);
+    }
+
+    .cswa-row-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-faint);
+      white-space: nowrap;
+    }
+
+    .cswa-row-actions a {
+      color: var(--signal);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .cswa-row-actions a:hover {
+      text-decoration: underline;
+    }
+
+    /* ---- Competitions ---- */
+    .section-gap {
+      margin-top: 4rem;
+    }
+
+    .comp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      margin-top: 1.25rem;
+    }
+
+    @media (max-width: 600px) {
+      .comp-card {
+        flex-direction: column;
+      }
+    }
+
+    .comp-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      background: rgba(255, 107, 53, 0.1);
+      border: 1px solid var(--signal-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--signal);
+      flex-shrink: 0;
+    }
+
+    .comp-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .comp-card .comp-date {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-faint);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.6rem;
+    }
+
+    .comp-card p {
+      color: var(--text-dim);
+      font-size: 0.92rem;
+    }
+
+    .comp-cert {
+      margin-top: 1rem;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      max-width: 420px;
+    }
+
+    .comp-cert img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+    }
+  </style>
 </head>
+
 <body>
 
-<header class="site-header">
-  <div class="wrap">
-    <a href="index.html" class="brand">
-      <span class="brand-mark"></span>
-      <span class="brand-name">Vijay Prajwal Rajasekar</span>
-      <span class="brand-sub">/ MECHANICAL+AEROSPACE</span>
-    </a>
-        <nav class="main-nav">
-      <a href="index.html">About me</a>
-      <div class="nav-dropdown">
-        <button class="nav-dropdown-toggle ">
-          Projects
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-            <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
-          </svg>
-        </button>
-        <div class="nav-dropdown-menu">
-          <a href="school.html" ><span class="menu-dot"></span>School</a>
-          <a href="club.html" ><span class="menu-dot"></span>Club</a>
-          <a href="personal.html" ><span class="menu-dot"></span>Personal</a>
-        </div>
-      </div>
-      <a href="certifications.html" class="active">Certifications</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<main>
-  <section class="page-head">
+  <header class="site-header">
     <div class="wrap">
-      <p class="eyebrow">Credentials</p>
-      <h1>Certifications &amp; Competitions</h1>
-      <p class="section-lede">Formal certifications in CAD and mechanical design, plus competitions I've taken part in outside the classroom.</p>
-
-      <p class="gallery-section-label" style="margin-top:2.5rem;">Certifications</p>
-      <div class="cert-grid">
-        <div class="cert-card">
-          <div class="cert-thumb">
-            <img src="images/certs/cswp-certificate.jpg" alt="Certified SolidWorks Professional (CSWP) certificate awarded to Vijay Prajwal Rajasekar, Mechanical Design, June 29 2022">
+      <a href="index.html" class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-name">Vijay Prajwal Rajasekar</span>
+        <span class="brand-sub">/ MECHANICAL+AEROSPACE</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">About me</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-toggle ">
+            Projects
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+            </svg>
+          </button>
+          <div class="nav-dropdown-menu">
+            <a href="school.html"><span class="menu-dot"></span>School</a>
+            <a href="club.html"><span class="menu-dot"></span>Club</a>
+            <a href="personal.html"><span class="menu-dot"></span>Personal</a>
           </div>
-          <div class="cert-info">
-            <h3>Certified SolidWorks Professional (CSWP)</h3>
-            <div class="issuer">Dassault Systèmes SOLIDWORKS — Mechanical Design</div>
-            <div class="cert-meta-row">
-              <span>JUNE 2022</span>
+        </div>
+        <a href="certifications.html" class="active">Certifications</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="wrap">
+        <p class="eyebrow">Credentials</p>
+        <h1>Certifications &amp; Competitions</h1>
+        <p class="section-lede">Formal certifications in CAD and mechanical design, plus competitions I've taken part in
+          outside the classroom.</p>
+
+        <!-- CAD Certifications -->
+        <p class="gallery-section-label" style="margin-top:2.5rem;">CAD Certification</p>
+
+        <!-- CSWP — hero treatment -->
+        <div class="cswp-hero">
+          <div class="cswp-hero-img">
+            <img src="images/certs/cswp-certificate.jpg"
+              alt="Certified SolidWorks Professional (CSWP) certificate awarded to Vijay Prajwal Rajasekar, Mechanical Design, June 29 2022">
+          </div>
+          <div class="cswp-hero-info">
+            <span class="cswp-label">Professional Certification</span>
+            <h2>Certified SolidWorks Professional</h2>
+            <div class="issuer">Mechanical Design — Dassault Systèmes SOLIDWORKS</div>
+            <div class="cswp-hero-meta">
+              <span class="year-badge">2022</span>
+              <span>June 29 2022</span>
               <a href="images/certs/CSWP-Certificate.pdf" target="_blank" rel="noopener">View PDF ↗</a>
             </div>
           </div>
         </div>
 
-        <div class="cert-card">
-          <div class="cert-thumb">
-            <img src="images/certs/cswa-certificate.jpg" alt="Certified SolidWorks Associate (CSWA) certificate awarded to Vijay Prajwal Rajasekar, Mechanical Design, October 26 2020">
+        <!-- CSWA — compact secondary row -->
+        <div class="cswa-row">
+          <div class="cswa-thumb">
+            <img src="images/certs/cswa-certificate.jpg"
+              alt="Certified SolidWorks Associate (CSWA) certificate awarded to Vijay Prajwal Rajasekar, Mechanical Design, October 26 2020">
           </div>
-          <div class="cert-info">
-            <h3>Certified SolidWorks Associate (CSWA)</h3>
-            <div class="issuer">Dassault Systèmes SOLIDWORKS — Mechanical Design</div>
-            <div class="cert-meta-row">
-              <span>OCTOBER 2020</span>
+          <div class="cswa-row-info">
+            <div class="cswa-row-text">
+              <div class="cswa-title">CSWA · Mechanical Design · 2020</div>
+              <div class="cswa-sub">Certified SolidWorks Associate — Dassault Systèmes SOLIDWORKS</div>
+            </div>
+            <div class="cswa-row-actions">
+              <span>Oct 2020</span>
               <a href="images/certs/CSWA-Certificate.pdf" target="_blank" rel="noopener">View PDF ↗</a>
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="section-gap">
-        <p class="gallery-section-label">Competitions</p>
-        <div class="comp-card">
-          <div class="comp-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M8 21H16M12 17V21M7 4H17V9C17 11.7614 14.7614 14 12 14C9.23858 14 7 11.7614 7 9V4Z" stroke="currentColor" stroke-width="1.6"/><path d="M17 5H19.5C19.5 7 19 9 17 9M7 5H4.5C4.5 7 5 9 7 9" stroke="currentColor" stroke-width="1.6"/></svg>
+        <!-- Competitions -->
+        <div class="section-gap">
+          <p class="gallery-section-label">Competitions</p>
+          <div class="comp-card">
+            <div class="comp-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M8 21H16M12 17V21M7 4H17V9C17 11.7614 14.7614 14 12 14C9.23858 14 7 11.7614 7 9V4Z"
+                  stroke="currentColor" stroke-width="1.6" />
+                <path d="M17 5H19.5C19.5 7 19 9 17 9M7 5H4.5C4.5 7 5 9 7 9" stroke="currentColor" stroke-width="1.6" />
+              </svg>
+            </div>
+            <div>
+              <h3>McMaster Design League — CAD Designathon</h3>
+              <div class="comp-date">2022 · MCMASTER UNIVERSITY · TEAM: SPACE CADETS</div>
+              <p>Participated in a timed CAD design competition hosted by McMaster University's Design League, working
+                through mechanical design problems under time pressure alongside students from other schools.</p>
+            </div>
           </div>
-          <div>
-            <h3>McMaster Design League — CAD Designathon</h3>
-            <div class="comp-date">2022 · MCMASTER UNIVERSITY · TEAM: SPACE CADETS</div>
-            <p>Participated in a timed CAD design competition hosted by McMaster University's Design League, working through mechanical design problems under time pressure alongside students from other schools.</p>
+          <div class="comp-cert">
+            <img src="images/certs/mcmaster-designathon-certificate.png"
+              alt="Certificate of Participation for Vijay Prajwal Rajasekar in the 2022 McMaster Design League CAD Designathon, team Space CADets">
           </div>
         </div>
-        <div class="comp-cert">
-          <img src="images/certs/mcmaster-designathon-certificate.png" alt="Certificate of Participation for Vijay Prajwal Rajasekar in the 2022 McMaster Design League CAD Designathon, team Space CADets">
-        </div>
       </div>
-    </div>
-  </section>
-</main>
+    </section>
+  </main>
 
-<footer class="site-footer">
-  <div class="wrap">
-    <div class="footer-links">
-      <a href="mailto:vj0501@student.ubc.ca">Email</a>
-      <a href="https://www.linkedin.com/in/vijayprajwalrajasekar/" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/VijayPrajwal/Projects-" target="_blank" rel="noopener">GitHub</a>
-      <a href="contact.html">Resume</a>
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-links">
+        <a href="mailto:vj0501@student.ubc.ca">Email</a>
+        <a href="https://www.linkedin.com/in/vijayprajwalrajasekar/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/VijayPrajwal/Projects-" target="_blank" rel="noopener">GitHub</a>
+        <a href="contact.html">Resume</a>
+      </div>
+      <div class="footer-meta">Vijay Prajwal Rajasekar · UBC Okanagan</div>
     </div>
-    <div class="footer-meta">Vijay Prajwal Rajasekar · UBC Okanagan</div>
-  </div>
-</footer>
+  </footer>
 
-<script src="assets/main.js" defer></script>
+  <script src="assets/main.js" defer></script>
 </body>
+
 </html>
