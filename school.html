@@ -7,6 +7,8 @@
   <title>School Projects — Vijay Prajwal Rajasekar</title>
   <link rel="stylesheet" href="assets/style.css">
   <style>
+
+    /* ---- Page header ---- */
     .page-head {
       padding: clamp(2.5rem, 6vw, 4rem) 0 1rem;
     }
@@ -16,6 +18,7 @@
       margin: 0.5em 0 0.5em;
     }
 
+    /* ---- Project grid ---- */
     .proj-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -38,16 +41,19 @@
     }
 
     .proj-thumb {
-      aspect-ratio: 16/10;
+      aspect-ratio: 16/9;
       background: var(--surface);
       display: flex;
       align-items: center;
       justify-content: center;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .proj-thumb-label {
       color: var(--text-faint);
       font-family: var(--font-mono);
-      font-size: 0.75rem;
-      letter-spacing: 0.04em;
-      border-bottom: 1px dashed var(--border);
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
     }
 
     .proj-info {
@@ -76,6 +82,7 @@
       letter-spacing: 0.04em;
     }
 
+    /* ---- Intro note ---- */
     .intro-note {
       background: var(--surface);
       border: 1px solid var(--border-soft);
@@ -89,6 +96,7 @@
     .intro-note b {
       color: var(--text);
     }
+
   </style>
 </head>
 
@@ -136,25 +144,21 @@
         </div>
 
         <div class="proj-grid">
-          <div class="proj-card" style="border-style:dashed;">
-            <div class="proj-thumb" style="aspect-ratio:16/9;">
-              <div
-                style="color:var(--text-faint);font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.05em;">—
-                DOCUMENTATION IN PROGRESS —</div>
+          <div class="proj-card">
+            <div class="proj-thumb">
+              <span class="proj-thumb-label">— DOCUMENTATION IN PROGRESS —</span>
             </div>
             <div class="proj-info">
-              <h3 style="color:var(--text-dim);">Coursework project</h3>
+              <h3>Coursework project</h3>
               <p>School project documentation in progress.</p>
             </div>
           </div>
-          <div class="proj-card" style="border-style:dashed;">
-            <div class="proj-thumb" style="aspect-ratio:16/9;">
-              <div
-                style="color:var(--text-faint);font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.05em;">—
-                DOCUMENTATION IN PROGRESS —</div>
+          <div class="proj-card">
+            <div class="proj-thumb">
+              <span class="proj-thumb-label">— DOCUMENTATION IN PROGRESS —</span>
             </div>
             <div class="proj-info">
-              <h3 style="color:var(--text-dim);">Coursework project</h3>
+              <h3>Coursework project</h3>
               <p>School project documentation in progress.</p>
             </div>
           </div>

@@ -4,9 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Certifications & Competitions — Vijay Prajwal Rajasekar</title>
+  <title>Certifications &amp; Competitions — Vijay Prajwal Rajasekar</title>
   <link rel="stylesheet" href="assets/style.css">
   <style>
+
+    /* ---- Page header ---- */
     .page-head {
       padding: clamp(2.5rem, 6vw, 4rem) 0 1rem;
     }
@@ -16,7 +18,7 @@
       margin: 0.5em 0 0.5em;
     }
 
-    /* ---- Section labels ---- */
+    /* ---- Section label ---- */
     .gallery-section-label {
       font-family: var(--font-mono);
       font-size: 0.72rem;
@@ -26,7 +28,7 @@
       margin: 0 0 0.75rem;
     }
 
-    /* ---- CSWP Hero Card ---- */
+    /* ---- CSWP hero card ---- */
     .cswp-hero {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -161,7 +163,7 @@
       text-decoration: underline;
     }
 
-    /* ---- CSWA secondary row ---- */
+    /* ---- CSWA row ---- */
     .cswa-row {
       display: flex;
       align-items: center;
@@ -240,26 +242,33 @@
       text-decoration: underline;
     }
 
-    /* ---- Competitions ---- */
+    /* ---- Section gap ---- */
     .section-gap {
       margin-top: 4rem;
     }
 
-    .comp-card {
+    /* ---- Shared card base ---- */
+    .card-block {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 1.75rem;
-      display: flex;
-      gap: 1.5rem;
-      align-items: flex-start;
       margin-top: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
     }
 
-    @media (max-width: 600px) {
-      .comp-card {
-        flex-direction: column;
-      }
+    .card-block + .card-block {
+      margin-top: 1.5rem;
+    }
+
+    /* ---- Card header row (icon + title/date) ---- */
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
     }
 
     .comp-icon {
@@ -273,26 +282,28 @@
       justify-content: center;
       color: var(--signal);
       flex-shrink: 0;
+      margin-top: 2px;
     }
 
-    .comp-card h3 {
+    .card-header h3 {
       font-size: 1.1rem;
-      margin-bottom: 0.4rem;
+      margin: 0 0 0.25rem;
     }
 
-    .comp-card .comp-date {
+    .comp-date {
       font-family: var(--font-mono);
       font-size: 0.72rem;
       color: var(--text-faint);
       letter-spacing: 0.04em;
-      margin-bottom: 0.6rem;
     }
 
-    .comp-card p {
+    .card-desc {
       color: var(--text-dim);
       font-size: 0.92rem;
+      margin: 0;
     }
 
+    /* ---- Competition certificate ---- */
     .comp-cert {
       margin-top: 1rem;
       border-radius: 10px;
@@ -300,16 +311,16 @@
       border: 1px solid var(--border);
       background: var(--surface);
       max-width: 420px;
+      cursor: pointer;
     }
 
     .comp-cert img {
       width: 100%;
       height: auto;
       display: block;
-      border-radius: 8px;
     }
 
-    /* ---- Competition image thumbnails ---- */
+    /* ---- SolidWorks Sprint photo strip ---- */
     .comp-thumbs {
       margin-top: 1.1rem;
       display: flex;
@@ -318,18 +329,7 @@
       align-items: flex-start;
     }
 
-    .comp-thumb-item {
-      width: 110px;
-      height: 76px;
-      border-radius: 6px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      flex-shrink: 0;
-      cursor: pointer;
-    }
-
-    /* Featured / highlight photo */
+    /* Featured team photo */
     .comp-thumb-featured {
       display: flex;
       flex-direction: column;
@@ -368,11 +368,27 @@
       max-width: 180px;
     }
 
+    /* CAD thumbnail grid */
     .comp-thumbs-cad {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      flex-wrap: wrap;
+    }
+
+    .comp-thumbs-cad-row {
+      display: flex;
+      gap: 6px;
+    }
+
+    .comp-thumb-item {
+      width: 110px;
+      height: 76px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      flex-shrink: 0;
+      cursor: pointer;
     }
 
     .comp-thumb-item img {
@@ -387,20 +403,119 @@
       opacity: 0.82;
     }
 
-    /* Restructured comp-card header row */
-    .comp-card-header {
+    /* ---- Workshop media layout ---- */
+    .workshop-media {
+      margin-top: 0.5rem;
       display: flex;
       align-items: flex-start;
-      gap: 1rem;
-      margin-bottom: 0.75rem;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
-    .comp-card-header .comp-icon {
-      margin-top: 2px;
+    .workshop-photos {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .workshop-thumb {
+      width: 90px;
+      height: 62px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: pointer;
       flex-shrink: 0;
     }
 
-    /* Lightbox */
+    .workshop-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.18s ease;
+    }
+
+    .workshop-thumb:hover img {
+      opacity: 0.82;
+    }
+
+    .workshop-cert-slot {
+      flex: 1;
+      min-width: 180px;
+      max-width: 260px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      background: #fff;
+    }
+
+    .workshop-cert-slot img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: opacity 0.18s ease;
+    }
+
+    .workshop-cert-slot:hover img {
+      opacity: 0.88;
+    }
+
+    .workshop-cert-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-faint);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 4px 0 2px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Workshop meta chips (venue, date) */
+    .workshop-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-faint);
+      letter-spacing: 0.04em;
+    }
+
+    .workshop-meta-row span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Workshop LinkedIn link footer */
+    .workshop-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-top: 0.65rem;
+      border-top: 1px solid var(--border-soft);
+      margin-top: 0.25rem;
+    }
+
+    .workshop-link {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--signal);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+
+    .workshop-link:hover {
+      text-decoration: underline;
+    }
+
+    /* ---- Lightbox ---- */
     .comp-lightbox {
       display: none;
       position: fixed;
@@ -440,6 +555,7 @@
     .comp-lightbox-close:hover {
       opacity: 1;
     }
+
   </style>
 </head>
 
@@ -455,7 +571,7 @@
       <nav class="main-nav">
         <a href="index.html">About me</a>
         <div class="nav-dropdown">
-          <button class="nav-dropdown-toggle ">
+          <button class="nav-dropdown-toggle">
             Projects
             <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
               <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
@@ -478,17 +594,17 @@
       <div class="wrap">
         <p class="eyebrow">Credentials</p>
         <h1>Certifications &amp; Competitions</h1>
-        <p class="section-lede">Formal certifications in CAD and mechanical design, plus competitions I've taken part in
+        <p class="section-lede">Formal certifications in CAD and mechanical design, plus competitions and workshops
           outside the classroom.</p>
 
         <!-- CAD Certifications -->
         <p class="gallery-section-label" style="margin-top:2.5rem;">CAD Certification</p>
 
-        <!-- CSWP — hero treatment -->
+        <!-- CSWP hero card -->
         <div class="cswp-hero">
           <div class="cswp-hero-img">
             <img src="images/certs/cswp-certificate.jpg"
-              alt="Certified SolidWorks Professional (CSWP) certificate awarded to Vijay Prajwal Rajasekar, Mechanical Design, June 29 2022">
+              alt="Certified SolidWorks Professional (CSWP) certificate awarded to Vijay Prajwal Rajasekar, June 2022">
           </div>
           <div class="cswp-hero-info">
             <span class="cswp-label">Professional Certification</span>
@@ -502,11 +618,11 @@
           </div>
         </div>
 
-        <!-- CSWA — compact secondary row -->
+        <!-- CSWA compact row -->
         <div class="cswa-row">
           <div class="cswa-thumb">
             <img src="images/certs/cswa-certificate.jpg"
-              alt="Certified SolidWorks Associate (CSWA) certificate awarded to Vijay Prajwal Rajasekar, Mechanical Design, October 26 2020">
+              alt="Certified SolidWorks Associate (CSWA) certificate awarded to Vijay Prajwal Rajasekar, October 2020">
           </div>
           <div class="cswa-row-info">
             <div class="cswa-row-text">
@@ -520,33 +636,96 @@
           </div>
         </div>
 
+        <!-- Workshops -->
+        <div class="section-gap">
+          <p class="gallery-section-label">Workshops</p>
+
+          <div class="card-block">
+            <div class="card-header">
+              <div class="comp-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+                    stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div>
+                <h3>Drone Technology Workshop</h3>
+                <div class="comp-date">AUG 2026 · TECHOBYTES TECHNOLOGIES</div>
+              </div>
+            </div>
+
+            <div class="workshop-meta-row">
+              <span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="currentColor"/></svg>
+                IIT Madras Research Park, Chennai
+              </span>
+              <span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M16 2v4M8 2v4M3 10h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                1–2 August 2026
+              </span>
+            </div>
+
+            <p class="card-desc">
+              2-day hands-on workshop covering multirotor architecture, propulsion system matching, flight controller
+              setup (KK 2.1.5 &amp; Pixhawk 2.4.8 / ArduPilot), and full hardware integration — culminating in a
+              successful first flight.
+            </p>
+
+            <div class="workshop-media">
+              <div class="workshop-cert-slot" onclick="openLightbox('images/Drone Workshop/1786278367452.jpg')">
+                <img src="images/Drone Workshop/1786278367452.jpg"
+                  alt="Certificate of Participation — Drone Technology Workshop" loading="lazy">
+                <div class="workshop-cert-label">Certificate of Participation</div>
+              </div>
+              <div class="workshop-photos">
+                <div class="workshop-thumb" onclick="openLightbox('images/Drone Workshop/1786278370245.jpg')">
+                  <img src="images/Drone Workshop/1786278370245.jpg" alt="Drone Technology Workshop" loading="lazy">
+                </div>
+                <div class="workshop-thumb" onclick="openLightbox('images/Drone Workshop/1786278370794.jpg')">
+                  <img src="images/Drone Workshop/1786278370794.jpg" alt="Drone Technology Workshop" loading="lazy">
+                </div>
+                <div class="workshop-thumb" onclick="openLightbox('images/Drone Workshop/1786278372409.jpg')">
+                  <img src="images/Drone Workshop/1786278372409.jpg" alt="Drone Technology Workshop" loading="lazy">
+                </div>
+              </div>
+            </div>
+
+            <div class="workshop-bottom">
+              <a class="workshop-link"
+                href="https://www.linkedin.com/posts/vijayprajwalrajasekar_dronetechnology-uav-aerospace-ugcPost-7492194527127121920-i_-f/"
+                target="_blank" rel="noopener">
+                Read more on LinkedIn &#8599;
+              </a>
+            </div>
+          </div>
+        </div>
+
         <!-- Competitions -->
         <div class="section-gap">
           <p class="gallery-section-label">Competitions</p>
 
-          <!-- SolidWorks Sprint 48hr CAD Design Challenge -->
-          <div class="comp-card" style="flex-direction:column; gap:0;">
-            <div class="comp-card-header">
+          <!-- SolidWorks Sprint -->
+          <div class="card-block">
+            <div class="card-header">
               <div class="comp-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path d="M8 21H16M12 17V21M7 4H17V9C17 11.7614 14.7614 14 12 14C9.23858 14 7 11.7614 7 9V4Z"
                     stroke="currentColor" stroke-width="1.6" />
-                  <path d="M17 5H19.5C19.5 7 19 9 17 9M7 5H4.5C4.5 7 5 9 7 9" stroke="currentColor"
-                    stroke-width="1.6" />
+                  <path d="M17 5H19.5C19.5 7 19 9 17 9M7 5H4.5C4.5 7 5 9 7 9"
+                    stroke="currentColor" stroke-width="1.6" />
                 </svg>
               </div>
               <div>
-                <h3 style="margin-bottom:0.25rem;">SolidWorks Sprint — 48hr CAD Design Challenge</h3>
+                <h3>SolidWorks Sprint — 48hr CAD Design Challenge</h3>
                 <div class="comp-date">MARCH 2026 · BEST DESIGN — FIRST-YEAR CATEGORY</div>
               </div>
             </div>
-            <p style="color:var(--text-dim); font-size:0.92rem; margin:0;">Designed a Mars Exploration Vehicle system in
-              SolidWorks over 48 hours. The submission featured a rover with trailer module, deployable solar arrays,
-              interior habitat layout, and integrated life-support systems — earning Best Design in the first-year
-              category.</p>
-            <!-- Thumbnail strip: featured team photo + CAD thumbs -->
+
+            <p class="card-desc">Designed a Mars Exploration Vehicle system in SolidWorks over 48 hours. The submission
+              featured a rover with trailer module, deployable solar arrays, interior habitat layout, and integrated
+              life-support systems — earning Best Design in the first-year category.</p>
+
             <div class="comp-thumbs">
-              <!-- Featured: team photo -->
               <div class="comp-thumb-featured">
                 <div class="comp-thumb-img" onclick="openLightbox('images/20260322_192241.jpg')">
                   <img src="images/20260322_192241.jpg"
@@ -554,25 +733,20 @@
                 </div>
                 <div class="comp-thumb-caption">Awarded by Prof. Dr. Ray Tehari</div>
               </div>
-              <!-- CAD renders -->
               <div class="comp-thumbs-cad">
-                <div style="display:flex; gap:6px;">
-                  <div class="comp-thumb-item" onclick="openLightbox('images/Screenshot 2026-03-22 154534.png')"
-                    title="Solar array overview">
+                <div class="comp-thumbs-cad-row">
+                  <div class="comp-thumb-item" onclick="openLightbox('images/Screenshot 2026-03-22 154534.png')" title="Solar array overview">
                     <img src="images/Screenshot 2026-03-22 154534.png" alt="Solar array overview" loading="lazy">
                   </div>
-                  <div class="comp-thumb-item" onclick="openLightbox('images/Screenshot 2026-03-22 163011.png')"
-                    title="Rover and trailer">
+                  <div class="comp-thumb-item" onclick="openLightbox('images/Screenshot 2026-03-22 163011.png')" title="Rover and trailer">
                     <img src="images/Screenshot 2026-03-22 163011.png" alt="Rover and trailer" loading="lazy">
                   </div>
                 </div>
-                <div style="display:flex; gap:6px;">
-                  <div class="comp-thumb-item" onclick="openLightbox('images/Screenshot 2026-03-22 160701.png')"
-                    title="Interior habitat">
+                <div class="comp-thumbs-cad-row">
+                  <div class="comp-thumb-item" onclick="openLightbox('images/Screenshot 2026-03-22 160701.png')" title="Interior habitat">
                     <img src="images/Screenshot 2026-03-22 160701.png" alt="Interior habitat" loading="lazy">
                   </div>
-                  <div class="comp-thumb-item" onclick="openLightbox('images/Screenshot 2026-03-22 155512.png')"
-                    title="Life-support systems">
+                  <div class="comp-thumb-item" onclick="openLightbox('images/Screenshot 2026-03-22 155512.png')" title="Life-support systems">
                     <img src="images/Screenshot 2026-03-22 155512.png" alt="Life-support systems" loading="lazy">
                   </div>
                 </div>
@@ -581,36 +755,38 @@
           </div>
 
           <!-- McMaster Design League -->
-          <div class="comp-card" style="margin-top:1.5rem; flex-direction:column; gap:0;">
-            <div class="comp-card-header">
+          <div class="card-block">
+            <div class="card-header">
               <div class="comp-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path d="M8 21H16M12 17V21M7 4H17V9C17 11.7614 14.7614 14 12 14C9.23858 14 7 11.7614 7 9V4Z"
                     stroke="currentColor" stroke-width="1.6" />
-                  <path d="M17 5H19.5C19.5 7 19 9 17 9M7 5H4.5C4.5 7 5 9 7 9" stroke="currentColor"
-                    stroke-width="1.6" />
+                  <path d="M17 5H19.5C19.5 7 19 9 17 9M7 5H4.5C4.5 7 5 9 7 9"
+                    stroke="currentColor" stroke-width="1.6" />
                 </svg>
               </div>
               <div>
-                <h3 style="margin-bottom:0.25rem;">McMaster Design League — CAD Designathon</h3>
+                <h3>McMaster Design League — CAD Designathon</h3>
                 <div class="comp-date">2022 · MCMASTER UNIVERSITY · TEAM: SPACE CADETS</div>
               </div>
             </div>
-            <p style="color:var(--text-dim); font-size:0.92rem; margin:0;">Participated in a timed CAD design
-              competition hosted by McMaster University's Design League, working through mechanical design problems
-              under time pressure alongside students from other schools.</p>
-            <div class="comp-cert" style="margin-top:1rem; cursor:pointer;"
-              onclick="openLightbox('images/certs/mcmaster-designathon-certificate.png')">
+
+            <p class="card-desc">Participated in a timed CAD design competition hosted by McMaster University's Design
+              League, working through mechanical design problems under time pressure alongside students from other
+              schools.</p>
+
+            <div class="comp-cert" onclick="openLightbox('images/certs/mcmaster-designathon-certificate.png')">
               <img src="images/certs/mcmaster-designathon-certificate.png"
-                alt="Certificate of Participation for Vijay Prajwal Rajasekar in the 2022 McMaster Design League CAD Designathon, team Space CADets">
+                alt="Certificate of Participation — 2022 McMaster Design League CAD Designathon, team Space CADets">
             </div>
           </div>
         </div>
+
       </div>
     </section>
   </main>
 
-  <!-- Lightbox overlay -->
+  <!-- Lightbox -->
   <div class="comp-lightbox" id="compLightbox" onclick="closeLightbox()">
     <button class="comp-lightbox-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
     <img id="compLightboxImg" src="" alt="">
