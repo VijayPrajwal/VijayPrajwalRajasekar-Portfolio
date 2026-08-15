@@ -611,3 +611,327 @@ section { padding: 5rem 0; scroll-margin-top: 80px; }
     justify-self: end;
   }
 }
+
+/* ==========================================================================
+   RECRUITER MODE & SIMPLIFIED VIEW STYLES
+   ========================================================================== */
+
+/* Toggle Visibility Classes */
+.recruiter-only {
+  display: none !important;
+}
+
+body.recruiter-mode-active .normal-only {
+  display: none !important;
+}
+
+body.recruiter-mode-active .recruiter-only {
+  display: block !important;
+}
+
+/* Make sure grids show correctly when active */
+body.recruiter-mode-active section.recruiter-only {
+  display: block !important;
+}
+
+/* Recruiter Mode Toggle Button styling */
+.recruiter-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-dim);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  border-radius: 99px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  margin-left: 0.5rem;
+  text-decoration: none !important;
+}
+
+.recruiter-toggle-btn:hover {
+  border-color: var(--signal);
+  color: var(--text);
+  box-shadow: 0 0 10px rgba(255, 117, 66, 0.15);
+}
+
+.toggle-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-faint);
+  transition: all 0.2s ease;
+}
+
+/* Active Recruiter Mode Styling */
+body.recruiter-mode-active .recruiter-toggle-btn {
+  border-color: var(--signal);
+  color: var(--signal);
+  background: rgba(255, 107, 53, 0.08);
+  box-shadow: 0 0 12px rgba(255, 107, 53, 0.25);
+}
+
+body.recruiter-mode-active .toggle-status-dot {
+  background: var(--telemetry);
+  box-shadow: 0 0 8px var(--telemetry);
+  animation: pulse-telemetry 2s infinite;
+}
+
+@keyframes pulse-telemetry {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.25); opacity: 0.7; }
+}
+
+/* Skills Grid */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 880px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.skills-category {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.75rem;
+}
+
+.skills-category h3 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  margin-bottom: 1.25rem;
+  color: var(--text);
+  border-bottom: 1px solid var(--border-soft);
+  padding-bottom: 0.5rem;
+}
+
+.skills-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-size: 0.92rem;
+}
+
+.skills-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-dim);
+}
+
+.skills-list li::before {
+  content: "→";
+  color: var(--signal);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+}
+
+/* Two Strongest Projects */
+.recruiter-projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+@media (max-width: 880px) {
+  .recruiter-projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.recruiter-project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+}
+
+.recruiter-project-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--signal-dim);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+.recruiter-project-img {
+  aspect-ratio: 16/10;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+}
+
+.recruiter-project-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.recruiter-project-card:hover .recruiter-project-img img {
+  transform: scale(1.03);
+}
+
+.recruiter-project-info {
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.recruiter-project-info h3 {
+  font-size: 1.3rem;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.recruiter-project-info p {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.project-highlights {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.highlight-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.highlight-item .h-val {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--signal);
+}
+
+.highlight-item .h-lbl {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.recruiter-project-info .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Resume CTA Box */
+.resume-cta-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
+  background-image: linear-gradient(135deg, rgba(255, 107, 53, 0.03) 0%, transparent 60%);
+}
+
+@media (max-width: 880px) {
+  .resume-cta-box {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+}
+
+.resume-cta-info {
+  max-width: 60ch;
+}
+
+.resume-cta-info h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.resume-cta-info p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.resume-cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  flex-shrink: 0;
+  width: 250px;
+}
+
+@media (max-width: 880px) {
+  .resume-cta-actions {
+    width: 100%;
+  }
+}
+
+.resume-cta-actions .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Fix secondary button style for resume override */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.02em;
+  padding: 11px 20px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--surface-raised);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--signal);
+  background: #21262b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(255, 117, 66, 0.15);
+}
+
+/* Active Nav Highlighting in Recruiter Mode */
+body.recruiter-mode-active nav.main-nav a.active-scroll::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--signal);
+}
+
+body.recruiter-mode-active nav.main-nav a.active-scroll {
+  color: var(--text) !important;
+}
+
