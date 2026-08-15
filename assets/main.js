@@ -157,10 +157,15 @@ document.addEventListener('DOMContentLoaded', function () {
           }
         });
 
+        // Ensure the toggle button is inside mainNav before we insert links before it
+        if (!mainNav.contains(toggleBtn)) {
+          mainNav.appendChild(toggleBtn);
+        }
+
         // Insert recruiter links
         var pathPrefix = isHomePage ? '' : 'index.html';
         var recruiterNavs = [
-          { text: 'About', href: pathPrefix + '#about' },
+          { text: 'About me', href: pathPrefix + '#about' },
           { text: 'Skills', href: pathPrefix + '#recruiter-skills' },
           { text: 'Projects', href: pathPrefix + '#recruiter-projects' },
           { text: 'Résumé', href: pathPrefix + '#recruiter-resume' },
@@ -195,11 +200,6 @@ document.addEventListener('DOMContentLoaded', function () {
           
           mainNav.insertBefore(a, toggleBtn);
         });
-
-        // Ensure the toggle button is inside mainNav
-        if (!mainNav.contains(toggleBtn)) {
-          mainNav.appendChild(toggleBtn);
-        }
       } else {
         // Restore original nav HTML
         var originalNavHTML = mainNav.getAttribute('data-original-nav');
