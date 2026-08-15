@@ -433,6 +433,13 @@ h1, h2, h3, h4 {
   margin-top: 6rem;
   padding: 2.5rem 0 3rem;
 }
+
+/* When a page-nav strip sits directly above the footer,
+   the nav already handles the separation — zero the footer margin */
+.page-nav + .site-footer {
+  margin-top: 0;
+  border-top: none;
+}
 .site-footer .wrap {
   display: flex;
   flex-wrap: wrap;
@@ -446,12 +453,18 @@ h1, h2, h3, h4 {
   font-family: var(--font-mono);
   font-size: 0.78rem;
   color: var(--text-dim);
+  opacity: 0.85;
+  transition: opacity 0.18s ease;
 }
-.footer-links a:hover { color: var(--signal); }
+.footer-links a:hover {
+  color: var(--signal);
+  opacity: 1;
+}
 .footer-meta {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: var(--text-faint);
+  color: var(--text-dim);
+  opacity: 0.7;
 }
 
 /* ---------- Utility ---------- */
@@ -487,4 +500,114 @@ section { padding: 5rem 0; scroll-margin-top: 80px; }
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* ---------- Page-to-page navigation strip ---------- */
+.page-nav {
+  border-top: 1px solid var(--border-soft);
+  padding: 1.5rem 0 1.75rem;
+  margin-top: 3.5rem;
+}
+
+.page-nav-inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* prev link — left-aligned */
+.page-nav-prev {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  text-decoration: none;
+  color: var(--text-dim);
+  transition: color 0.18s ease;
+  justify-self: start;
+}
+
+.page-nav-prev:hover {
+  color: var(--text);
+}
+
+.page-nav-prev:hover .pn-arrow {
+  transform: translateX(-4px);
+}
+
+/* next link — right-aligned */
+.page-nav-next {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  text-decoration: none;
+  color: var(--text-dim);
+  transition: color 0.18s ease;
+  justify-self: end;
+}
+
+.page-nav-next:hover {
+  color: var(--text);
+}
+
+.page-nav-next:hover .pn-arrow {
+  transform: translateX(4px);
+}
+
+.pn-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pn-arrow {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: var(--signal);
+  transition: transform 0.18s ease;
+  line-height: 1;
+}
+
+.pn-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  transition: color 0.18s ease;
+}
+
+.page-nav-prev:hover .pn-title,
+.page-nav-next:hover .pn-title {
+  color: var(--signal);
+}
+
+/* center dot */
+.page-nav-center {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--border);
+  justify-self: center;
+  flex-shrink: 0;
+}
+
+@media (max-width: 580px) {
+  .page-nav-inner {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  .page-nav-center {
+    display: none;
+  }
+
+  .page-nav-next {
+    justify-self: end;
+  }
 }
