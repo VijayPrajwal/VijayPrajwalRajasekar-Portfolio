@@ -33,20 +33,40 @@
     }
 
     .proj-card {
-      border: 1px dashed var(--border);
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 10px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
+      text-decoration: none;
+      transition: border-color 0.18s ease, transform 0.18s ease;
+    }
+
+    .proj-card:hover {
+      border-color: var(--signal-dim);
+      transform: translateY(-3px);
     }
 
     .proj-thumb {
       aspect-ratio: 16/9;
-      background: var(--surface);
+      overflow: hidden;
+      background: var(--surface-raised);
       display: flex;
       align-items: center;
       justify-content: center;
-      border-bottom: 1px dashed var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .proj-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .proj-card:hover .proj-thumb img {
+      transform: scale(1.04);
     }
 
     .proj-thumb-label {
@@ -61,25 +81,75 @@
       flex-grow: 1;
       display: flex;
       flex-direction: column;
+      gap: 0.5rem;
     }
 
     .proj-info h3 {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
+      color: var(--text);
+      transition: color 0.15s ease;
+    }
+
+    .proj-card:hover .proj-info h3 {
+      color: var(--signal);
+    }
+
+    .proj-info p {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+      flex-grow: 1;
+      line-height: 1.5;
+    }
+
+    .proj-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1rem;
+      padding-top: 0.9rem;
+      border-top: 1px solid var(--border-soft);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-faint);
+    }
+
+    .proj-arrow {
+      color: var(--signal);
+      font-size: 1rem;
+      transition: transform 0.15s ease;
+    }
+
+    .proj-card:hover .proj-arrow {
+      transform: translateX(4px);
+    }
+
+    /* ---- Placeholder card ---- */
+    .placeholder-card {
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 260px;
+    }
+
+    .placeholder-card .mono {
+      font-size: 0.72rem;
+      color: var(--text-faint);
+      margin-bottom: 0.5rem;
+    }
+
+    .placeholder-card h3 {
+      font-size: 1.1rem;
       color: var(--text-dim);
       margin-bottom: 0.5rem;
     }
 
-    .proj-info p {
-      color: var(--text-faint);
+    .placeholder-card p {
       font-size: 0.88rem;
-      flex-grow: 1;
-    }
-
-    .proj-info .mono {
-      font-size: 0.7rem;
       color: var(--text-faint);
-      margin-top: 1rem;
-      letter-spacing: 0.04em;
+      margin: 0;
     }
 
     /* ---- Intro note ---- */
@@ -144,23 +214,26 @@
         </div>
 
         <div class="proj-grid">
-          <div class="proj-card">
+          <a href="buoy-system.html" class="proj-card">
             <div class="proj-thumb">
-              <span class="proj-thumb-label">— DOCUMENTATION IN PROGRESS —</span>
+              <!-- Placeholder for DABS buoy render -->
+              <span class="proj-thumb-label">— DABS BUOY MODEL —</span>
             </div>
             <div class="proj-info">
-              <h3>Coursework project</h3>
-              <p>School project documentation in progress.</p>
+              <span class="tag tag-school" style="align-self:flex-start;">SCHOOL · UBC OKANAGAN</span>
+              <h3>Data Acquisition Buoy System (DABS)</h3>
+              <p>Designed a custom environmental buoy system to detect, track, and monitor nitrogen and phosphorus inputs in aquatic ecosystems. Nominated for the Design Process Award at Aquahacking Binational 2026.</p>
+              <div class="proj-footer">
+                <span>SolidWorks CAD · Stakeholder Salience · Risk Assessment</span>
+                <span class="proj-arrow">→</span>
+              </div>
             </div>
-          </div>
-          <div class="proj-card">
-            <div class="proj-thumb">
-              <span class="proj-thumb-label">— DOCUMENTATION IN PROGRESS —</span>
-            </div>
-            <div class="proj-info">
-              <h3>Coursework project</h3>
-              <p>School project documentation in progress.</p>
-            </div>
+          </a>
+
+          <div class="placeholder-card">
+            <div class="mono">— DOCUMENTATION IN PROGRESS —</div>
+            <h3>Next school build in progress</h3>
+            <p>More UBC Okanagan coursework and capstone builds will be added here as they're completed and documented.</p>
           </div>
         </div>
       </div>
@@ -176,9 +249,9 @@
           <span class="pn-title">About Me</span>
         </a>
         <span class="page-nav-center"></span>
-        <a href="club.html" class="page-nav-next" id="nav-next-club">
+        <a href="buoy-system.html" class="page-nav-next" id="nav-next-buoy">
           <span class="pn-label">Next <span class="pn-arrow">→</span></span>
-          <span class="pn-title">Club — UBCO Aerospace</span>
+          <span class="pn-title">Data Acquisition Buoy System</span>
         </a>
       </div>
     </div>

@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Acquisition Buoy System (DABS) — Vijay Prajwal Rajasekar</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      padding: clamp(1.25rem, 3vw, 2rem) 0 0;
+      transition: color 0.15s ease;
+    }
+
+    .back-link:hover {
+      color: var(--signal);
+    }
+
+    .case-head {
+      padding: 1.5rem 0 0;
+    }
+
+    .case-head h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin: 0.5em 0 0;
+    }
+
+    .case-meta {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin: 1.5rem 0 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .case-meta div b {
+      color: var(--text);
+      display: block;
+      font-size: 0.95rem;
+      margin-top: 2px;
+      font-family: var(--font-body);
+      font-weight: 600;
+    }
+
+    .gallery-section-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      margin: 2.25rem 0 0.75rem;
+    }
+
+    .gallery-section-label:first-child {
+      margin-top: 0;
+    }
+
+    .case-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .case-gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .case-gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .case-gallery figure {
+      margin: 0;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      position: relative;
+    }
+
+    .case-gallery figure img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+      transition: opacity 0.15s ease, transform 0.3s ease;
+    }
+
+    .case-gallery figure img:hover {
+      opacity: 0.85;
+      transform: scale(1.03);
+    }
+
+    /* Zoom hint badge */
+    .case-gallery figure::after {
+      content: '';
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 26px;
+      height: 26px;
+      background: rgba(11, 13, 15, 0.7) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none'%3E%3Ccircle cx='11' cy='11' r='8' stroke='%23e8e6e1' stroke-width='1.8'/%3E%3Cpath d='M21 21l-4.35-4.35' stroke='%23e8e6e1' stroke-width='1.8' stroke-linecap='round'/%3E%3Cpath d='M11 8v6M8 11h6' stroke='%23e8e6e1' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E") center/14px no-repeat;
+      border-radius: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    .case-gallery figure:hover::after {
+      opacity: 1;
+    }
+
+    .case-gallery figcaption {
+      padding: 6px 8px 8px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-faint);
+      border-top: 1px solid var(--border-soft);
+      background: var(--surface);
+    }
+
+    .case-body {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 880px) {
+      .case-body {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    .case-body h3 {
+      font-size: 1.15rem;
+      margin: 2rem 0 0.75rem;
+    }
+
+    .case-body h3:first-child {
+      margin-top: 0;
+    }
+
+    .case-body p,
+    .case-body li {
+      color: var(--text-dim);
+      font-size: 0.98rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .case-body ul {
+      padding-left: 1.1rem;
+    }
+
+    .case-body li::marker {
+      color: var(--signal);
+    }
+
+    .spec-sidebar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      align-self: start;
+      position: sticky;
+      top: 90px;
+    }
+
+    .spec-sidebar h4 {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--text-faint);
+      margin-bottom: 1rem;
+    }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 0.88rem;
+    }
+
+    .spec-row:last-child {
+      border-bottom: none;
+    }
+
+    .spec-row span:first-child {
+      color: var(--text-dim);
+    }
+
+    .spec-row span:last-child {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .process-note {
+      background: rgba(255, 107, 53, 0.06);
+      border: 1px solid var(--signal-dim);
+      border-radius: 8px;
+      padding: 1.1rem 1.3rem;
+      margin: 1.5rem 0;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    .process-note b {
+      color: var(--signal);
+    }
+
+    /* ---- Contributions Grid ---- */
+    .contrib-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .contrib-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .contrib-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+
+    .contrib-card h4 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contrib-card h4::before {
+      content: '→';
+      color: var(--signal);
+      font-family: var(--font-mono);
+    }
+
+    .contrib-card p {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* ---- Engineering tables ---- */
+    .eng-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin: 1.5rem 0;
+      background: var(--surface);
+    }
+
+    .eng-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    .eng-table th,
+    .eng-table td {
+      padding: 0.9rem 1.2rem;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .eng-table th {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      color: var(--text-faint);
+      background: var(--surface-raised);
+      text-transform: uppercase;
+    }
+
+    .eng-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .eng-table td strong {
+      color: var(--text);
+    }
+
+    /* ---- Video and YouTube Container ---- */
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #000;
+      margin-top: 1rem;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    /* ---- Action CTA Blocks ---- */
+    .action-cta-block {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .action-cta-block h4 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .action-cta-block p {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      margin: 0;
+    }
+
+    /* ---- Lightbox ---- */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.92);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      cursor: zoom-out;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-inner {
+      position: relative;
+      max-width: min(90vw, 1100px);
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .lightbox-inner img {
+      max-width: 100%;
+      max-height: 82vh;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      display: block;
+    }
+
+    .lightbox-caption {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.5);
+      text-align: center;
+    }
+
+    .lightbox-close {
+      position: fixed;
+      top: 1.25rem;
+      right: 1.5rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1.6rem;
+      cursor: pointer;
+      line-height: 1;
+      background: none;
+      border: none;
+      transition: color 0.15s ease;
+    }
+
+    .lightbox-close:hover {
+      color: #fff;
+    }
+
+    .lightbox-nav {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background 0.15s ease;
+      z-index: 1001;
+    }
+
+    .lightbox-nav:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .lightbox-prev {
+      left: 1rem;
+    }
+
+    .lightbox-next {
+      right: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="index.html" class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-name">Vijay Prajwal Rajasekar</span>
+        <span class="brand-sub">/ MECH ENG + AERO FOCUS</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">About me</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-toggle active">
+            Projects
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+            </svg>
+          </button>
+          <div class="nav-dropdown-menu">
+            <a href="school.html" class="active"><span class="menu-dot"></span>School</a>
+            <a href="club.html"><span class="menu-dot"></span>Club</a>
+            <a href="personal.html"><span class="menu-dot"></span>Personal</a>
+          </div>
+        </div>
+        <a href="certifications.html">Certs &amp; Awards</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <a href="school.html" class="back-link">← Back to School projects</a>
+    </div>
+
+    <section class="case-head">
+      <div class="wrap">
+        <span class="tag tag-school">SCHOOL · APSC 169 (FALL 2025)</span>
+        <h1>Data Acquisition Buoy System (DABS)</h1>
+
+        <div class="case-meta">
+          <div>ROLE<b>CAD Lead &amp; Analyst</b></div>
+          <div>PROJECT<b>Aquahacking Binational 2026</b></div>
+          <div>TOOLS<b>SolidWorks, GitHub Pages, HTML</b></div>
+          <div>RECOGNITION<b>Nominated: Design Process Category</b></div>
+        </div>
+
+        <!-- Featured CAD Hero Image -->
+        <div class="case-gallery" style="grid-template-columns: 1fr; margin-bottom: 2rem;">
+          <figure style="border-radius: 10px;">
+            <img src="images/dabs-final-buoy-cad.png" alt="Data Acquisition Buoy System (DABS) Final SolidWorks CAD Prototype" style="height: clamp(260px, 45vw, 480px);">
+            <figcaption>Data Acquisition Buoy System (DABS) — Final SolidWorks CAD prototype showing sensor housing, solar array mounting, and buoyancy ring alignment.</figcaption>
+          </figure>
+        </div>
+
+        <div class="case-body">
+          <div>
+            <h3>The Challenge</h3>
+            <p>Aquahacking Binational: Great Lakes & St. Lawrence 2026 challenged engineering teams to develop functional systems to monitor water quality issues in North American aquatic ecosystems. Our team focused on nutrients and nutrient cycling, addressing the critical problem of nitrogen and phosphorus inputs. High levels of agricultural and municipal nutrient run-off lead to eutrophication and toxic algal blooms, threatening local drinking water and ecological stability.</p>
+            <p>The core design challenge was to design a robust, low-maintenance field station that could float in open water, harvest solar energy, and house electronic sensors capable of detecting and transmitting real-time nutrient levels directly to a dashboard for local conservation teams.</p>
+
+            <h3>My Contributions</h3>
+            <p>Rather than relying strictly on the team's broader academic writeups, my work focused on the mechanical modeling, system access, and engineering process structures:</p>
+            
+            <div class="contrib-grid">
+              <div class="contrib-card">
+                <h4>CAD &amp; Product Modeling</h4>
+                <p>Took the initial concept sketch through multiple design phases in SolidWorks to create the final 3D CAD prototype, ensuring watertight tolerances and correct component layouts.</p>
+              </div>
+              <div class="contrib-card">
+                <h4>Stakeholder Salience Analysis</h4>
+                <p>Categorized and modeled stakeholder groups using the Power, Legitimacy, and Urgency framework to isolate design constraints for municipalities and landowners.</p>
+              </div>
+              <div class="contrib-card">
+                <h4>Risk Assessment</h4>
+                <p>Formulated the project's risk mitigation pathways with the team, identifying critical operational risks (biofouling, power loss) and developing design solutions.</p>
+              </div>
+              <div class="contrib-card">
+                <h4>Solution Description</h4>
+                <p>Outlined the target sensor arrays and mechanical containment strategy to protect sensitive chemical transducers from open water currents and debris.</p>
+              </div>
+            </div>
+
+            <div class="process-note">
+              <b>Design Process Nomination:</b> The engineering rigour applied to our risk assessment matrices, stakeholder analysis, and iterative physical modeling led to the project being nominated in the <b>Design Process Category</b> at the Aquahacking Binational competition.
+            </div>
+          </div>
+
+          <aside class="spec-sidebar">
+            <h4>BUOY SPEC SHEET</h4>
+            <div class="spec-row"><span>Competition</span><span>Aquahacking 2026</span></div>
+            <div class="spec-row"><span>Course</span><span>APSC 169 (UBCO)</span></div>
+            <div class="spec-row"><span>Target Analytes</span><span>Nitrogen &amp; Phosphorus</span></div>
+            <div class="spec-row"><span>Primary Software</span><span>SolidWorks 2025</span></div>
+            <div class="spec-row"><span>Viewer Format</span><span>Web GLB (Three.js)</span></div>
+            <div class="spec-row"><span>Power Source</span><span>PV Array + LiFePO4</span></div>
+            <div class="spec-row"><span>Target Region</span><span>Great Lakes Basin</span></div>
+          </aside>
+        </div>
+
+        <p class="gallery-section-label" style="margin-top:3rem;">From Sketch to CAD: Visual Progression</p>
+        <div class="case-gallery">
+          <figure>
+            <img src="images/dabs-initial-sketch.png" alt="Initial rough team sketch showing conceptual component layout">
+            <figcaption>1. Initial Concept Sketch: Early hand-drawn layout of the buoyancy compartment and sensor lines.</figcaption>
+          </figure>
+          <figure>
+            <img src="images/dabs-second-prototype.png" alt="Second design iteration refining buoyancy chamber and sensor mount">
+            <figcaption>2. Second Prototype Iteration: SolidWorks sketch refining inner sensor cavity layout and draft angle.</figcaption>
+          </figure>
+          <figure>
+            <img src="images/dabs-final-cad-render.png" alt="Final SolidWorks model assembly before file conversion">
+            <figcaption>3. Final SolidWorks Assembly: Watertight structure with integrated solar mounts and anchor points.</figcaption>
+          </figure>
+        </div>
+
+        <p class="gallery-section-label">Final Design &amp; Layout</p>
+        <div class="case-gallery">
+          <figure>
+            <img src="images/dabs-equipment-layout.png" alt="Equipment layout diagram showing internal battery and sensor compartments">
+            <figcaption>External Layout: Positioning of the solar panel brackets, GPS antenna, and mooring harnesses.</figcaption>
+          </figure>
+          <figure>
+            <img src="images/dabs-internal-equipment.png" alt="Section view of the buoy hull highlighting watertight gaskets and hardware mounts">
+            <figcaption>Internal Layout: Section view showing watertight housing for the microcontroller, battery pack, and cabling.</figcaption>
+          </figure>
+        </div>
+
+        <div class="case-body" style="margin-top: 3rem;">
+          <div>
+            <h3>Engineering Process &amp; Analysis</h3>
+            
+            <h4>Stakeholder Salience Model</h4>
+            <p>During the planning phase, I analyzed the project stakeholders. Stakeholders are categorized based on three core attributes: Power (the ability to influence the project), Legitimacy (the authority to interact with the project), and Urgency (the immediate attention required by their concerns). This classification helped define our operational guidelines.</p>
+
+            <div class="eng-table-wrap">
+              <table class="eng-table">
+                <thead>
+                  <tr>
+                    <th>Stakeholder Group</th>
+                    <th>Power</th>
+                    <th>Legitimacy</th>
+                    <th>Urgency</th>
+                    <th>Classification</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Conservation Authorities</strong></td>
+                    <td>High</td>
+                    <td>High</td>
+                    <td>High</td>
+                    <td>Definitive (Must satisfy all operational standards)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Agricultural Landowners</strong></td>
+                    <td>High</td>
+                    <td>High</td>
+                    <td>Medium</td>
+                    <td>Dominant (Requires active consultation on runoff)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Local Lake Communities</strong></td>
+                    <td>Low</td>
+                    <td>High</td>
+                    <td>High</td>
+                    <td>Dependent (Needs accessible reporting dashboard)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h4>Risk Assessment Matrix</h4>
+            <p>Together with the design team, I developed a risk assessment matrix to identify environmental and mechanical vulnerabilities of an open-water sensor buoy and establish design mitigations.</p>
+
+            <div class="eng-table-wrap">
+              <table class="eng-table">
+                <thead>
+                  <tr>
+                    <th>Identified Risk</th>
+                    <th>Likelihood</th>
+                    <th>Impact</th>
+                    <th>Design Mitigation Strategy</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Biofouling of Sensor Optics</strong></td>
+                    <td>High</td>
+                    <td>Medium</td>
+                    <td>Mechanical wiper cycle and copper mesh guards.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Watertight Seal Degradation</strong></td>
+                    <td>Medium</td>
+                    <td>High</td>
+                    <td>Double o-ring rubber seals with heavy compression clamps.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Mooring/Anchor Line Failure</strong></td>
+                    <td>Low</td>
+                    <td>High</td>
+                    <td>Galvanized steel harness with strain relief loop.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Power Shortage (Winter Days)</strong></td>
+                    <td>Medium</td>
+                    <td>Medium</td>
+                    <td>Low-power sleep cycles and oversized solar panels.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <p class="gallery-section-label" style="margin-top:3rem;">Making the CAD Accessible</p>
+        <div class="case-body" style="margin-top:0;">
+          <div>
+            <p>Engineering plans and CAD models are often restricted to those with specialized workstation software. To make our design review process truly accessible to community stakeholders and judges who don't have access to SolidWorks, I developed and hosted a browser-based 3D CAD viewer via GitHub Pages.</p>
+            <p>By converting the solid model to a GLB/gITF format, users can pan, zoom, and rotate the 3D model directly in any web browser without plugins.</p>
+            
+            <div class="action-cta-block">
+              <h4>Interact with the Buoy CAD</h4>
+              <p>Launch the static web viewer to interact directly with the 3D model geometry.</p>
+              <a href="https://github.com/VijayPrajwal/Projects-" target="_blank" rel="noopener" class="btn btn-solid">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:2px;">
+                  <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+                </svg>
+                Open 3D CAD Viewer →
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <p class="gallery-section-label">Project Presentation &amp; Pitch</p>
+        <div class="case-body" style="margin-top:0;">
+          <div style="grid-column: 1 / -1;">
+            <p>Watch our team pitch video and technical breakdown demonstrating the Data Acquisition Buoy System (DABS) concept for Aquahacking Binational 2026.</p>
+            <div class="video-container">
+              <iframe src="https://www.youtube.com/embed/P9uYQ4drXwo" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+
+        <p class="gallery-section-label" style="margin-top:3rem;">Academic Documentation</p>
+        <div class="case-body" style="margin-top:0;">
+          <div>
+            <p>The engineering development of DABS was fully documented inside our coursework portfolio for APSC 169. For an exhaustive academic report, design diaries, calculations, and environmental background, view the Google Sites e-portfolio.</p>
+            
+            <div class="action-cta-block" style="background: rgba(58, 74, 107, 0.08); border-color: rgba(58, 74, 107, 0.35);">
+              <h4 style="color: #8fa3d4;">Full e-Portfolio Site</h4>
+              <p>Explore the detailed coursework log, academic specifications, and team structure for this project entry.</p>
+              <a href="https://sites.google.com/view/vijay-rajasekar-eportfolio/project-entry?authuser=3" target="_blank" rel="noopener" class="btn" style="border-color: #3a4a6b;">
+                View Google Sites e-Portfolio →
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Page navigation -->
+  <nav class="page-nav" aria-label="Portfolio navigation">
+    <div class="wrap">
+      <div class="page-nav-inner">
+        <a href="school.html" class="page-nav-prev" id="nav-prev-school">
+          <span class="pn-label"><span class="pn-arrow">←</span> Previous</span>
+          <span class="pn-title">School Projects</span>
+        </a>
+        <span class="page-nav-center"></span>
+        <a href="club.html" class="page-nav-next" id="nav-next-club">
+          <span class="pn-label">Next <span class="pn-arrow">→</span></span>
+          <span class="pn-title">Club — UBCO Aerospace</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-links">
+        <a href="mailto:vj0501@student.ubc.ca">Email</a>
+        <a href="https://www.linkedin.com/in/vijayprajwalrajasekar/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/VijayPrajwal/Projects-" target="_blank" rel="noopener">GitHub</a>
+        <a href="contact.html">Resume</a>
+      </div>
+      <div class="footer-meta">Vijay Prajwal Rajasekar · UBC Okanagan</div>
+    </div>
+  </footer>
+
+  <script src="assets/main.js" defer></script>
+
+  <!-- Lightbox Viewer Modal -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox-close" id="lbClose" aria-label="Close">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lbPrev" aria-label="Previous">&#8592;</button>
+    <div class="lightbox-inner">
+      <img id="lbImg" src="" alt="">
+      <p class="lightbox-caption" id="lbCaption"></p>
+    </div>
+    <button class="lightbox-nav lightbox-next" id="lbNext" aria-label="Next">&#8594;</button>
+  </div>
+
+  <!-- Lightbox Script -->
+  <script>
+    (function () {
+      var imgs = Array.from(document.querySelectorAll('.case-gallery figure img'));
+      var current = 0;
+      var lb = document.getElementById('lightbox');
+      var lbImg = document.getElementById('lbImg');
+      var lbCap = document.getElementById('lbCaption');
+
+      function open(index) {
+        current = (index + imgs.length) % imgs.length;
+        var fig = imgs[current].closest('figure');
+        var cap = fig ? fig.querySelector('figcaption') : null;
+        lbImg.src = imgs[current].src;
+        lbImg.alt = imgs[current].alt;
+        lbCap.textContent = cap ? cap.textContent.trim() : '';
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function close() {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      imgs.forEach(function (img, i) {
+        img.addEventListener('click', function () { open(i); });
+      });
+
+      document.getElementById('lbClose').addEventListener('click', close);
+      document.getElementById('lbPrev').addEventListener('click', function (e) {
+        e.stopPropagation();
+        open(current - 1);
+      });
+      document.getElementById('lbNext').addEventListener('click', function (e) {
+        e.stopPropagation();
+        open(current + 1);
+      });
+
+      lb.addEventListener('click', function (e) {
+        if (e.target === lb) close();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        if (e.key === 'ArrowLeft') open(current - 1);
+        if (e.key === 'ArrowRight') open(current + 1);
+      });
+    })();
+  </script>
+</body>
+
+</html>
