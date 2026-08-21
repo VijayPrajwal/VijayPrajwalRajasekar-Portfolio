@@ -525,64 +525,53 @@
         <div class="case-body">
           <div>
             <h3>Why I built this</h3>
-            <p>I wanted to understand two things at the same time: how involute gear geometry is actually derived
-              mathematically, and how accurately I could translate a parametric CAD model into a physical, meshing gear
-              train using the university's 3D printers. Gear ratios come up constantly in mechanical and aerospace
-              systems — actuators, propulsion, drivetrains — so working through them hands-on made sense before I
-              encountered them in a more formal context.</p>
+            <p>I wanted to learn how involute gears are designed in SolidWorks and then take that CAD work into a
+              physical gear train. The goal was straightforward: design the gears parametrically, print them, and see
+              if they actually work together at the target ratio.</p>
 
-            <h3>Deriving the tooth profile in SolidWorks</h3>
-            <p>Rather than pulling a gear from a library, I modelled each gear from the involute equation directly in
-              SolidWorks. The involute curve is parameterised by the base circle radius and the roll angle — I entered
-              these as driven equations in the sketch so that changing the tooth count or pressure angle automatically
-              regenerated the entire profile.</p>
-            <ul>
-              <li>Pressure angle set to 20° (standard for spur gears) — this controls tooth thickness and contact ratio.
-              </li>
-              <li>Module kept consistent across all four gears so they could mesh correctly regardless of tooth count.
-              </li>
-              <li>Addendum and dedendum circles derived from the pitch diameter, with clearance built into the equation
-                so printed teeth wouldn't bind.</li>
-              <li>Used SolidWorks Gear Generator as a cross-check to validate that pitch diameters and centre distances
-                were correct before committing to a print.</li>
-            </ul>
+            <h3>Parametric involute gear design</h3>
+            <p>Rather than pulling a gear from a library, I learned how to construct an involute tooth profile from
+              scratch. I set up SolidWorks Global Variables and equations so that the gear geometry was fully
+              parametric — changing the tooth count would update the whole model automatically.</p>
+            <p>The involute tooth profile was generated using a SolidWorks Equation Driven Curve:</p>
+            <pre style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.85rem 1.1rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.5rem 0 1rem;"><code>x = D2@Sketch2 * 0.5 * (cos(t) + t*sin(t))
+y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
 
             <div class="process-note">
-              <b>The equation-driven sketch approach</b> means every dimension — pitch circle, base circle, tip and root
-              radii — updates automatically when you change a single input. It's slower to set up than using a gear
-              macro, but you end up actually understanding what each parameter controls.
+              <b>Why bother with equations?</b> Once the sketch was set up this way, I could generate gears with
+              different tooth counts without rebuilding anything from scratch — just update the variable and
+              SolidWorks would regenerate the profile automatically. I also used a gear-ratio website to help
+              figure out which tooth combinations would give me the ratio I wanted.
             </div>
 
-            <h3>Gear ratios in the train</h3>
-            <p>The train uses four gears with different tooth counts to produce different output speeds from a single
-              input. A 12-tooth pinion drives a 30-tooth gear (ratio 1:2.5), which is axle-connected to a 14-tooth
-              pinion driving a 28-tooth gear (ratio 1:2) — giving an overall compound ratio of 1:5 from the smallest to
-              the largest gear. A secondary pair runs at 1:5 as a direct stage for comparison.</p>
+            <h3>Building the 10:1 gear train</h3>
+            <p>My target was a 10:1 overall gear ratio. I used four gears across three axles to create three reduction stages: 12T → 30T, 14T → 28T, and 14T → 28T, with the intermediate gears coupled on their respective axles.</p>
+            <pre style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.85rem 1.1rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.5rem 0 1rem;line-height:1.7;"><code><span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">STAGE 1</span>   12T → 30T    30/12  =  2.5 : 1
+<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">STAGE 2</span>   14T → 28T    28/14  =  2   : 1
+<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">STAGE 3</span>   14T → 28T    28/14  =  2   : 1
 
-            <h3>3D printing at the UBCO Makerspace</h3>
-            <p>All four gears were printed on the Prusa i3 MK3S at UBCO's Makerspace in PLA at 0.1mm layer height.
-              Getting the tooth clearance right took iteration — the first print came out with teeth that were too tight
-              and wouldn't rotate freely. I added 0.2mm radial clearance to the dedendum and reprinted, which fixed the
-              binding.</p>
-            <ul>
-              <li>Each gear printed separately in a different colour to make the ratio stages visually distinct.</li>
-              <li>Foam inserts pressed into the centre bores act as friction bearings against the axle pins.</li>
-              <li>The failed first print (teeth meshing too tight) is kept as a reference — it clearly shows where the
-                profile overlapped.</li>
-            </ul>
+<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">OVERALL</span>   30/12 × 28/14 × 28/14  =  <strong style="color:var(--telemetry);">10 : 1</strong></code></pre>
 
-            <h3>What I learned</h3>
-            <p>Working through the involute maths manually before printing gave me a much clearer mental model of why
-              standard pressure angles and module systems exist — they exist precisely so that gears from different
-              designs can mesh without custom clearance calculations every time. The 3D printing side taught me that
-              theoretical clearance and printed clearance aren't the same thing: FDM parts swell slightly on the outer
-              walls, so you need to account for that in the model, not just in the slicer.</p>
+            <h3>Taking the CAD to the printer</h3>
+            <p>I printed the gears at the UBCO Makerspace on a Prusa i3 MK3S using PLA at 0.1 mm layer height.
+              Before printing, I added cut-extrudes to the gear bodies to remove unnecessary material and keep
+              PLA usage down.</p>
+
+            <h3>Iterating on the print</h3>
+            <p>One of the prints failed partway through — likely due to bed adhesion.</p>
+            <p>Once I had a complete set, I found the gears were too tight to rotate freely. I added approximately
+              0.15 mm clearance around the gear interfaces and reprinted. After that adjustment, the gears spun
+              without binding.</p>
+
+            <h3>Result</h3>
+            <p>The printed gear train achieved the intended 10:1 ratio and the gears rotated freely once
+              the clearance was dialled in.</p>
           </div>
 
           <aside class="spec-sidebar">
             <h4>PROJECT SPECS</h4>
             <div class="spec-row"><span>Gear type</span><span>Spur, involute</span></div>
-            <div class="spec-row"><span>Compound ratio</span><span style="color:var(--telemetry)">1:5</span></div>
+            <div class="spec-row"><span>Overall ratio</span><span style="color:var(--telemetry)">10:1</span></div>
             <div class="spec-row"><span>CAD method</span><span>Equation-driven sketch</span></div>
             <div class="spec-row"><span>Printer</span><span>Prusa i3 MK3S</span></div>
             <div class="spec-row"><span>Material</span><span>PLA</span></div>
@@ -653,21 +642,32 @@
             </figcaption>
           </figure>
           <figure>
-            <img src="images/gear-isometric-3d.jpg"
-              alt="Isometric SolidWorks render of four-gear assembly in red, blue, orange and green">
-            <figcaption>Isometric render of the full assembly — all four gears positioned on their centre distances.
+            <img src="images/Equations manager screenshot.jpg"
+              alt="SolidWorks Equations Manager showing global variables and equations defining gear geometry">
+            <figcaption>SolidWorks Equations Manager used to parameterize the gear geometry and generate different tooth counts.
             </figcaption>
           </figure>
           <figure>
             <img src="images/gear-generator-tool.jpg"
               alt="Gear Generator software showing gear parameters and meshing simulation">
-            <figcaption>Gear Generator used to cross-check pitch diameters and centre distances before printing.
+            <figcaption>Gear Generator used to determine the gear combination for the target 10:1 ratio.
+            </figcaption>
+          </figure>
+          <figure>
+            <img src="images/gear-isometric-3d.jpg"
+              alt="Isometric SolidWorks render of four-gear assembly in red, blue, orange and green">
+            <figcaption>Isometric render of the full assembly — all four gears positioned on their centre distances.
             </figcaption>
           </figure>
         </div>
 
         <p class="gallery-section-label">Printing &amp; results</p>
         <div class="case-gallery">
+          <figure>
+            <img src="images/gear-failed-print.jpg"
+              alt="Failed 3D print of gear partway through on the Prusa build plate">
+            <figcaption>First print attempt failed partway through — likely due to bed adhesion.</figcaption>
+          </figure>
           <figure>
             <img src="images/gear-printing-prusa.jpg"
               alt="Prusa i3 MK3S 3D printer mid-print with red gear on the build plate">
