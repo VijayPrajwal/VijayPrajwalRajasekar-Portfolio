@@ -66,6 +66,7 @@
       border-right: 1px solid var(--border);
       overflow: hidden;
       min-height: 220px;
+      cursor: zoom-in;
     }
 
     @media (max-width: 680px) {
@@ -182,13 +183,25 @@
     }
 
     .cswa-thumb {
-      width: 110px;
-      height: 78px;
+      width: 170px;
+      height: 115px;
       border-radius: 6px;
       overflow: hidden;
       background: #fff;
       border: 1px solid var(--border);
       flex-shrink: 0;
+      cursor: zoom-in;
+    }
+
+    @media (max-width: 580px) {
+      .cswa-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .cswa-thumb {
+        width: 100%;
+        height: 160px;
+      }
     }
 
     .cswa-thumb img {
@@ -602,7 +615,7 @@
 
         <!-- CSWP hero card -->
         <div class="cswp-hero">
-          <div class="cswp-hero-img">
+          <div class="cswp-hero-img" onclick="openLightbox('images/certs/cswp-certificate.jpg')">
             <img src="images/certs/cswp-certificate.jpg"
               alt="Certified SolidWorks Professional (CSWP) certificate awarded to Vijay Prajwal Rajasekar, June 2022">
           </div>
@@ -612,7 +625,7 @@
             <div class="issuer">Mechanical Design — Dassault Systèmes SOLIDWORKS</div>
             <div class="cswp-hero-meta">
               <span class="year-badge">2022</span>
-              <span>June 29 2022</span>
+              <span>June 29, 2022</span>
               <a href="images/certs/CSWP-Certificate.pdf" target="_blank" rel="noopener">View PDF ↗</a>
             </div>
           </div>
@@ -620,7 +633,7 @@
 
         <!-- CSWA compact row -->
         <div class="cswa-row">
-          <div class="cswa-thumb">
+          <div class="cswa-thumb" onclick="openLightbox('images/certs/cswa-certificate.jpg')">
             <img src="images/certs/cswa-certificate.jpg"
               alt="Certified SolidWorks Associate (CSWA) certificate awarded to Vijay Prajwal Rajasekar, October 2020">
           </div>
