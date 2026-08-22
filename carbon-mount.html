@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Forged Carbon Fiber Motor Mount — Vijay Prajwal Rajasekar</title>
+  <meta name="description" content="Mold design and layup lead for a forged carbon fiber drone motor mount. Replaced 114 g aluminum mounts with 48 g carbon parts — a 57.9% mass reduction across four mounts.">
   <link rel="stylesheet" href="assets/style.css">
   <style>
     .back-link {
@@ -31,6 +32,14 @@
       margin: 0.5em 0 0;
     }
 
+    .case-subtitle {
+      font-family: var(--font-mono);
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      color: var(--text-dim);
+      margin-top: 0.4rem;
+      font-weight: 500;
+    }
+
     .case-meta {
       display: flex;
       gap: 1.5rem;
@@ -52,6 +61,115 @@
       font-weight: 600;
     }
 
+    /* ---- Outcome bar ---- */
+    .outcome-bar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: stretch;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+
+    .outcome-col {
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .outcome-col.before {
+      border-right: 1px solid var(--border-soft);
+    }
+
+    .outcome-col.after {
+      border-left: 1px solid var(--border-soft);
+    }
+
+    .outcome-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      color: var(--text-faint);
+    }
+
+    .outcome-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+
+    .outcome-value {
+      font-family: var(--font-mono);
+      font-size: 1.65rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--text);
+    }
+
+    .outcome-col.after .outcome-value {
+      color: var(--telemetry);
+    }
+
+    .outcome-sub {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-faint);
+      margin-top: 2px;
+    }
+
+    .outcome-reduction {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      background: rgba(74, 222, 128, 0.04);
+      border-top: 1px solid var(--border-soft);
+      grid-column: 1 / -1;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .outcome-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .outcome-stat .stat-val {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--telemetry);
+    }
+
+    .outcome-stat .stat-lbl {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+
+    @media (max-width: 580px) {
+      .outcome-bar {
+        grid-template-columns: 1fr 1fr;
+      }
+      .outcome-divider { display: none; }
+      .outcome-col.before { border-right: none; border-bottom: 1px solid var(--border-soft); }
+      .outcome-col.after  { border-left: none;  border-bottom: 1px solid var(--border-soft); }
+      .outcome-reduction  { gap: 1.25rem; }
+    }
+
+    /* ---- Gallery sections ---- */
     .gallery-section-label {
       font-family: var(--font-mono);
       font-size: 0.72rem;
@@ -59,6 +177,10 @@
       color: var(--text-faint);
       text-transform: uppercase;
       margin: 2.25rem 0 0.75rem;
+    }
+
+    .gallery-section-label--top {
+      margin-top: 3rem;
     }
 
     .gallery-section-label:first-child {
@@ -73,15 +195,11 @@
     }
 
     @media (max-width: 900px) {
-      .case-gallery {
-        grid-template-columns: repeat(3, 1fr);
-      }
+      .case-gallery { grid-template-columns: repeat(3, 1fr); }
     }
 
     @media (max-width: 580px) {
-      .case-gallery {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      .case-gallery { grid-template-columns: repeat(2, 1fr); }
     }
 
     .case-gallery figure {
@@ -90,119 +208,6 @@
       overflow: hidden;
       border: 1px solid var(--border);
       background: var(--surface);
-    }
-
-    .case-gallery figure img {
-      width: 100%;
-      height: 160px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .case-gallery figcaption {
-      padding: 6px 8px 8px;
-    }
-
-    figcaption {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--text-faint);
-    }
-
-    .case-body {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 3rem;
-      margin-top: 3rem;
-    }
-
-    @media (max-width: 880px) {
-      .case-body {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
-    }
-
-    .case-body h3 {
-      font-size: 1.15rem;
-      margin: 2rem 0 0.75rem;
-    }
-
-    .case-body h3:first-child {
-      margin-top: 0;
-    }
-
-    .case-body p,
-    .case-body li {
-      color: var(--text-dim);
-      font-size: 0.98rem;
-      margin-bottom: 0.9rem;
-    }
-
-    .case-body ul {
-      padding-left: 1.1rem;
-    }
-
-    .case-body li::marker {
-      color: var(--signal);
-    }
-
-    .spec-sidebar {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.5rem;
-      align-self: start;
-      position: sticky;
-      top: 90px;
-    }
-
-    .spec-sidebar h4 {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      color: var(--text-faint);
-      margin-bottom: 1rem;
-    }
-
-    .spec-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.6rem 0;
-      border-bottom: 1px solid var(--border-soft);
-      font-size: 0.88rem;
-    }
-
-    .spec-row:last-child {
-      border-bottom: none;
-    }
-
-    .spec-row span:first-child {
-      color: var(--text-dim);
-    }
-
-    .spec-row span:last-child {
-      font-family: var(--font-mono);
-      font-weight: 600;
-      text-align: right;
-    }
-
-    .process-note {
-      background: rgba(255, 107, 53, 0.06);
-      border: 1px solid var(--signal-dim);
-      border-radius: 8px;
-      padding: 1.1rem 1.3rem;
-      margin: 1.5rem 0;
-      font-size: 0.92rem;
-      color: var(--text);
-    }
-
-    .process-note b {
-      color: var(--signal);
-    }
-
-    /* ---- Lightbox ---- */
-    .case-gallery figure {
       position: relative;
     }
 
@@ -240,6 +245,259 @@
       opacity: 1;
     }
 
+    .case-gallery figcaption {
+      padding: 6px 8px 8px;
+    }
+
+    figcaption {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-faint);
+    }
+
+    /* ---- Case body ---- */
+    .case-body {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 880px) {
+      .case-body {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    .case-body h3 {
+      font-size: 1.15rem;
+      margin: 2.25rem 0 0.75rem;
+    }
+
+    .case-body h3:first-child {
+      margin-top: 0;
+    }
+
+    .case-body p,
+    .case-body li {
+      color: var(--text-dim);
+      font-size: 0.98rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .case-body ul {
+      padding-left: 1.1rem;
+    }
+
+    .case-body li::marker {
+      color: var(--signal);
+    }
+
+    /* section divider inside body */
+    .section-rule {
+      border: none;
+      border-top: 1px solid var(--border-soft);
+      margin: 2rem 0 0;
+    }
+
+    /* ---- Iteration table ---- */
+    .iteration-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0.75rem 0 1.25rem;
+    }
+
+    .iteration-table thead th {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      padding: 0 0.75rem 0.65rem 0;
+      text-align: left;
+      border-bottom: 1px solid var(--border-soft);
+      white-space: nowrap;
+    }
+
+    .iteration-table tbody td {
+      padding: 0.65rem 0.75rem 0.65rem 0;
+      vertical-align: top;
+      color: var(--text-dim);
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 0.875rem;
+      line-height: 1.45;
+    }
+
+    .iteration-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .iteration-table .iter-num {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--signal);
+      white-space: nowrap;
+      padding-right: 1rem;
+      width: 2.5rem;
+    }
+
+    .iteration-table .iter-fix {
+      color: var(--text);
+      border-left: 2px solid var(--border-soft);
+      padding-left: 0.75rem;
+    }
+
+    /* Mobile: stack each iteration as a mini-block rather than squeezing columns */
+    @media (max-width: 640px) {
+      .iteration-table thead { display: none; }
+
+      .iteration-table tbody tr {
+        display: block;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--border-soft);
+      }
+
+      .iteration-table tbody tr:last-child { border-bottom: none; }
+
+      .iteration-table tbody td {
+        display: block;
+        border-bottom: none;
+        padding: 0.15rem 0;
+        font-size: 0.875rem;
+      }
+
+      .iteration-table .iter-num {
+        font-size: 0.7rem;
+        color: var(--signal);
+        margin-bottom: 0.2rem;
+        padding-right: 0;
+      }
+
+      .iteration-table .iter-fix {
+        border-left: none;
+        padding-left: 0;
+        padding-top: 0.35rem;
+        color: var(--text);
+        border-top: 1px solid var(--border-soft);
+        margin-top: 0.3rem;
+      }
+
+      /* Inject mini-labels so the reader knows which line is which */
+      .iteration-table td:nth-child(2)::before {
+        content: 'Observed: ';
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        display: block;
+        margin-bottom: 2px;
+      }
+
+      .iteration-table td.iter-fix::before {
+        content: 'Changed: ';
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--text-faint);
+        display: block;
+        margin-bottom: 2px;
+      }
+    }
+
+    /* ---- Spec sidebar ---- */
+    .spec-sidebar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      align-self: start;
+      position: sticky;
+      top: 90px;
+    }
+
+    .spec-sidebar h4 {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--text-faint);
+      margin-bottom: 1rem;
+    }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 0.88rem;
+    }
+
+    .spec-row:last-child {
+      border-bottom: none;
+    }
+
+    .spec-row span:first-child {
+      color: var(--text-dim);
+    }
+
+    .spec-row span:last-child {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      text-align: right;
+    }
+
+    /* ---- Process note ---- */
+    .process-note {
+      background: rgba(255, 107, 53, 0.06);
+      border: 1px solid var(--signal-dim);
+      border-radius: 8px;
+      padding: 1.1rem 1.3rem;
+      margin: 1.5rem 0;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    .process-note b {
+      color: var(--signal);
+    }
+
+    /* ---- Result callout ---- */
+    .result-callout {
+      background: rgba(74, 222, 128, 0.05);
+      border: 1px solid rgba(74, 222, 128, 0.2);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      margin: 1.25rem 0 1.5rem;
+    }
+
+    .result-callout-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      margin-bottom: 0.55rem;
+    }
+
+    .result-callout-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .result-callout .rc-val {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--telemetry);
+      white-space: nowrap;
+    }
+
+    .result-callout .rc-lbl {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    /* ---- Lightbox ---- */
     .lightbox {
       display: none;
       position: fixed;
@@ -295,9 +553,7 @@
       transition: color 0.15s ease;
     }
 
-    .lightbox-close:hover {
-      color: #fff;
-    }
+    .lightbox-close:hover { color: #fff; }
 
     .lightbox-nav {
       position: fixed;
@@ -318,17 +574,9 @@
       z-index: 1001;
     }
 
-    .lightbox-nav:hover {
-      background: rgba(255, 255, 255, 0.18);
-    }
-
-    .lightbox-prev {
-      left: 1rem;
-    }
-
-    .lightbox-next {
-      right: 1rem;
-    }
+    .lightbox-nav:hover { background: rgba(255, 255, 255, 0.18); }
+    .lightbox-prev { left: 1rem; }
+    .lightbox-next { right: 1rem; }
 
     /* ---- Video section ---- */
     .video-grid {
@@ -404,6 +652,7 @@
       <div class="wrap">
         <span class="tag tag-club">CLUB · UBCO AEROSPACE</span>
         <h1>Forged Carbon Fiber Motor Mount</h1>
+        <p class="case-subtitle">Mold design, iterative manufacturing, and hand-layup fabrication</p>
 
         <div class="case-meta">
           <div>ROLE<b>Mold design &amp; layup lead</b></div>
@@ -412,45 +661,159 @@
           <div>RESULT<b>−57.9% mass per mount</b></div>
         </div>
 
+        <!-- Outcome bar — scannable summary for any reader -->
+        <div class="outcome-bar">
+          <div class="outcome-col before">
+            <span class="outcome-label">Before — Aluminum</span>
+            <span class="outcome-value">114 g</span>
+            <span class="outcome-sub">machined aluminum · ×4 mounts</span>
+          </div>
+          <div class="outcome-divider">→</div>
+          <div class="outcome-col after">
+            <span class="outcome-label">After — Forged CF</span>
+            <span class="outcome-value">48 g</span>
+            <span class="outcome-sub">chopped-tow carbon · same interface</span>
+          </div>
+          <div class="outcome-reduction">
+            <div class="outcome-stat">
+              <span class="stat-val">−57.9%</span>
+              <span class="stat-lbl">mass reduction</span>
+            </div>
+            <div class="outcome-stat">
+              <span class="stat-val">66 g</span>
+              <span class="stat-lbl">saved per mount</span>
+            </div>
+            <div class="outcome-stat">
+              <span class="stat-val">264 g</span>
+              <span class="stat-lbl">total airframe savings (×4)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main narrative + sticky sidebar -->
         <div class="case-body">
           <div>
-            <h3>The problem</h3>
-            <p>Our drone's motor mounts were originally a 4-piece machined aluminum assembly — one per motor, four per
-              airframe. They worked, but at 114 g each they were carrying weight the airframe didn't need, and every
-              gram on a quad-motor drone gets paid for in flight time and payload capacity.</p>
 
-            <h3>The approach</h3>
-            <p>I led the mold design and manufacturing process for a forged carbon fiber replacement, using chopped-tow
-              carbon fiber and resin instead of a traditional woven prepreg layup. Forged carbon lets you pack fiber
-              into a complex 3D shape — like the motor's bolt circle and cable channel — in a way that's difficult with
-              sheet layup.</p>
+            <!-- SITUATION -->
+            <h3>The problem</h3>
+            <p>Our drone's motor mounts were a machined aluminum assembly — one per motor, four per airframe.
+              At <strong>114 g each</strong>, they worked fine mechanically, but they were carrying structural
+              mass the airframe didn't need. Reducing component weight was an active goal for the team, and
+              the motor mounts were an obvious target.</p>
+
+            <!-- TASK -->
+            <hr class="section-rule">
+            <h3>My responsibility</h3>
+            <p>As mold design &amp; layup lead, I was responsible for developing a carbon-fiber replacement
+              from geometry to finished part. That meant:</p>
             <ul>
-              <li>Designed the mount geometry in SolidWorks around the motor's existing bolt pattern and mounting arm,
-                keeping it interchangeable with the original aluminum part.</li>
-              <li>Built the mold myself through several versions — each round adjusting draft angles, vent placement,
-                and clamping pressure as I learned what was actually causing voids and inconsistent fiber distribution.
-              </li>
-              <li>Hand-packed chopped carbon tow with resin into the mold, then cured, demolded, and trimmed each part
-                to final shape.</li>
+              <li><strong>Component design</strong> — model a drop-in replacement in SolidWorks that preserved the
+                existing motor bolt pattern and mounting arm geometry exactly, so nothing else on the airframe
+                needed to change.</li>
+              <li><strong>Mold design</strong> — design and iterate the manufacturing mold, including draft angles,
+                vent placement, parting line, and clamping strategy.</li>
+              <li><strong>Manufacturing</strong> — hand-pack, cure, demold, and trim the parts; evaluate each
+                result and feed observations back into the next mold version.</li>
             </ul>
 
+            <!-- ACTION: Design & manufacturing approach -->
+            <hr class="section-rule">
+            <h3>What I designed and built</h3>
+            <p>I modeled the replacement geometry in SolidWorks, working directly from the motor's existing bolt
+              pattern and mounting arm dimensions so the carbon part would be interchangeable with the aluminum
+              original. I then designed the two-part manufacturing mold from scratch.</p>
+            <p>I chose a forged carbon approach — hand-packing chopped carbon tow and resin into a closed mold
+              rather than a woven prepreg layup. The motor mount has a recessed bolt circle, a mounting arm, and
+              a cable channel; chopped tow fills that 3D cavity more reliably than flat fabric would, and it
+              was compatible with the equipment available.</p>
+            <p>The first mold was a starting point, not a finished design — it took several iterations before
+              the parts came out clean.</p>
+
+            <!-- ACTION: Iterations -->
+            <hr class="section-rule">
+            <h3>How the mold evolved</h3>
+            <p>The first pulls off the mold showed real problems. Each one pointed to a specific design decision
+              that needed to change. I pulled the part, identified what the defect was telling me, updated the
+              mold, and ran the next iteration:</p>
+
+            <table class="iteration-table" aria-label="Mold iteration log">
+              <thead>
+                <tr>
+                  <th>Ver.</th>
+                  <th>What I observed</th>
+                  <th>What I changed</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="iter-num">v1</td>
+                  <td>Part stuck in the mold on demolding — side wall draft was too shallow to release cleanly</td>
+                  <td class="iter-fix">Added draft angle to the cavity side walls</td>
+                </tr>
+                <tr>
+                  <td class="iter-num">v2</td>
+                  <td>Resin-starved patches near the thin mounting arm — resin likely migrating away from the arm under clamp pressure</td>
+                  <td class="iter-fix">Repositioned the vent path to redirect resin flow back toward the arm section</td>
+                </tr>
+                <tr>
+                  <td class="iter-num">v3</td>
+                  <td>Inconsistent fiber distribution around the bolt holes — most likely from uneven hand-packing before mold closure</td>
+                  <td class="iter-fix">Changed packing sequence to fill the bolt-hole area first before closing the mold</td>
+                </tr>
+                <tr>
+                  <td class="iter-num">v4</td>
+                  <td>Thick, uneven flash at the parting line — mold not closing evenly across its length</td>
+                  <td class="iter-fix">Refined the parting line geometry and added clamp points to distribute closing force</td>
+                </tr>
+              </tbody>
+            </table>
+
             <div class="process-note">
-              <b>What changed between mold versions:</b> early pulls had resin-starved spots near the thinner mounting
-              arm and rough release around the bolt holes. Later mold revisions added draft angle to the side wall and
-              repositioned the vent path, which fixed both.
+              <b>The decision pattern:</b> I didn't guess at fixes. Each revision started from what the previous
+              part was physically showing me — a stuck part means insufficient draft; a resin-starved zone means
+              the flow path is wrong; uneven flash means the mold isn't closing consistently. The change followed
+              the observation.
             </div>
 
-            <h3>The result</h3>
-            <p>The finished part weighs 48 g, down from 114 g for the equivalent aluminum component — a 57.9% reduction
-              per mount. Across the drone's four motor mounts, that's roughly 264 g of structural weight removed without
-              changing the mounting interface or motor position.</p>
+            <p>Manufacturing cycle for each part: hand-pack chopped carbon tow with resin into the mold, clamp,
+              cure 24 hours, demold, trim the flash, and compare the result against the previous version.</p>
 
-            <h3>What I'd do differently</h3>
-            <p>Next iteration, I'd move to a matched-mold or vacuum-assisted process to get more consistent fiber volume
-              fraction part-to-part — hand-packing chopped tow gives good results but it's sensitive to how evenly you
-              distribute material before clamping.</p>
+            <!-- RESULT -->
+            <hr class="section-rule">
+            <h3>The result</h3>
+
+            <div class="result-callout">
+              <div class="result-callout-row">
+                <span class="rc-val">48 g</span>
+                <span class="rc-lbl">finished carbon mount — down from 114 g aluminum original</span>
+              </div>
+              <div class="result-callout-row">
+                <span class="rc-val">−57.9%</span>
+                <span class="rc-lbl">mass reduction per mount</span>
+              </div>
+              <div class="result-callout-row">
+                <span class="rc-val">264 g</span>
+                <span class="rc-lbl">removed from the airframe across four mounts</span>
+              </div>
+            </div>
+
+            <p>The carbon mount fits the same bolt pattern and mounting arm as the aluminum original. No
+              changes were needed anywhere else on the airframe. The scale photos below show both parts
+              weighed against each other.</p>
+
+            <!-- REFLECTION -->
+            <hr class="section-rule">
+            <h3>What I'd improve next time</h3>
+            <p>Hand-packing chopped tow is sensitive to how evenly the material is distributed before the mold
+              closes. Small differences in packing density showed up as visible variation in fiber distribution
+              between parts. The parts are sound and are installed on the airframe — but if I were running
+              another batch, or if tighter consistency were a requirement, I'd move to a matched-mold or
+              vacuum-assisted process. Either approach would give more repeatable control over fiber volume
+              fraction without fundamentally changing the tooling concept.</p>
+
           </div>
 
+          <!-- Sticky spec sidebar -->
           <aside class="spec-sidebar">
             <h4>SPEC SHEET</h4>
             <div class="spec-row"><span>Aluminum mount (×4)</span><span>114 g each</span></div>
@@ -459,81 +822,86 @@
             <div class="spec-row"><span>Mass saved / airframe</span><span>264 g</span></div>
             <div class="spec-row"><span>Reduction</span><span style="color:var(--telemetry)">−57.9%</span></div>
             <div class="spec-row"><span>Material</span><span>Chopped tow CF</span></div>
+            <div class="spec-row"><span>Process</span><span>Hand layup</span></div>
+            <div class="spec-row"><span>Cure time</span><span>24 hrs</span></div>
+            <div class="spec-row"><span>Mold iterations</span><span>4+</span></div>
           </aside>
         </div>
 
-        <p class="gallery-section-label" style="margin-top:3rem;">Layup &amp; molding process</p>
+        <!-- Gallery: mold design & manufacturing process -->
+        <p class="gallery-section-label gallery-section-label--top">Mold design &amp; manufacturing process</p>
         <div class="case-gallery">
           <figure>
-            <img src="images/IMG_5923.jpg"
-              alt="3D printed mold on printer bed">
-            <figcaption>3D printed mold on printer bed.</figcaption>
-          </figure>
-          <figure>
-            <img src="images/hand-layup-process.jpg"
-              alt="Hand-packing chopped carbon fiber tow with resin into the mold using a wooden stick">
-            <figcaption>Hand-packing chopped tow and resin into the mold.</figcaption>
+            <img src="images/mold-parts-flat.jpg" alt="All 3D printed mold components laid out flat before assembly">
+            <figcaption>Mold components laid out before first assembly.</figcaption>
           </figure>
           <figure>
             <img src="images/mold-halves-open.jpg"
               alt="3D printed mold halves open, showing the cavity geometry for the motor mount">
-            <figcaption>Mold halves open — cavity geometry.</figcaption>
+            <figcaption>Mold halves open — cavity showing bolt-circle and mounting arm geometry.</figcaption>
           </figure>
           <figure>
-            <img src="images/mold-parts-flat.jpg" alt="All 3D printed mold components laid out flat before assembly">
-            <figcaption>Mold components before assembly.</figcaption>
+            <img src="images/IMG_5923.jpg"
+              alt="3D printed mold on printer bed">
+            <figcaption>Revised mold on printer bed — updated draft and vent geometry.</figcaption>
+          </figure>
+          <figure>
+            <img src="images/hand-layup-process.jpg"
+              alt="Hand-packing chopped carbon fiber tow with resin into the mold using a wooden stick">
+            <figcaption>Hand-packing chopped tow and resin into the mold cavity.</figcaption>
           </figure>
           <figure>
             <img src="images/resin-cure-bagged.jpg" alt="Clamped mold wrapped in plastic during resin cure">
-            <figcaption>Clamped and curing — 24 hrs.</figcaption>
+            <figcaption>Clamped and curing — 24-hour cure at ambient temperature.</figcaption>
           </figure>
         </div>
 
-        <p class="gallery-section-label">Finished part</p>
+        <!-- Gallery: finished part & weight comparison -->
+        <p class="gallery-section-label">Finished part &amp; weight comparison</p>
         <div class="case-gallery">
           <figure>
             <img src="images/carbon-mount-raw.png" alt="Demolded forged carbon fiber motor mount on a wooden workbench">
-            <figcaption>Freshly demolded, pre-trim.</figcaption>
+            <figcaption>Freshly demolded — flash visible at parting line, pre-trim.</figcaption>
           </figure>
           <figure>
             <img src="images/mount-clamped-detail.jpg" alt="Close-up of the trimmed carbon fiber mount held in a vise">
-            <figcaption>Mounting arm and bolt hole detail.</figcaption>
+            <figcaption>Trimmed mount — mounting arm and bolt hole detail.</figcaption>
           </figure>
           <figure>
             <img src="images/mount-side-profile.jpg" alt="Side profile of the finished carbon fiber mount">
-            <figcaption>Side profile.</figcaption>
+            <figcaption>Side profile — wall section consistent after mold refinement.</figcaption>
           </figure>
           <figure>
             <img src="images/mount-final-topdown.jpg" alt="Top-down view of the finished carbon fiber motor mount">
-            <figcaption>Top-down view, finished mount.</figcaption>
+            <figcaption>Top-down view — bolt pattern matches original aluminum interface.</figcaption>
           </figure>
           <figure>
             <img src="images/scale-aluminum-114g.png"
               alt="Original aluminum motor mount on a digital scale reading 114 grams">
-            <figcaption>Aluminum — 114 g.</figcaption>
+            <figcaption>Original aluminum mount — 114 g.</figcaption>
           </figure>
           <figure>
             <img src="images/scale-carbon-48g.png"
               alt="Forged carbon fiber motor mount on a digital scale reading 48 grams">
-            <figcaption>Carbon — 48 g.</figcaption>
+            <figcaption>Carbon fiber replacement — 48 g. Same interface, 57.9% lighter.</figcaption>
           </figure>
           <figure>
             <img src="images/motor-assembly.png"
               alt="Drone motor mounted via the carbon fiber bracket, viewed from below">
-            <figcaption>Motor seated in the finished mount.</figcaption>
+            <figcaption>Motor installed in the finished carbon mount on the airframe.</figcaption>
           </figure>
         </div>
 
         <!-- Load testing video -->
-        <p class="gallery-section-label" style="margin-top:3rem;">Load testing in action</p>
+        <p class="gallery-section-label gallery-section-label--top">Load testing</p>
         <div class="video-grid">
           <div class="video-wrap">
             <video controls playsinline preload="metadata">
               <source src="images/carbon-load-test.mp4" type="video/mp4">
               <source src="images/Snapchat-93379272.mp4" type="video/mp4">
             </video>
-            <div class="video-caption">Load test — measuring pull force on the forged carbon motor mount clamped in a
-              workbench vise.</div>
+            <div class="video-caption">Manual pull test — carbon mount clamped in a workbench vise, physically
+              loaded before installation to verify the part held under hand force.</div>
           </div>
         </div>
       </div>
@@ -583,7 +951,6 @@
 
   <script>
     (function () {
-      // Collect all gallery images in order
       var imgs = Array.from(document.querySelectorAll('.case-gallery figure img'));
       var current = 0;
       var lb = document.getElementById('lightbox');
@@ -606,15 +973,12 @@
         document.body.style.overflow = '';
       }
 
-      // Click on gallery image to open
       imgs.forEach(function (img, i) {
         img.addEventListener('click', function () { open(i); });
       });
 
-      // Close button
       document.getElementById('lbClose').addEventListener('click', close);
 
-      // Prev / Next
       document.getElementById('lbPrev').addEventListener('click', function (e) {
         e.stopPropagation();
         open(current - 1);
@@ -624,12 +988,10 @@
         open(current + 1);
       });
 
-      // Click backdrop to close
       lb.addEventListener('click', function (e) {
         if (e.target === lb) close();
       });
 
-      // Keyboard: Escape to close, arrows to navigate
       document.addEventListener('keydown', function (e) {
         if (!lb.classList.contains('open')) return;
         if (e.key === 'Escape') close();
