@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Engineering Portfolio - {{profile.name}}</title>
+  <link rel="stylesheet" href="print.css">
+</head>
+<body>
+
+  <!-- Page 1: Cover Page -->
+  <div class="page cover-page">
+    <div class="page-border">
+      <div class="frame-header">VIJAY PRAJWAL RAJASEKAR | PORTFOLIO</div>
+      <div class="frame-footer">
+        <span>INTRODUCTORY PROFILE</span>
+        <span>Page 1 of 4</span>
+      </div>
+    </div>
+    
+    <div class="cover-content">
+      <div class="cover-header">
+        <h1>{{profile.name}}</h1>
+        <div class="title-divider"></div>
+        <h2>{{profile.major}}</h2>
+        <h3>{{profile.focus}}</h3>
+      </div>
+      
+      <p class="summary">{{profile.summary}}</p>
+      
+      <div class="contact-grid">
+        <div class="contact-item">
+          <span class="contact-label">EMAIL</span>
+          <a class="contact-value" href="mailto:{{profile.email}}">{{profile.email}}</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">LINKEDIN</span>
+          <a class="contact-value" href="https://{{profile.linkedin}}">{{profile.linkedin}}</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">LIVE PORTFOLIO</span>
+          <a class="contact-value" href="{{profile.portfolioUrl}}">{{profile.portfolioUrl}}</a>
+        </div>
+      </div>
+
+      <div class="qr-container">
+        <div class="qr-box">
+          <img src="{{qrCode}}" alt="QR Code" class="qr-code">
+        </div>
+        <p class="qr-text">Scan to view interactive live portfolio & 3D CAD models</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 2: Forged Carbon Fiber Motor Mount -->
+  <div class="page project-page">
+    <div class="page-border">
+      <div class="frame-header">VIJAY PRAJWAL RAJASEKAR | MECHANICAL & AEROSPACE DESIGN</div>
+      <div class="frame-footer">
+        <span>PROJECT CASE STUDY</span>
+        <span>Page 2 of 4</span>
+      </div>
+    </div>
+    
+    {{#with projects.[0]}}
+    <div class="project-layout">
+      <!-- Title Block -->
+      <div class="project-header">
+        <h1>{{title}}</h1>
+        <div class="project-meta">
+          <span class="role-badge">ROLE: {{role}}</span>
+          <span class="tools-badge">TOOLS: {{tools}}</span>
+        </div>
+      </div>
+      
+      <!-- Primary Visual & Key Metric Callout Row -->
+      <div class="visual-row">
+        <div class="hero-image-container">
+          <img class="hero-image" src="{{images.[0]}}" alt="Finished Carbon Fiber Motor Mount">
+          <span class="image-caption">Finished carbon fiber motor mount (top-down view)</span>
+        </div>
+        <div class="metric-callout-block">
+          <div class="metric-value">57.9%</div>
+          <div class="metric-label">MASS REDUCTION</div>
+          <div class="metric-sub">114 g (Aluminum) → 48 g (Carbon)</div>
+        </div>
+      </div>
+      
+      <!-- Content Grid -->
+      <div class="content-grid">
+        <div class="grid-col">
+          <div class="section-block">
+            <h3>OBJECTIVE</h3>
+            <p>{{objective}}</p>
+          </div>
+          <div class="section-block">
+            <h3>DESIGN & APPROACH</h3>
+            <p>{{approach}}</p>
+          </div>
+        </div>
+        
+        <div class="grid-col">
+          <div class="section-block">
+            <h3>ITERATIVE MANUFACTURING</h3>
+            <p>{{iteration}}</p>
+          </div>
+          <div class="section-block highlight-block">
+            <h3>OUTCOME</h3>
+            <p>{{outcome}}</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Supporting Visuals Row -->
+      <div class="supporting-visuals">
+        <div class="supporting-image-container">
+          <img class="supporting-image" src="{{images.[1]}}" alt="Weight comparison scale">
+          <span class="image-caption">48 g mass validation on scale</span>
+        </div>
+        <div class="supporting-image-container">
+          <img class="supporting-image" src="{{images.[2]}}" alt="Two-part aluminum mold halves">
+          <span class="image-caption">Two-part mold halves open</span>
+        </div>
+      </div>
+    </div>
+    {{/with}}
+  </div>
+
+  <!-- Page 3: Data Acquisition Buoy System (DABS) -->
+  <div class="page project-page">
+    <div class="page-border">
+      <div class="frame-header">VIJAY PRAJWAL RAJASEKAR | MECHANICAL & AEROSPACE DESIGN</div>
+      <div class="frame-footer">
+        <span>PROJECT CASE STUDY</span>
+        <span>Page 3 of 4</span>
+      </div>
+    </div>
+    
+    {{#with projects.[1]}}
+    <div class="project-layout">
+      <!-- Title Block -->
+      <div class="project-header">
+        <h1>{{title}}</h1>
+        <div class="project-meta">
+          <span class="role-badge">ROLE: {{role}}</span>
+          <span class="tools-badge">TOOLS: {{tools}}</span>
+        </div>
+      </div>
+      
+      <!-- Primary Visual & Key Metric Callout Row -->
+      <div class="visual-row">
+        <div class="hero-image-container">
+          <img class="hero-image" src="{{images.[0]}}" alt="DABS Buoy System Render">
+          <span class="image-caption">DABS buoy system assembly CAD render</span>
+        </div>
+        <div class="metric-callout-block DABS-accent">
+          <div class="metric-value">NOMINEE</div>
+          <div class="metric-label">DESIGN PROCESS CATEGORY</div>
+          <div class="metric-sub">Aquahacking Binational 2026</div>
+        </div>
+      </div>
+      
+      <!-- Content Grid -->
+      <div class="content-grid">
+        <div class="grid-col">
+          <div class="section-block">
+            <h3>OBJECTIVE</h3>
+            <p>{{objective}}</p>
+          </div>
+          <div class="section-block">
+            <h3>CAD & DESIGN APPROACH</h3>
+            <p>{{approach}}</p>
+          </div>
+        </div>
+        
+        <div class="grid-col">
+          <div class="section-block">
+            <h3>ENGINEERING ANALYSIS</h3>
+            <p>{{analysis}}</p>
+          </div>
+          <div class="section-block highlight-block">
+            <h3>OUTCOME</h3>
+            <p>{{outcome}}</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Supporting Visuals Row -->
+      <div class="supporting-visuals three-up">
+        <div class="supporting-image-container">
+          <img class="supporting-image" src="{{images.[1]}}" alt="Internal component layout CAD">
+          <span class="image-caption">Internal component layout CAD</span>
+        </div>
+        <div class="supporting-image-container">
+          <img class="supporting-image" src="{{images.[2]}}" alt="Stakeholder Analysis Model">
+          <span class="image-caption">Stakeholder Salience Model</span>
+        </div>
+        {{#if images.[3]}}
+        <div class="supporting-image-container">
+          <img class="supporting-image" src="{{images.[3]}}" alt="Risk Assessment Matrix">
+          <span class="image-caption">Risk Assessment Matrix</span>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+    {{/with}}
+  </div>
+
+  <!-- Page 4: Involute Gear Train -->
+  <div class="page project-page">
+    <div class="page-border">
+      <div class="frame-header">VIJAY PRAJWAL RAJASEKAR | MECHANICAL & AEROSPACE DESIGN</div>
+      <div class="frame-footer">
+        <span>PROJECT CASE STUDY</span>
+        <span>Page 4 of 4</span>
+      </div>
+    </div>
+    
+    {{#with projects.[2]}}
+    <div class="project-layout">
+      <!-- Title Block -->
+      <div class="project-header">
+        <h1>{{title}}</h1>
+        <div class="project-meta">
+          <span class="role-badge">ROLE: {{role}}</span>
+          <span class="tools-badge">TOOLS: {{tools}}</span>
+        </div>
+      </div>
+      
+      <!-- Primary Visual & Key Metric Callout Row -->
+      <div class="visual-row">
+        <div class="hero-image-container">
+          <img class="hero-image" src="{{images.[0]}}" alt="Gear Train Assembly CAD">
+          <span class="image-caption">Involute gear train assembly isometric CAD</span>
+        </div>
+        <div class="metric-callout-block gear-accent">
+          <div class="metric-value">10:1</div>
+          <div class="metric-label">GEAR RATIO</div>
+          <div class="metric-sub">3 reduction stages (smooth, no binding)</div>
+        </div>
+      </div>
+      
+      <!-- Content Grid -->
+      <div class="content-grid">
+        <div class="grid-col">
+          <div class="section-block">
+            <h3>OBJECTIVE</h3>
+            <p>{{objective}}</p>
+          </div>
+          <div class="section-block">
+            <h3>EQUATION-DRIVEN DESIGN</h3>
+            <p>{{approach}}</p>
+          </div>
+        </div>
+        
+        <div class="grid-col">
+          <div class="section-block">
+            <h3>MANUFACTURING & CLEARANCE</h3>
+            <p>{{manufacturing}}</p>
+          </div>
+          <div class="section-block highlight-block">
+            <h3>OUTCOME</h3>
+            <p>{{outcome}}</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Supporting Visuals Row -->
+      <div class="supporting-visuals">
+        <div class="supporting-image-container">
+          <img class="supporting-image" src="{{images.[1]}}" alt="SolidWorks Equation Manager">
+          <span class="image-caption">SolidWorks equations manager</span>
+        </div>
+        <div class="supporting-image-container">
+          <img class="supporting-image" src="{{images.[2]}}" alt="Manufactured gears layout">
+          <span class="image-caption">FDM printed gears on Prusa i3 MK3S</span>
+        </div>
+      </div>
+    </div>
+    {{/with}}
+  </div>
+
+</body>
+</html>

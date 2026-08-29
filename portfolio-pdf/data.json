@@ -1,0 +1,60 @@
+{
+  "profile": {
+    "name": "Vijay Prajwal Rajasekar",
+    "major": "Mechanical Engineering",
+    "focus": "Aerospace / Mechanical Design focus",
+    "summary": "Mechanical engineering student interested in aerospace design, with hands-on experience in CAD, composite manufacturing, and engineering analysis.",
+    "email": "vj0501@student.ubc.ca",
+    "linkedin": "linkedin.com/in/vijayprajwalrajasekar/",
+    "github": "github.com/VijayPrajwal",
+    "portfolioUrl": "https://vijayprajwal.github.io/VijayPrajwalRajasekar-Portfolio/"
+  },
+  "projects": [
+    {
+      "title": "Forged Carbon Fiber Motor Mount",
+      "role": "Mold design & layup lead",
+      "overview": "Mold design, iterative manufacturing, and hand-layup fabrication for a drone motor mount.",
+      "objective": "Replace 114 g aluminum mounts with 48 g carbon fiber parts — a 57.9% mass reduction — without changing the motor bolt pattern.",
+      "approach": "Modeled a drop-in replacement in SolidWorks preserving the original motor bolt pattern, then designed a two-part aluminum mold. Hand-packed chopped carbon tow and resin into the mold, refining the layup through multiple iterations.",
+      "iteration": "Resolved mold issues through testing: added draft angle to fix parts sticking, repositioned vents to address resin starvation, and adjusted clamping to reduce uneven flash.",
+      "outcome": "Finished mount weighed 48 g — a 57.9% reduction from the original 114 g aluminum part.",
+      "tools": "SolidWorks, hand layup",
+      "images": [
+        "../images/mount-final-topdown.jpg",
+        "../images/scale-carbon-48g.png",
+        "../images/mold-halves-open.jpg"
+      ]
+    },
+    {
+      "title": "Data Acquisition Buoy System (DABS)",
+      "role": "CAD Design & Engineering Analysis",
+      "overview": "Semester-long Team Engineering Design Project for Aquahacking Binational 2026.",
+      "objective": "Design a buoy system to monitor nitrogen and orthophosphate levels in aquatic environments.",
+      "approach": "Iterated the SolidWorks CAD to improve component layout and fit the electronics and sensors inside the housing. Exported a 3D browser viewer for stakeholder review.",
+      "analysis": "Conducted a Stakeholder Salience Model (Power, Legitimacy, Urgency) and a Risk Assessment Matrix covering risks such as biofouling and watertight seal degradation.",
+      "outcome": "Project nominated for the Design Process Category at Aquahacking Binational 2026.",
+      "tools": "SolidWorks",
+      "images": [
+        "../images/Buoy Images/dabs-hero.jpg",
+        "../images/Buoy Images/dabs-internal-layout.jpg",
+        "../images/Buoy Images/Stakeholder Analysis.png",
+        "../images/Buoy Images/dabs-risk-matrix.png"
+      ]
+    },
+    {
+      "title": "Involute Gear Train",
+      "role": "Personal build",
+      "overview": "Parametric gear generation + FDM fabrication.",
+      "objective": "Design and build a physical gear train with a 10:1 overall ratio across three reduction stages.",
+      "approach": "Built the involute tooth profile in SolidWorks using Equation Driven Curves and Global Variables so the gear geometry could be adjusted parametrically. Each gear ratio stage was defined by equations rather than fixed dimensions.",
+      "manufacturing": "Printed all gears on a Prusa i3 MK3S in PLA. Tested fit after each print and dialed in 0.15 mm clearances across stages to achieve smooth rotation without binding.",
+      "outcome": "Achieved a 10:1 overall gear ratio across three stages (12T→30T, 14T→28T, 14T→28T). The assembled train runs smoothly with no binding.",
+      "tools": "SolidWorks (equation-driven), Prusa i3 MK3S, PLA",
+      "images": [
+        "../images/gear-isometric-3d.jpg",
+        "../images/Equations manager screenshot.jpg",
+        "../images/gear-printed-layout.jpg"
+      ]
+    }
+  ]
+}
