@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Experience — Vijay Prajwal Rajasekar</title>
+  <meta name="description"
+    content="Work experience of Vijay Prajwal Rajasekar — Mechanical Engineering Technologist at Filtervac, Manufacturing Co-op at Skyjack, and Aero-Mechanical Member at UBCO Aerospace.">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+
+    /* ---- Page header ---- */
+    .page-head {
+      padding: clamp(2.5rem, 6vw, 4rem) 0 0;
+    }
+
+    .page-head h1 {
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+      margin: 0.5em 0 0.5em;
+    }
+
+    /* ---- Timeline layout ---- */
+    .exp-body {
+      padding: 3rem 0 5rem;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+      margin-top: 3.5rem;
+    }
+
+    /* The vertical spine — left:7px centres the 2px line at 8px from the border */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0.4rem;
+      bottom: 0;
+      left: 7px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--signal), var(--border) 80%, transparent);
+    }
+
+    /* ---- Individual entry ---- */
+    .tl-item {
+      position: relative;
+      margin-bottom: 3.75rem;
+    }
+
+    .tl-item:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Glowing dot — left:calc(-2rem + 1px) places dot start at 1px, centre at 8px */
+    .tl-dot {
+      position: absolute;
+      top: 0.45rem;
+      left: calc(-2rem + 1px);
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--signal);
+      box-shadow: 0 0 0 4px rgba(255, 117, 66, 0.12), 0 0 12px rgba(255, 117, 66, 0.35);
+      transition: transform 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+      z-index: 1;
+    }
+
+    .tl-item:hover .tl-dot {
+      transform: scale(1.35);
+      background: var(--signal);
+      box-shadow: 0 0 0 5px rgba(255, 117, 66, 0.18), 0 0 18px rgba(255, 117, 66, 0.55);
+    }
+
+    /* Date badge */
+    .tl-date {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--signal);
+      margin-bottom: 0.65rem;
+    }
+
+    /* Card */
+    .tl-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem 2rem;
+      transition: border-color 0.22s ease, transform 0.22s ease, box-shadow 0.22s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tl-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.035) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .tl-item:hover .tl-card {
+      border-color: var(--signal-dim);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 107, 53, 0.08);
+    }
+
+    /* Card top row */
+    .tl-card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1.25rem;
+      margin-bottom: 0.9rem;
+      flex-wrap: wrap;
+    }
+
+    .tl-role {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .tl-company-row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.3rem;
+    }
+
+    .tl-company {
+      font-size: 0.96rem;
+      color: var(--text-dim);
+      font-weight: 500;
+    }
+
+    .tl-type {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.04em;
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+
+    .tl-type-full {
+      border: 1px solid #3a4a6b;
+      color: #8fa3d4;
+      background: rgba(58, 74, 107, 0.12);
+    }
+
+    .tl-type-coop {
+      border: 1px solid var(--signal-dim);
+      color: var(--signal);
+      background: rgba(255, 107, 53, 0.08);
+    }
+
+    .tl-type-club {
+      border: 1px solid var(--telemetry-dim);
+      color: var(--telemetry);
+      background: rgba(74, 222, 128, 0.08);
+    }
+
+    .tl-location {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-faint);
+      background: var(--surface-raised);
+      padding: 3px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    /* Divider inside card */
+    .tl-card-divider {
+      height: 1px;
+      background: var(--border-soft);
+      margin: 1rem 0;
+    }
+
+    /* Bullet list */
+    .tl-bullets {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+
+    .tl-bullets li {
+      position: relative;
+      padding-left: 1.4rem;
+      color: var(--text-dim);
+      font-size: 0.93rem;
+      line-height: 1.6;
+    }
+
+    .tl-bullets li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--text-faint);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      top: 0.05em;
+    }
+
+    /* Skills chips */
+    .tl-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1.25rem;
+    }
+
+    .tl-skill {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.03em;
+      color: var(--text-faint);
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 9px;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .tl-item:hover .tl-skill {
+      border-color: rgba(255, 107, 53, 0.3);
+      color: var(--text-dim);
+    }
+
+    /* ---- LinkedIn CTA strip ---- */
+    .exp-cta {
+      margin-top: 4rem;
+      padding: 1.75rem 2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .exp-cta p {
+      color: var(--text-dim);
+      font-size: 0.92rem;
+      max-width: 44ch;
+    }
+
+    @media (max-width: 640px) {
+      .tl-card {
+        padding: 1.25rem 1.25rem;
+      }
+
+      .timeline {
+        padding-left: 1.75rem;
+      }
+
+      .tl-dot {
+        left: -1.9rem;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="index.html" class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-name">Vijay Prajwal Rajasekar</span>
+        <span class="brand-sub">/ MECH ENG + AERO FOCUS</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">About me</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-toggle">
+            Projects
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+            </svg>
+          </button>
+          <div class="nav-dropdown-menu">
+            <a href="school.html"><span class="menu-dot"></span>School</a>
+            <a href="club.html"><span class="menu-dot"></span>Club</a>
+            <a href="personal.html"><span class="menu-dot"></span>Personal</a>
+          </div>
+        </div>
+        <a href="experience.html" class="active">Experience</a>
+        <a href="certifications.html">Certs &amp; Awards</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-head">
+      <div class="wrap">
+        <p class="eyebrow">Career &amp; Industry</p>
+        <h1>Experience</h1>
+        <p class="section-lede">Industry roles, co-ops, and club work where I've applied mechanical design,
+          manufacturing, and systems engineering hands-on.</p>
+      </div>
+    </section>
+
+    <section class="exp-body">
+      <div class="wrap">
+        <div class="timeline fade-in">
+
+          <!-- ── UBCO Aerospace ──────────────────────────────── -->
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <span class="tl-date">Sep 2025 — Present</span>
+            <div class="tl-card">
+              <div class="tl-card-head">
+                <div>
+                  <div class="tl-role">Aero-Mechanical Member</div>
+                  <div class="tl-company-row">
+                    <span class="tl-company">UBCO Aerospace</span>
+                    <span class="tl-type tl-type-club">Club</span>
+                    <span class="tl-location">Kelowna, BC</span>
+                  </div>
+                </div>
+              </div>
+              <div class="tl-card-divider"></div>
+              <ul class="tl-bullets">
+                <li>Member of the Fixed Wing subdivision — contributing to the Guardian Project, a canard aircraft design built and iterated by the club.</li>
+                <li>Member of the UAV subdivision — focused on carbon-fiber composite manufacturing, layup, and airframe structural work.</li>
+              </ul>
+              <div class="tl-skills">
+                <span class="tl-skill">Composite Layup</span>
+                <span class="tl-skill">Carbon Fiber</span>
+                <span class="tl-skill">Fixed-Wing Design</span>
+                <span class="tl-skill">UAV Systems</span>
+                <span class="tl-skill">Canard Aircraft</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Filtervac ───────────────────────────────────── -->
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <span class="tl-date">Jan 2023 — Jun 2025</span>
+            <div class="tl-card">
+              <div class="tl-card-head">
+                <div>
+                  <div class="tl-role">Mechanical Engineering Technologist</div>
+                  <div class="tl-company-row">
+                    <span class="tl-company">Filtervac International Inc.</span>
+                    <span class="tl-type tl-type-full">Full-time</span>
+                    <span class="tl-location">Breslau, ON</span>
+                  </div>
+                </div>
+              </div>
+              <div class="tl-card-divider"></div>
+              <ul class="tl-bullets">
+                <li>Engineered 3D CAD models of individual components and complete machines using SolidWorks.</li>
+                <li>Designed jigs, fixtures, and tooling models necessary for the manufacturing process.</li>
+                <li>Prepared as-built drawings for machines and components alongside comprehensive costing reports.</li>
+                <li>Generated Bills of Materials (BOM) to support manufacturing of parts and full systems.</li>
+                <li>Conducted testing and inspected mechanical installations of newly built machines.</li>
+              </ul>
+              <div class="tl-skills">
+                <span class="tl-skill">SolidWorks</span>
+                <span class="tl-skill">CAD Modeling</span>
+                <span class="tl-skill">GD&amp;T Drawings</span>
+                <span class="tl-skill">BOM Generation</span>
+                <span class="tl-skill">Jig &amp; Fixture Design</span>
+                <span class="tl-skill">Mechanical Testing</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Skyjack — Winter Co-op ─────────────────────── -->
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <span class="tl-date">Sep 2021 — Dec 2021</span>
+            <div class="tl-card">
+              <div class="tl-card-head">
+                <div>
+                  <div class="tl-role">Manufacturing Engineering Co-op</div>
+                  <div class="tl-company-row">
+                    <span class="tl-company">Skyjack Inc.</span>
+                    <span class="tl-type tl-type-coop">Co-op · Winter</span>
+                    <span class="tl-location">Guelph, ON</span>
+                  </div>
+                </div>
+              </div>
+              <div class="tl-card-divider"></div>
+              <ul class="tl-bullets">
+                <li>Gained hands-on exposure across multiple production lines — welding, paint, quality control, and final assembly.</li>
+                <li>Maintained and updated standard work instructions (WI) to reflect current processes.</li>
+                <li>Utilized ManuX ERP system for inventory auditing and parts tracking.</li>
+              </ul>
+              <div class="tl-skills">
+                <span class="tl-skill">Manufacturing Ops</span>
+                <span class="tl-skill">Standard Work (WI)</span>
+                <span class="tl-skill">ERP / ManuX</span>
+                <span class="tl-skill">Quality Control</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ── Skyjack — Fall Co-op ───────────────────────── -->
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <span class="tl-date">Jan 2021 — Apr 2021</span>
+            <div class="tl-card">
+              <div class="tl-card-head">
+                <div>
+                  <div class="tl-role">Manufacturing Engineering Co-op</div>
+                  <div class="tl-company-row">
+                    <span class="tl-company">Skyjack Inc.</span>
+                    <span class="tl-type tl-type-coop">Co-op · Fall</span>
+                    <span class="tl-location">Guelph, ON</span>
+                  </div>
+                </div>
+              </div>
+              <div class="tl-card-divider"></div>
+              <ul class="tl-bullets">
+                <li>Designed an ergonomically optimized weldment jig in SolidWorks — manufactured in-house and deployed on the welding line.</li>
+                <li>Performed time studies to identify process bottlenecks; updated floor layouts with DraftCAD and AutoCAD to improve material flow.</li>
+                <li>Conducted downtime studies and built daily OA reports in Power BI to pinpoint delay sources and drive lean improvements.</li>
+              </ul>
+              <div class="tl-skills">
+                <span class="tl-skill">SolidWorks</span>
+                <span class="tl-skill">AutoCAD / DraftCAD</span>
+                <span class="tl-skill">Power BI</span>
+                <span class="tl-skill">Time Studies</span>
+                <span class="tl-skill">Lean Manufacturing</span>
+                <span class="tl-skill">Jig Design</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- LinkedIn CTA -->
+        <div class="exp-cta fade-in">
+          <div>
+            <p class="eyebrow" style="margin-bottom:0.4rem;">Full profile</p>
+            <p>See my complete work history and endorsements on LinkedIn.</p>
+          </div>
+          <a href="https://www.linkedin.com/in/vijayprajwalrajasekar/" target="_blank" rel="noopener"
+            class="btn btn-solid">View LinkedIn ↗</a>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Page navigation -->
+  <nav class="page-nav" aria-label="Portfolio navigation">
+    <div class="wrap">
+      <div class="page-nav-inner">
+        <a href="index.html" class="page-nav-prev" id="nav-prev-home">
+          <span class="pn-label"><span class="pn-arrow">←</span> Prev</span>
+          <span class="pn-title">About me</span>
+        </a>
+        <span class="page-nav-center"></span>
+        <a href="certifications.html" class="page-nav-next" id="nav-next-certs">
+          <span class="pn-label">Next <span class="pn-arrow">→</span></span>
+          <span class="pn-title">Certs &amp; Awards</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-links">
+        <a href="mailto:vj0501@student.ubc.ca">Email</a>
+        <a href="https://www.linkedin.com/in/vijayprajwalrajasekar/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/VijayPrajwal/Projects-" target="_blank" rel="noopener">GitHub</a>
+        <a href="contact.html">Resume</a>
+      </div>
+      <div class="footer-meta">Vijay Prajwal Rajasekar · UBC Okanagan</div>
+    </div>
+  </footer>
+
+  <script src="assets/main.js" defer></script>
+</body>
+
+</html>
