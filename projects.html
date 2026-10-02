@@ -4,7 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personal Projects — Vijay Prajwal Rajasekar</title>
+  <title>Projects — Vijay Prajwal Rajasekar</title>
+  <meta name="description"
+    content="All engineering projects by Vijay Prajwal Rajasekar — school coursework, UBCO Aerospace club builds, and personal prototypes.">
   <link rel="stylesheet" href="assets/style.css">
   <style>
 
@@ -52,6 +54,10 @@
       aspect-ratio: 16/9;
       overflow: hidden;
       background: var(--surface-raised);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
     }
 
     .proj-thumb img {
@@ -79,71 +85,31 @@
 
     .proj-info p {
       color: var(--text-dim);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       flex-grow: 1;
     }
 
     .proj-footer {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-top: 0.75rem;
-      padding-top: 0.9rem;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      padding-top: 0.75rem;
       border-top: 1px solid var(--border-soft);
       font-family: var(--font-mono);
       font-size: 0.72rem;
       color: var(--text-faint);
+      letter-spacing: 0.03em;
     }
 
     .proj-arrow {
-      color: var(--signal);
       font-size: 1rem;
       transition: transform 0.15s ease;
     }
 
     .proj-card:hover .proj-arrow {
       transform: translateX(4px);
-    }
-
-    /* ---- Placeholder card ---- */
-    .placeholder-card {
-      border: 1px dashed var(--border);
-      border-radius: 10px;
-      padding: 2.5rem;
-      text-align: center;
-      color: var(--text-faint);
-    }
-
-    .placeholder-card .mono {
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
-      color: var(--telemetry);
-    }
-
-    .placeholder-card h3 {
-      color: var(--text-dim);
-      margin: 0.5rem 0;
-      font-size: 1.05rem;
-    }
-
-    .placeholder-card p {
-      font-size: 0.85rem;
-      margin-top: 0.4rem;
-    }
-
-    /* ---- Intro note ---- */
-    .intro-note {
-      background: var(--surface);
-      border: 1px solid var(--border-soft);
-      border-radius: 8px;
-      padding: 1.25rem 1.5rem;
-      margin-top: 2rem;
-      font-size: 0.92rem;
-      color: var(--text-dim);
-    }
-
-    .intro-note b {
-      color: var(--text);
     }
 
   </style>
@@ -171,17 +137,47 @@
   <main>
     <section class="page-head">
       <div class="wrap">
-        <p class="eyebrow">Category 03</p>
-        <h1>Personal Projects</h1>
-        <p class="section-lede">Things I build on my own time — self-directed, no deadline but the one I set, usually
-          because I wanted to learn how something actually works.</p>
-
-        <div class="intro-note">
-          <b>This page is set up and ready</b> — drop in your personal builds (side projects, things you made for fun,
-          hardware tinkering) using the same card layout as the club case study. Each card below is a placeholder slot.
-        </div>
+        <p class="eyebrow">All Projects</p>
+        <h1>Projects &amp; Engineering Work</h1>
+        <p class="section-lede">Everything I have built so far — school coursework, UBCO Aerospace club builds, and personal prototypes I made just to figure out how they work.</p>
 
         <div class="proj-grid">
+
+          <!-- School: DABS -->
+          <a href="buoy-system.html" class="proj-card">
+            <div class="proj-thumb">
+              <img src="images/Buoy Images/dabs-hero.jpg" alt="Data Acquisition Buoy System (DABS) Final CAD Prototype" style="object-fit: contain; background: var(--surface-raised);">
+            </div>
+            <div class="proj-info">
+              <span class="tag tag-school" style="align-self:flex-start;">SCHOOL · UBC OKANAGAN</span>
+              <h3>Data Acquisition Buoy System (DABS)</h3>
+              <p>Developed a conceptual environmental buoy system to support nutrient monitoring in aquatic ecosystems. Nominated in the Design Process Category at Aquahacking Binational 2026.</p>
+              <div class="proj-footer">
+                <span>APSC 169 — Fundamentals of Sustainable Engineering Design</span>
+                <span class="proj-arrow">→</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Club: Carbon Fiber Motor Mount -->
+          <a href="carbon-mount.html" class="proj-card">
+            <div class="proj-thumb">
+              <img src="images/carbon-mount-raw.png"
+                alt="Forged carbon fiber motor mount sitting on a wooden workbench">
+            </div>
+            <div class="proj-info">
+              <span class="tag tag-club" style="align-self:flex-start;">CLUB · UBCO AEROSPACE</span>
+              <h3>Forged Carbon Fiber Motor Mount</h3>
+              <p>Replaced a machined aluminum motor mount with a forged chopped-tow carbon fiber part — 57.9% lighter,
+                designed and molded from scratch through multiple mold revisions.</p>
+              <div class="proj-footer">
+                <span>SolidWorks · Hand layup</span>
+                <span class="proj-arrow">→</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Personal: Gear Train -->
           <a href="gear-train.html" class="proj-card">
             <div class="proj-thumb">
               <img src="images/gear-isometric-3d.jpg"
@@ -199,6 +195,7 @@
             </div>
           </a>
 
+          <!-- Personal: Hand Gesture LED -->
           <a href="hand-gesture-led.html" class="proj-card">
             <div class="proj-thumb" style="display:flex;align-items:center;justify-content:center;background:var(--surface-raised);">
               <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.22;">
@@ -218,6 +215,7 @@
               </div>
             </div>
           </a>
+
         </div>
       </div>
     </section>
@@ -227,14 +225,14 @@
   <nav class="page-nav" aria-label="Portfolio navigation">
     <div class="wrap">
       <div class="page-nav-inner">
-        <a href="carbon-mount.html" class="page-nav-prev" id="nav-prev-carbon">
+        <a href="index.html" class="page-nav-prev" id="nav-prev-about">
           <span class="pn-label"><span class="pn-arrow">←</span> Previous</span>
-          <span class="pn-title">Carbon Fiber Motor Mount</span>
+          <span class="pn-title">About Me</span>
         </a>
         <span class="page-nav-center"></span>
-        <a href="gear-train.html" class="page-nav-next" id="nav-next-gear">
+        <a href="experience.html" class="page-nav-next" id="nav-next-experience">
           <span class="pn-label">Next <span class="pn-arrow">→</span></span>
-          <span class="pn-title">Involute Gear Train</span>
+          <span class="pn-title">Experience</span>
         </a>
       </div>
     </div>
