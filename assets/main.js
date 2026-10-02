@@ -1,6 +1,80 @@
+// --- Theme Management (Dark / Light Mode) ---
+(function initTheme() {
+  var savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    document.documentElement.setAttribute('data-theme', savedTheme);
+  } else {
+    var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    var initialTheme = prefersLight ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', initialTheme);
+  }
+})();
+
 // Navigation Dropdown & Global Interactivity
 document.addEventListener('DOMContentLoaded', function () {
   
+  // Setup Theme Switcher Toggle Button
+  function setupThemeToggle() {
+    var headerWrap = document.querySelector('.site-header .wrap');
+    if (!headerWrap) return;
+
+    var existingBtn = document.getElementById('themeToggle');
+    if (existingBtn) return;
+
+    var btn = document.createElement('button');
+    btn.className = 'theme-toggle-btn';
+    btn.id = 'themeToggle';
+    btn.type = 'button';
+    
+    var currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    btn.setAttribute('aria-label', currentTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    btn.setAttribute('title', 'Toggle dark / light mode');
+
+    btn.innerHTML = 
+      '<span class="theme-toggle-track">' +
+        '<svg class="theme-icon moon-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+          '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>' +
+        '</svg>' +
+        '<svg class="theme-icon sun-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+          '<circle cx="12" cy="12" r="5"></circle>' +
+          '<line x1="12" y1="1" x2="12" y2="3"></line>' +
+          '<line x1="12" y1="21" x2="12" y2="23"></line>' +
+          '<line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>' +
+          '<line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>' +
+          '<line x1="1" y1="12" x2="3" y2="12"></line>' +
+          '<line x1="21" y1="12" x2="23" y2="12"></line>' +
+          '<line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>' +
+          '<line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>' +
+        '</svg>' +
+        '<span class="theme-toggle-thumb"></span>' +
+      '</span>' +
+      '<span class="theme-toggle-label">Theme</span>';
+
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var activeTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      var nextTheme = activeTheme === 'dark' ? 'light' : 'dark';
+      
+      document.documentElement.setAttribute('data-theme', nextTheme);
+      localStorage.setItem('theme', nextTheme);
+      btn.setAttribute('aria-label', nextTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    });
+
+    headerWrap.appendChild(btn);
+  }
+
+  setupThemeToggle();
+
+  // Listen for OS system theme changes if user hasn't set an explicit preference
+  if (window.matchMedia) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+      if (!localStorage.getItem('theme')) {
+        var newTheme = e.matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', newTheme);
+      }
+    });
+  }
+
   // Abstract dropdown setup to allow re-binding when nav HTML is restored
   function setupDropdown() {
     var toggle = document.querySelector('.nav-dropdown-toggle');
@@ -167,6 +241,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var recruiterNavs = [
           { text: 'About me', href: pathPrefix + '#about' },
           { text: 'Skills', href: pathPrefix + '#recruiter-skills' },
+          { text: 'Experience', href: pathPrefix + '#recruiter-experience' },
           { text: 'Projects', href: pathPrefix + '#recruiter-projects' },
           { text: 'Résumé', href: pathPrefix + '#recruiter-resume' },
           { text: 'Contact', href: pathPrefix + '#recruiter-contact' }

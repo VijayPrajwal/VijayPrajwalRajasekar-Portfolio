@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hand Gesture Controlled LED System — Vijay Prajwal Rajasekar</title>
+  <meta name="description"
+    content="A first-year personal project combining Python, OpenCV, MediaPipe hand landmark detection, and Arduino to control five LEDs with hand gestures captured from a webcam.">
+  <link rel="stylesheet" href="assets/style.css">
+  <style>
+    /* ---- Back link (identical to gear-train) ---- */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+      padding: clamp(1.25rem, 3vw, 2rem) 0 0;
+      transition: color 0.15s ease;
+    }
+
+    .back-link:hover {
+      color: var(--signal);
+    }
+
+    /* ---- Case head ---- */
+    .case-head {
+      padding: 1.5rem 0 0;
+    }
+
+    .case-head h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      margin: 0.5em 0 0;
+    }
+
+    .case-subtitle {
+      font-family: var(--font-mono);
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      color: var(--text-dim);
+      margin-top: 0.4rem;
+      font-weight: 500;
+    }
+
+    .case-meta {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin: 1.5rem 0 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .case-meta div b {
+      color: var(--text);
+      display: block;
+      font-size: 0.95rem;
+      margin-top: 2px;
+      font-family: var(--font-body);
+      font-weight: 600;
+    }
+
+    /* ---- Case body (main + sidebar) ---- */
+    .case-body {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 3rem;
+      margin-top: 0;
+    }
+
+    @media (max-width: 880px) {
+      .case-body {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    .case-body h3 {
+      font-size: 1.15rem;
+      margin: 2rem 0 0.75rem;
+    }
+
+    .case-body h3:first-child {
+      margin-top: 0;
+    }
+
+    .case-body p,
+    .case-body li {
+      color: var(--text-dim);
+      font-size: 0.98rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .case-body ul {
+      padding-left: 1.1rem;
+    }
+
+    .case-body li::marker {
+      color: var(--signal);
+    }
+
+    /* ---- Spec sidebar ---- */
+    .spec-sidebar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      align-self: start;
+      position: sticky;
+      top: 90px;
+    }
+
+    .spec-sidebar h4 {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--text-faint);
+      margin-bottom: 1rem;
+    }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border-soft);
+      font-size: 0.88rem;
+      gap: 0.5rem;
+    }
+
+    .spec-row:last-child {
+      border-bottom: none;
+    }
+
+    .spec-row span:first-child {
+      color: var(--text-dim);
+      flex-shrink: 0;
+    }
+
+    .spec-row span:last-child {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      text-align: right;
+    }
+
+    /* ---- Process note callout ---- */
+    .process-note {
+      background: rgba(255, 107, 53, 0.06);
+      border: 1px solid var(--signal-dim);
+      border-radius: 8px;
+      padding: 1.1rem 1.3rem;
+      margin: 1.5rem 0;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+
+    .process-note b {
+      color: var(--signal);
+    }
+
+    /* ---- Section labels ---- */
+    .gallery-section-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      margin: 3rem 0 0.75rem;
+    }
+
+    /* ---- Workflow pipeline ---- */
+    .pipeline {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .pipeline-step {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.65rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text);
+      white-space: nowrap;
+      transition: border-color 0.15s ease;
+    }
+
+    .pipeline-step:hover {
+      border-color: var(--signal-dim);
+    }
+
+    .pipeline-arrow {
+      color: var(--signal);
+      font-size: 1rem;
+      padding: 0 0.35rem;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 680px) {
+      .pipeline {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.3rem;
+      }
+
+      .pipeline-arrow {
+        padding: 0;
+        transform: rotate(90deg);
+        align-self: center;
+      }
+    }
+
+    /* ---- LED state visual ---- */
+    .led-example {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .led-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .led-dot.on {
+      background: var(--telemetry);
+      border-color: var(--telemetry-dim);
+      box-shadow: 0 0 8px rgba(74, 222, 128, 0.5);
+    }
+
+    .led-dot.off {
+      background: var(--surface-raised);
+    }
+
+    .led-state-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+
+    .led-state-row span {
+      min-width: 52px;
+    }
+
+    /* ---- Pin map table ---- */
+    .pin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin: 1rem 0 1.5rem;
+    }
+
+    .pin-table th {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .pin-table td {
+      padding: 0.55rem 0.75rem;
+      border-bottom: 1px solid var(--border-soft);
+      color: var(--text-dim);
+    }
+
+    .pin-table td:last-child {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--signal);
+      text-align: right;
+    }
+
+    .pin-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ---- Video placeholder ---- */
+    .video-placeholder {
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      padding: 3.5rem 2rem;
+      text-align: center;
+      background: var(--surface);
+      margin: 1.5rem 0;
+    }
+
+    .video-placeholder .vp-icon {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 1rem;
+      border-radius: 50%;
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .video-placeholder .vp-icon svg {
+      opacity: 0.5;
+    }
+
+    .video-placeholder p {
+      color: var(--text-faint);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.04em;
+      margin: 0;
+    }
+
+    .video-placeholder .vp-title {
+      color: var(--text-dim);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    /* ---- Feature grid ---- */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+
+    @media (max-width: 560px) {
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feature-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.9rem 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+    }
+
+    .feature-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--signal);
+      flex-shrink: 0;
+      margin-top: 0.45rem;
+    }
+
+    .feature-item p {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      margin: 0;
+    }
+
+    /* ---- Project links ---- */
+    .proj-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1.25rem 0;
+    }
+
+    .proj-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-dim);
+      transition: border-color 0.15s ease, color 0.15s ease;
+      cursor: default;
+      opacity: 0.55;
+    }
+
+    .proj-link-btn.available {
+      cursor: pointer;
+      opacity: 1;
+      color: var(--text);
+    }
+
+    .proj-link-btn.available:hover {
+      border-color: var(--signal-dim);
+      color: var(--signal);
+    }
+
+    .proj-link-coming {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-faint);
+      align-self: center;
+    }
+
+    /* ---- Full-width sections below the two-col ---- */
+    .full-section {
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .full-section h2 {
+      font-size: 1.35rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .full-section>p,
+    .full-section>ul>li {
+      color: var(--text-dim);
+      font-size: 0.98rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .full-section ul {
+      padding-left: 1.1rem;
+    }
+
+    .full-section li::marker {
+      color: var(--signal);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a href="index.html" class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-name">Vijay Prajwal Rajasekar</span>
+        <span class="brand-sub">/ MECH ENG + AERO FOCUS</span>
+      </a>
+      <nav class="main-nav">
+        <a href="index.html">About me</a>
+        <div class="nav-dropdown">
+          <button class="nav-dropdown-toggle active">
+            Projects
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+              <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+            </svg>
+          </button>
+          <div class="nav-dropdown-menu">
+            <a href="school.html"><span class="menu-dot"></span>School</a>
+            <a href="club.html"><span class="menu-dot"></span>Club</a>
+            <a href="personal.html" class="active"><span class="menu-dot"></span>Personal</a>
+          </div>
+        </div>
+        <a href="experience.html">Experience</a>
+        <a href="certifications.html">Certs &amp; Awards</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <a href="personal.html" class="back-link">← Back to Personal projects</a>
+    </div>
+
+    <section class="case-head">
+      <div class="wrap">
+        <span class="tag tag-personal">PERSONAL</span>
+        <h1>Hand Gesture Controlled LED System</h1>
+        <p class="case-subtitle">Python + Computer Vision + Arduino</p>
+
+        <div class="case-meta">
+          <div>TYPE<b>Personal Project</b></div>
+          <div>FOCUS<b>Computer Vision + Hardware</b></div>
+          <div>LANGUAGE<b>Python</b></div>
+          <div>TOOLS<b>OpenCV · MediaPipe · Arduino · PyFirmata2</b></div>
+        </div>
+
+        <!-- Two-column layout: main content + sidebar -->
+        <div class="case-body">
+          <div>
+
+            <!-- Overview -->
+            <h3>Overview</h3>
+            <p>I built this project in my first year as a hands-on way to learn Python, explore computer vision, and
+              figure out how software running on a computer can communicate with physical hardware. The goal was
+              simple: capture video from a webcam, work out which fingers I'm holding up, and use that information to
+              switch individual LEDs on an Arduino on or off.</p>
+            <p>The system uses OpenCV to handle video capture, MediaPipe's hand landmark detection to locate the hand
+              in each frame, a small piece of coordinate-based logic to interpret finger states, and PyFirmata2 to
+              send those states to the Arduino over USB.</p>
+
+            <!-- How It Works -->
+            <h3>How It Works</h3>
+            <p>The overall pipeline from camera to LED is:</p>
+
+            <div class="pipeline">
+              <div class="pipeline-step">Webcam</div>
+              <span class="pipeline-arrow">→</span>
+              <div class="pipeline-step">OpenCV</div>
+              <span class="pipeline-arrow">→</span>
+              <div class="pipeline-step">MediaPipe Hands</div>
+              <span class="pipeline-arrow">→</span>
+              <div class="pipeline-step">Finger Detection</div>
+              <span class="pipeline-arrow">→</span>
+              <div class="pipeline-step">[1, 0, 1, 0, 0]</div>
+              <span class="pipeline-arrow">→</span>
+              <div class="pipeline-step">LEDControl.py</div>
+              <span class="pipeline-arrow">→</span>
+              <div class="pipeline-step">PyFirmata2</div>
+              <span class="pipeline-arrow">→</span>
+              <div class="pipeline-step">Arduino</div>
+              <span class="pipeline-arrow">→</span>
+              <div class="pipeline-step">5 LEDs</div>
+            </div>
+
+            <p>Each stage has a distinct role:</p>
+            <ul>
+              <li><strong>Webcam</strong> — captures the live video feed of the user's hand.</li>
+              <li><strong>OpenCV</strong> — reads frames from the webcam and converts them from BGR to RGB for
+                MediaPipe.</li>
+              <li><strong>MediaPipe Hands</strong> — detects the hand in the frame and returns 21 landmark coordinates.
+              </li>
+              <li><strong>Finger Detection</strong> — my Python logic compares selected landmark coordinates and
+                produces a five-element list: <code
+                  style="font-family:var(--font-mono);font-size:0.88em;">[Thumb, Index, Middle, Ring, Pinky]</code>.
+              </li>
+              <li><strong>LEDControl.py</strong> — receives the five-element list and maps each value to the
+                corresponding Arduino pin.</li>
+              <li><strong>PyFirmata2</strong> — communicates the pin states from Python to the Arduino over USB using
+                the Firmata protocol.</li>
+              <li><strong>Arduino + LEDs</strong> — switches each LED on or off based on the received pin state.</li>
+            </ul>
+
+            <!-- Computer Vision -->
+            <h3>Computer Vision</h3>
+            <p>OpenCV reads frames from the webcam. Each frame arrives in BGR colour order, so the program converts
+              it to RGB before passing it to MediaPipe — MediaPipe expects RGB input.</p>
+            <p>MediaPipe Hands processes the RGB frame and, when it detects a hand, returns 21 landmark
+              coordinates — one for each joint and fingertip. I didn't train a model or implement any detection
+              algorithm myself; MediaPipe provides that out of the box. My contribution was interpreting the returned
+              landmark positions with a simple set of coordinate-based rules to decide which fingers are raised.</p>
+
+            <div class="process-note">
+              <b>MediaPipe Hands provides:</b> A list of normalised (x, y, z) positions for each of the 21 hand
+              landmarks. The x and y values are scaled to the frame dimensions (0.0–1.0). My code reads specific
+              landmark indices from this list and compares their coordinates — that is the extent of my computer
+              vision work here.
+            </div>
+
+            <!-- Image placeholder — replace with actual MediaPipe landmark diagram when available -->
+            <div
+              style="border:1px dashed var(--border);border-radius:8px;padding:2rem;text-align:center;background:var(--surface);margin:1.5rem 0;">
+              <p
+                style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-faint);letter-spacing:0.05em;margin:0 0 0.4rem;">
+                LANDMARK DIAGRAM</p>
+              <p style="font-size:0.88rem;color:var(--text-dim);margin:0;">MediaPipe hand landmark diagram will be added
+                here. Replace this block with an <code
+                  style="font-family:var(--font-mono);font-size:0.9em;">&lt;img&gt;</code> once the image is available.
+              </p>
+            </div>
+
+            <!-- Finger Detection Logic -->
+            <h3>Finger Detection Logic</h3>
+            <p>The program builds a list of five binary values in this order:</p>
+
+            <pre
+              style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.85rem 1.1rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.5rem 0 1rem;line-height:1.7;"><code>fingers = [Thumb, Index, Middle, Ring, Pinky]
+# 1 = raised,  0 = not raised</code></pre>
+
+            <p>For the index, middle, ring, and pinky fingers, the code compares the y-coordinate of the
+              <strong>fingertip</strong> landmark to the y-coordinate of the <strong>PIP joint</strong> (the proximal
+              interphalangeal joint — the middle knuckle). Because y increases downward in image coordinates, a
+              fingertip that is higher in the frame has a <em>smaller</em> y value than its PIP joint. So:
+            </p>
+
+            <pre
+              style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.85rem 1.1rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.5rem 0 1rem;line-height:1.7;"><code><span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">FINGER</span>   TIP landmark    COMPARISON landmark
+<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">Index</span>    8               6   (PIP)
+<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">Middle</span>   12              10  (PIP)
+<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">Ring</span>     16              14  (PIP)
+<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">Pinky</span>    20              18  (PIP)
+
+<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">CONDITION</span>  tip.y &lt; pip.y  →  finger raised  (append 1)
+           tip.y &gt;= pip.y →  finger down    (append 0)</code></pre>
+
+            <p>The thumb is handled differently because it moves horizontally rather than vertically. The code
+              compares the <strong>x-coordinate</strong> of the thumb tip (landmark 4) against the x-coordinate
+              of landmark 3:</p>
+
+            <pre
+              style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.85rem 1.1rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.5rem 0 1rem;line-height:1.7;"><code><span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">THUMB</span>    tip = landmark 4,  comparison = landmark 3
+
+if thumb_tip.x &lt; thumb_pip.x:
+    fingers.append(1)   # thumb extended
+else:
+    fingers.append(0)   # thumb not extended</code></pre>
+
+            <div class="process-note">
+              <b>Note:</b> This is a simple coordinate-based rule, not a general-purpose pose classifier. It works
+              well when the hand is held in a standard upright position facing the camera, but the result is
+              orientation-dependent — tilting or rotating the hand can cause the thumb to be misclassified.
+            </div>
+
+            <p>Once all five values are set, the total number of raised fingers is:</p>
+
+            <pre
+              style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.85rem 1.1rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.5rem 0 1rem;"><code>total_fingers = sum(fingers)</code></pre>
+
+            <!-- Software → Hardware -->
+            <h3>Software → Hardware</h3>
+            <p>Once the finger states are calculated, the main script calls
+              <code
+                style="font-family:var(--font-mono);font-size:0.9em;color:var(--text);">LEDControl.LED(fingers)</code>
+              inside the <code
+                style="font-family:var(--font-mono);font-size:0.9em;color:var(--text);">if results.multi_hand_landmarks:</code>
+              block — so LED updates happen when a hand is actually detected and the finger states have been
+              computed. A separate <code
+                style="font-family:var(--font-mono);font-size:0.9em;color:var(--text);">LEDControl.py</code> module
+              handles all Arduino communication.
+            </p>
+            <p>PyFirmata2 allows the Python program to communicate with the Arduino over USB using the Firmata
+              protocol. When a hand is detected, the calculated finger states are sent to the Arduino, which
+              switches the corresponding LEDs on or off.</p>
+            <p>The five LEDs are mapped to digital pins as follows
+              (<code style="font-family:var(--font-mono);font-size:0.9em;color:var(--text);">d:6:o</code> means digital
+              pin 6, output mode):</p>
+
+            <pre
+              style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.85rem 1.1rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.5rem 0 1rem;line-height:1.7;"><code>led_1 = board.get_pin('d:6:o')  <span style="color:var(--text-faint);"># Thumb</span>
+led_2 = board.get_pin('d:5:o')  <span style="color:var(--text-faint);"># Index</span>
+led_3 = board.get_pin('d:4:o')  <span style="color:var(--text-faint);"># Middle</span>
+led_4 = board.get_pin('d:3:o')  <span style="color:var(--text-faint);"># Ring</span>
+led_5 = board.get_pin('d:2:o')  <span style="color:var(--text-faint);"># Pinky</span></code></pre>
+
+            <table class="pin-table">
+              <thead>
+                <tr>
+                  <th>Finger</th>
+                  <th>List index</th>
+                  <th>Arduino pin</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Thumb</td>
+                  <td><span style="font-family:var(--font-mono);font-size:0.82rem;">fingers[0]</span></td>
+                  <td>6</td>
+                </tr>
+                <tr>
+                  <td>Index</td>
+                  <td><span style="font-family:var(--font-mono);font-size:0.82rem;">fingers[1]</span></td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>Middle</td>
+                  <td><span style="font-family:var(--font-mono);font-size:0.82rem;">fingers[2]</span></td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>Ring</td>
+                  <td><span style="font-family:var(--font-mono);font-size:0.82rem;">fingers[3]</span></td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>Pinky</td>
+                  <td><span style="font-family:var(--font-mono);font-size:0.82rem;">fingers[4]</span></td>
+                  <td>2</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p>A value of <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--text);">1</code>
+              drives the pin high (LED on). A value of
+              <code style="font-family:var(--font-mono);font-size:0.9em;color:var(--text);">0</code> drives the pin
+              low (LED off). The order is always <strong>Thumb → Index → Middle → Ring → Pinky</strong>.
+              For example:
+            </p>
+
+            <pre
+              style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.85rem 1.1rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.5rem 0 0.75rem;"><code>fingers = [1, 0, 1, 0, 0]
+#          ↑  ↑  ↑  ↑  ↑
+#       Thumb  Index  Middle  Ring  Pinky</code></pre>
+
+            <div class="led-example">
+              <div class="led-state-row">
+                <div class="led-dot on"></div><span>Thumb</span>ON — pin 6
+              </div>
+              <div class="led-state-row">
+                <div class="led-dot off"></div><span>Index</span>OFF — pin 5
+              </div>
+              <div class="led-state-row">
+                <div class="led-dot on"></div><span>Middle</span>ON — pin 4
+              </div>
+              <div class="led-state-row">
+                <div class="led-dot off"></div><span>Ring</span>OFF — pin 3
+              </div>
+              <div class="led-state-row">
+                <div class="led-dot off"></div><span>Pinky</span>OFF — pin 2
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Sidebar -->
+          <aside class="spec-sidebar">
+            <h4>PROJECT SPECS</h4>
+            <div class="spec-row"><span>Type</span><span>Personal project</span></div>
+            <div class="spec-row"><span>Language</span><span>Python</span></div>
+            <div class="spec-row"><span>Vision lib</span><span>OpenCV</span></div>
+            <div class="spec-row"><span>Hand detection</span><span>MediaPipe Hands</span></div>
+            <div class="spec-row"><span>HW comms</span><span>PyFirmata2</span></div>
+            <div class="spec-row"><span>MCU</span><span>Arduino</span></div>
+            <div class="spec-row"><span>LEDs</span><span style="color:var(--telemetry)">5 (pins 2–6)</span></div>
+            <div class="spec-row"><span>Input</span><span>Webcam</span></div>
+            <div class="spec-row"><span>Finger order</span><span>T · I · M · R · P</span></div>
+          </aside>
+        </div>
+
+        <!-- Full-width sections -->
+
+        <!-- Hardware -->
+        <div class="full-section">
+          <h2>Hardware</h2>
+          <p>The hardware side of the project is minimal by design — the focus was on the software. The physical
+            components are:</p>
+
+          <div class="feature-grid">
+            <div class="feature-item">
+              <div class="feature-dot"></div>
+              <p><strong style="color:var(--text);">Arduino board</strong> — receives pin states from the computer via
+                USB using the Firmata protocol.</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-dot"></div>
+              <p><strong style="color:var(--text);">5 LEDs</strong> — one per finger, wired to digital pins 2–6 with
+                appropriate resistors.</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-dot"></div>
+              <p><strong style="color:var(--text);">Webcam</strong> — provides the real-time video feed that OpenCV
+                reads frame by frame.</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-dot"></div>
+              <p><strong style="color:var(--text);">Computer</strong> — runs the Python script and handles all
+                processing. The Arduino only receives the final on/off commands.</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-dot"></div>
+              <p><strong style="color:var(--text);">PyFirmata2</strong> — Python library that talks to the Arduino's
+                Firmata firmware over USB serial.</p>
+            </div>
+          </div>
+
+          <div class="process-note" style="margin-top:1rem;">
+            <b>Hardware photos:</b> A photo of the breadboard and LED wiring can be added here once available.
+            Replace this note with an <code style="font-size:0.88em;">&lt;img&gt;</code> tag inside a
+            <code style="font-size:0.88em;">.case-gallery</code> element, following the same pattern as the Gear Train
+            page.
+          </div>
+        </div>
+
+        <!-- Demonstration -->
+        <div class="full-section">
+          <h2>Project Demonstration</h2>
+          <p>The demonstration shows the webcam feed detecting different numbers of raised fingers, with the
+            corresponding LEDs switching on and off in real time as the hand gesture changes.</p>
+
+          <!-- Video placeholder — replace with real <video> or embed when ready -->
+          <div class="video-placeholder" id="demo-video-placeholder">
+            <div class="vp-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="5,3 19,12 5,21" stroke="#e8e6e1" stroke-width="1.6" stroke-linejoin="round"
+                  fill="none" />
+              </svg>
+            </div>
+            <p class="vp-title">Video demonstration coming soon</p>
+            <p>When ready, replace this placeholder with a &lt;video&gt; element or a hosted video embed.</p>
+          </div>
+          <!--
+            To add a real video later, remove the .video-placeholder block above and use:
+            <div class="video-grid">
+              <div class="video-wrap">
+                <video controls playsinline preload="metadata">
+                  <source src="images/hand-gesture-demo.mp4" type="video/mp4">
+                </video>
+                <div class="video-caption">Webcam detecting raised fingers and LEDs responding in real time.</div>
+              </div>
+            </div>
+          -->
+        </div>
+
+        <!-- Implementation -->
+        <div class="full-section">
+          <h2>Implementation</h2>
+          <p>The program runs a continuous loop: capture a frame, detect the hand, compute finger states, update the
+            Arduino, and display feedback — all in real time.</p>
+
+          <div class="feature-grid">
+            <div class="feature-item">
+              <div class="feature-dot"></div>
+              <p><strong style="color:var(--text);">Real-time webcam capture</strong> — OpenCV reads a new frame on
+                every iteration of the main loop.</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-dot"></div>
+              <p><strong style="color:var(--text);">Hand landmark detection</strong> — MediaPipe processes the RGB frame
+                and returns 21 landmark positions when a hand is found.</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-dot"></div>
+              <p><strong style="color:var(--text);">Finger-state detection</strong> — Coordinate comparisons between tip
+                and PIP landmarks determine each finger's binary state.</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-dot"></div>
+              <p><strong style="color:var(--text);">Finger counting</strong> — <code
+                  style="font-family:var(--font-mono);font-size:0.85em;">sum(fingers)</code> gives the total number of
+                detected raised fingers.</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-dot"></div>
+              <p><strong style="color:var(--text);">Python-to-Arduino comms</strong> — PyFirmata2 communicates pin
+                states to the Arduino over USB via Firmata. LED states are updated when a hand is detected and finger
+                states have been calculated.</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-dot"></div>
+              <p><strong style="color:var(--text);">Individual LED control</strong> — Each of the five digital pins is
+                set independently based on its finger's state value.</p>
+            </div>
+            <div class="feature-item">
+              <div class="feature-dot"></div>
+              <p><strong style="color:var(--text);">Real-time visual feedback</strong> — The OpenCV window draws the
+                detected hand landmarks, finger count, current FPS, and the <code
+                  style="font-family:var(--font-mono);font-size:0.85em;">fingers</code> list on the live video frame.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- What I Learned -->
+        <div class="full-section">
+          <h2>What I Learned</h2>
+          <p>This was my first time combining Python libraries, computer vision, and physical hardware in one project.
+            A few things I picked up along the way:</p>
+          <ul>
+            <li>Working with Python libraries I hadn't used before — OpenCV, MediaPipe, and PyFirmata2 all at once.</li>
+            <li>How to open a webcam in OpenCV, read frames in a loop, and draw overlays such as the landmark skeleton
+              and finger count on the live feed.</li>
+            <li>How MediaPipe represents a hand as a set of numbered landmark coordinates, and what each index actually
+              refers to on the hand.</li>
+            <li>How to turn visual information (landmark positions) into simple logical conditions — if this coordinate
+              is less than that coordinate, the finger is up.</li>
+            <li>How PyFirmata2 allows Python to control individual Arduino pins over USB without needing to write any
+              Arduino C code.</li>
+            <li>Why splitting hardware control into a separate module (<code
+                style="font-family:var(--font-mono);font-size:0.9em;">LEDControl.py</code>) makes the code easier to
+              read and debug — the vision code and the hardware code don't need to know about each other's internals.
+            </li>
+            <li>What it's like to debug a real-time system where a mistake in the software immediately shows up as wrong
+              physical behaviour — a great way to learn.</li>
+            <li>That a simple software decision (<code
+                style="font-family:var(--font-mono);font-size:0.9em;">fingers[1] == 1</code>) can directly switch on a
+              physical LED — which made the connection between code and hardware feel very concrete.</li>
+          </ul>
+        </div>
+
+        <!-- Limitations / Next Steps -->
+        <div class="full-section">
+          <h2>Limitations &amp; Next Steps</h2>
+          <p>The finger detection uses simple coordinate comparisons rather than a pose-classification model.
+            The rules are orientation-dependent: they work reliably when the hand is held upright and facing the
+            camera, but different hand angles, partial occlusion, or varied lighting can all cause incorrect
+            classifications. The current system also only controls individual LEDs — it has no debouncing or
+            state-change filtering, so the Arduino receives an update every time a hand is detected regardless of
+            whether the finger state actually changed.</p>
+          <p>Possible future improvements — none of which have been implemented yet:</p>
+          <ul>
+            <li>Make the finger detection more reliable across different hand orientations and tilt angles.</li>
+            <li>Add debouncing or state-change filtering so the Arduino is not repeatedly updated when the finger state
+              hasn't changed.</li>
+            <li>Handle partial occlusion and edge-of-frame positions more gracefully.</li>
+            <li>Improve robustness under different lighting conditions and backgrounds.</li>
+            <li>Support more gesture types beyond counting raised fingers.</li>
+            <li>Produce more useful hardware outputs — for example PWM-controlled brightness, sequences, or different
+              actuators.</li>
+            <li>Improve the interface and add clearer visual feedback in the OpenCV window.</li>
+          </ul>
+        </div>
+
+        <!-- Project Links -->
+        <div class="full-section" style="margin-bottom:3rem;">
+          <h2>Project Links</h2>
+          <p>Links will be added here as the project is documented and published.</p>
+          <div class="proj-links">
+            <span class="proj-link-btn" aria-label="GitHub repository — coming soon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              GitHub Repository
+            </span>
+            <span class="proj-link-btn" aria-label="Demo video — coming soon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <polygon points="5,3 19,12 5,21" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+              </svg>
+              Demo Video
+            </span>
+          </div>
+          <p class="proj-link-coming">— Links will be added when available —</p>
+        </div>
+
+      </div><!-- /.wrap -->
+    </section>
+  </main>
+
+  <!-- Page navigation -->
+  <nav class="page-nav" aria-label="Portfolio navigation">
+    <div class="wrap">
+      <div class="page-nav-inner">
+        <a href="gear-train.html" class="page-nav-prev" id="nav-prev-gear">
+          <span class="pn-label"><span class="pn-arrow">←</span> Previous</span>
+          <span class="pn-title">Involute Gear Train</span>
+        </a>
+        <span class="page-nav-center"></span>
+        <a href="personal.html" class="page-nav-next" id="nav-next-personal">
+          <span class="pn-label">All Personal <span class="pn-arrow">→</span></span>
+          <span class="pn-title">Personal Projects</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer-links">
+        <a href="mailto:vj0501@student.ubc.ca">Email</a>
+        <a href="https://www.linkedin.com/in/vijayprajwalrajasekar/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/VijayPrajwal/Projects-" target="_blank" rel="noopener">GitHub</a>
+        <a href="contact.html">Resume</a>
+      </div>
+      <div class="footer-meta">Vijay Prajwal Rajasekar · UBC Okanagan</div>
+    </div>
+  </footer>
+
+  <script src="assets/main.js" defer></script>
+
+</body>
+
+</html>

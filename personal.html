@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -211,11 +211,25 @@
             </div>
           </a>
 
-          <div class="placeholder-card">
-            <div class="mono">— DOCUMENTATION IN PROGRESS —</div>
-            <h3>Next personal build in progress</h3>
-            <p>More self-directed projects will be added here as they're built and documented.</p>
-          </div>
+          <a href="hand-gesture-led.html" class="proj-card">
+            <div class="proj-thumb" style="display:flex;align-items:center;justify-content:center;background:var(--surface-raised);">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.22;">
+                <path d="M18 11V6.5a1.5 1.5 0 0 0-3 0V11" stroke="#e8e6e1" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M15 11V5.5a1.5 1.5 0 0 0-3 0V11" stroke="#e8e6e1" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M12 11V6.5a1.5 1.5 0 0 0-3 0V14" stroke="#e8e6e1" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M9 12.5a1.5 1.5 0 0 0-3 0V14a7 7 0 0 0 7 7h1a6 6 0 0 0 6-6v-3a1.5 1.5 0 0 0-3 0" stroke="#e8e6e1" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="proj-info">
+              <span class="tag tag-personal" style="align-self:flex-start;">PERSONAL</span>
+              <h3>Hand Gesture Controlled LED System</h3>
+              <p>Used Python, OpenCV, and MediaPipe to detect hand landmarks from a webcam, then mapped the five finger states to individual LEDs on an Arduino via PyFirmata2.</p>
+              <div class="proj-footer">
+                <span>Python &middot; OpenCV &middot; MediaPipe &middot; Arduino &middot; PyFirmata2</span>
+                <span class="proj-arrow">&rarr;</span>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
     </section>

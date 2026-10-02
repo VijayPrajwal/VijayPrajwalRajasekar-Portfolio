@@ -20,9 +20,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background-image:
-        linear-gradient(rgba(255, 107, 53, 0.13) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 107, 53, 0.13) 1px, transparent 1px);
+      background-image: var(--hero-grid);
       background-size: 44px 44px;
       -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.85) 18%, rgba(0, 0, 0, 0.85) 78%, transparent 100%);
       mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.85) 18%, rgba(0, 0, 0, 0.85) 78%, transparent 100%);
@@ -115,10 +113,10 @@
 
     .btn-slot-primary {
       background: var(--signal);
-      color: #0b0d0f;
+      color: var(--btn-solid-text);
       font-weight: 700;
       border: none;
-      box-shadow: 0 0 18px rgba(255, 117, 66, 0.4);
+      box-shadow: 0 0 18px var(--glow-color);
     }
 
     .btn-slot-primary:hover,
@@ -128,7 +126,7 @@
     }
 
     .btn-slot-secondary {
-      background: #1a1e22;
+      background: var(--surface-raised);
       color: var(--text);
       border: 1px solid var(--border);
       font-weight: 500;
@@ -137,7 +135,7 @@
     .btn-slot-secondary:hover,
     .btn-slot-secondary:focus-visible {
       border-color: var(--signal);
-      background: #21262b;
+      background: var(--surface);
       box-shadow: 0 4px 14px rgba(255, 117, 66, 0.2);
     }
 
@@ -347,6 +345,67 @@
     .featured-desc {
       margin-bottom: 1.5rem;
     }
+
+    /* ---- Recruiter Mode: Experience list ---- */
+    .rec-exp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 2rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .rec-exp-item {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border-soft);
+      transition: background 0.18s ease;
+    }
+
+    .rec-exp-item:last-child {
+      border-bottom: none;
+    }
+
+    .rec-exp-item:hover {
+      background: rgba(255, 107, 53, 0.03);
+    }
+
+    .rec-exp-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .rec-exp-date {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-faint);
+      letter-spacing: 0.04em;
+    }
+
+    .rec-exp-role {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.25;
+    }
+
+    .rec-exp-company {
+      font-size: 0.85rem;
+      color: var(--signal);
+      margin-bottom: 0.45rem;
+      margin-top: 0.1rem;
+    }
+
+    .rec-exp-desc {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      line-height: 1.55;
+      margin: 0;
+    }
   </style>
 </head>
 
@@ -459,6 +518,57 @@
               <li>Hardware Systems Integration</li>
             </ul>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recruiter Mode: Experience Section -->
+    <section id="recruiter-experience" class="recruiter-only">
+      <div class="wrap fade-in">
+        <p class="eyebrow">Career &amp; Industry</p>
+        <h2 class="section-title">Experience</h2>
+        <p class="section-lede">Industry roles, co-ops, and club work where I've applied mechanical design and
+          manufacturing hands-on.</p>
+
+        <div class="rec-exp-list">
+
+          <div class="rec-exp-item">
+            <div class="rec-exp-meta">
+              <span class="tl-type tl-type-club">Club</span>
+              <span class="rec-exp-date">Sep 2025 — Present</span>
+            </div>
+            <div class="rec-exp-role">Aero-Mechanical Member</div>
+            <div class="rec-exp-company">UBCO Aerospace &mdash; Kelowna, BC</div>
+            <p class="rec-exp-desc">Contributing to the Guardian Project (canard fixed-wing) and composite carbon-fiber
+              airframe manufacturing in the UAV subdivision.</p>
+          </div>
+
+          <div class="rec-exp-item">
+            <div class="rec-exp-meta">
+              <span class="tl-type tl-type-full">Full-time</span>
+              <span class="rec-exp-date">Jan 2023 — Jun 2025</span>
+            </div>
+            <div class="rec-exp-role">Mechanical Engineering Technologist</div>
+            <div class="rec-exp-company">Filtervac International Inc. &mdash; Breslau, ON</div>
+            <p class="rec-exp-desc">3D CAD modeling in SolidWorks, jig &amp; fixture design, GD&amp;T drawings, BOM
+              generation, and mechanical installation testing for industrial vacuum systems.</p>
+          </div>
+
+          <div class="rec-exp-item">
+            <div class="rec-exp-meta">
+              <span class="tl-type tl-type-coop">Co-op</span>
+              <span class="rec-exp-date">Jan 2021 — Dec 2021</span>
+            </div>
+            <div class="rec-exp-role">Manufacturing Engineering Co-op (×2)</div>
+            <div class="rec-exp-company">Skyjack Inc. &mdash; Guelph, ON</div>
+            <p class="rec-exp-desc">Designed an ergonomic weldment jig, ran time &amp; downtime studies, built Power BI
+              OA reports, and maintained standard work instructions across production lines.</p>
+          </div>
+
+        </div>
+
+        <div style="margin-top: 1.75rem;">
+          <a href="experience.html" class="btn btn-secondary btn-style-override">View Full Experience →</a>
         </div>
       </div>
     </section>
