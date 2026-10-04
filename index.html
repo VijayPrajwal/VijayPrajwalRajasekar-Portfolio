@@ -266,6 +266,57 @@
       gap: 10px;
     }
 
+    /* ---- Experience preview (index) ---- */
+    .exp-preview {
+      border-top: 1px solid var(--border-soft);
+    }
+
+    .exp-preview-item {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .exp-preview-info {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      flex-grow: 1;
+      min-width: 0;
+      flex-wrap: wrap;
+    }
+
+    .exp-preview-company {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      font-weight: 400;
+    }
+
+    .exp-preview-date {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-faint);
+      white-space: nowrap;
+      margin-left: auto;
+    }
+
+    @media (max-width: 768px) {
+      .exp-preview-item {
+        flex-wrap: wrap;
+        gap: 0.6rem;
+      }
+
+      .exp-preview-info {
+        width: 100%;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+
+      .exp-preview-date {
+        margin-left: 0;
+      }
+    }
+
     /* ---- Featured project ---- */
     .featured {
       border-top: 1px solid var(--border-soft);
@@ -476,6 +527,45 @@
           <div class="fact-row"><span>Club</span><b>UBCO Aerospace</b></div>
           <div class="fact-row"><span>Looking for</span><b>Summer 2027 internship / co-op</b></div>
         </div>
+      </div>
+    </section>
+
+    <section id="experience" class="exp-preview">
+      <div class="wrap">
+        <p class="eyebrow">Career &amp; Industry</p>
+        <h2 class="section-title">Experience</h2>
+        <p class="section-lede">Industry roles, co-ops, and club leadership focused on mechanical design, manufacturing, and systems engineering.</p>
+
+        <div class="proj-list fade-in">
+          <a href="experience.html" class="proj-list-item exp-preview-item">
+            <span class="tag tag-club">CLUB</span>
+            <div class="exp-preview-info">
+              <span class="proj-list-name">Mech/Manufacturing Sub-Team Lead</span>
+              <span class="exp-preview-company">· UBCO Aerospace</span>
+            </div>
+            <span class="exp-preview-date">Sep 2025 — Present</span>
+            <span class="proj-list-arrow">→</span>
+          </a>
+          <a href="experience.html" class="proj-list-item exp-preview-item">
+            <span class="tag tag-full">FULL-TIME</span>
+            <div class="exp-preview-info">
+              <span class="proj-list-name">Mechanical Engineering Technologist</span>
+              <span class="exp-preview-company">· Filtervac International Inc.</span>
+            </div>
+            <span class="exp-preview-date">Jan 2023 — Jun 2025</span>
+            <span class="proj-list-arrow">→</span>
+          </a>
+          <a href="experience.html" class="proj-list-item exp-preview-item">
+            <span class="tag tag-coop">CO-OP</span>
+            <div class="exp-preview-info">
+              <span class="proj-list-name">Manufacturing Engineering Co-op</span>
+              <span class="exp-preview-company">· Skyjack Inc.</span>
+            </div>
+            <span class="exp-preview-date">Jan 2021 — Dec 2021</span>
+            <span class="proj-list-arrow">→</span>
+          </a>
+        </div>
+        <a href="experience.html" class="proj-view-all">View full experience timeline →</a>
       </div>
     </section>
 
