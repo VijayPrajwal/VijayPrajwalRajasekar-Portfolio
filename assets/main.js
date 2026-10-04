@@ -4,9 +4,7 @@
   if (savedTheme) {
     document.documentElement.setAttribute('data-theme', savedTheme);
   } else {
-    var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-    var initialTheme = prefersLight ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', initialTheme);
+    document.documentElement.setAttribute('data-theme', 'light');
   }
 })();
 
@@ -26,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     btn.id = 'themeToggle';
     btn.type = 'button';
     
-    var currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    var currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
     btn.setAttribute('aria-label', currentTheme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
     btn.setAttribute('title', 'Toggle dark / light mode');
 
@@ -52,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     btn.addEventListener('click', function (e) {
       e.preventDefault();
-      var activeTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+      var activeTheme = document.documentElement.getAttribute('data-theme') || 'light';
       var nextTheme = activeTheme === 'dark' ? 'light' : 'dark';
       
       document.documentElement.setAttribute('data-theme', nextTheme);

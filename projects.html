@@ -112,6 +112,46 @@
       transform: translateX(4px);
     }
 
+    /* WIP / coming-soon card */
+    .proj-card--wip {
+      cursor: default;
+      opacity: 0.72;
+      position: relative;
+    }
+    .proj-card--wip:hover {
+      border-color: var(--border);
+      transform: none;
+    }
+    .proj-card--wip:hover .proj-thumb img {
+      transform: none;
+    }
+    .wip-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.05em;
+      color: var(--signal);
+      border: 1px solid currentColor;
+      border-radius: 3px;
+      padding: 2px 7px;
+      align-self: flex-start;
+    }
+    .wip-badge::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--signal);
+      animation: wip-pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes wip-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
   </style>
 </head>
 
@@ -195,15 +235,10 @@
             </div>
           </a>
 
-          <!-- Personal: Hand Gesture LED -->
-          <a href="hand-gesture-led.html" class="proj-card">
-            <div class="proj-thumb" style="display:flex;align-items:center;justify-content:center;background:var(--surface-raised);">
-              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.22;">
-                <path d="M18 11V6.5a1.5 1.5 0 0 0-3 0V11" stroke="#e8e6e1" stroke-width="1.4" stroke-linecap="round"/>
-                <path d="M15 11V5.5a1.5 1.5 0 0 0-3 0V11" stroke="#e8e6e1" stroke-width="1.4" stroke-linecap="round"/>
-                <path d="M12 11V6.5a1.5 1.5 0 0 0-3 0V14" stroke="#e8e6e1" stroke-width="1.4" stroke-linecap="round"/>
-                <path d="M9 12.5a1.5 1.5 0 0 0-3 0V14a7 7 0 0 0 7 7h1a6 6 0 0 0 6-6v-3a1.5 1.5 0 0 0-3 0" stroke="#e8e6e1" stroke-width="1.4" stroke-linecap="round"/>
-              </svg>
+          <!-- Personal: Hand Gesture LED (WIP — write-up not ready) -->
+          <div class="proj-card proj-card--wip">
+            <div class="proj-thumb">
+              <img src="images/Thumbnail Hand Gesture - python.png" alt="Hand Gesture Controlled LED System thumbnail">
             </div>
             <div class="proj-info">
               <span class="tag tag-personal" style="align-self:flex-start;">PERSONAL</span>
@@ -211,6 +246,38 @@
               <p>Used Python, OpenCV, and MediaPipe to detect hand landmarks from a webcam, then mapped the five finger states to individual LEDs on an Arduino via PyFirmata2.</p>
               <div class="proj-footer">
                 <span>Python &middot; OpenCV &middot; MediaPipe &middot; Arduino &middot; PyFirmata2</span>
+                <span class="wip-badge">Write-up in progress</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Personal: S1233 Airfoil Flow Simulation (WIP — write-up not ready) -->
+          <div class="proj-card proj-card--wip">
+            <div class="proj-thumb">
+              <img src="images/S1233 Airfoil Flow Simulation.png" alt="S1233 Airfoil Flow Simulation SolidWorks screenshot">
+            </div>
+            <div class="proj-info">
+              <span class="tag tag-personal" style="align-self:flex-start;">PERSONAL</span>
+              <h3>S1233 Airfoil Flow Simulation</h3>
+              <p>A SolidWorks flow simulation study on a single-element S1233 airfoil to analyze downforce generation for an FSAE rear wing. The focus is on testing different Angles of Attack (AoA) to understand pressure changes, with plans to simulate a multi-element wing setup next.</p>
+              <div class="proj-footer">
+                <span>SolidWorks &middot; Flow Simulation &middot; FSAE</span>
+                <span class="wip-badge">Write-up in progress</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Personal: SolidWorks & Onshape CAD Portfolio -->
+          <a href="images/Vijay  SolidWorks Portfolio - Updated 2026.pdf" target="_blank" rel="noopener" class="proj-card">
+            <div class="proj-thumb">
+              <img src="images/cad-portfolio-thumb.jpg" alt="First page of SolidWorks and Onshape CAD Portfolio PDF">
+            </div>
+            <div class="proj-info">
+              <span class="tag tag-personal" style="align-self:flex-start;">PERSONAL</span>
+              <h3>SolidWorks &amp; Onshape CAD Portfolio</h3>
+              <p>A collection of my CAD assemblies and flow simulations. Includes an S1233 airfoil flow simulation for an FSAE rear wing, a compound gear train designed for 3D printing, and a centering attachment vise.</p>
+              <div class="proj-footer">
+                <span>SolidWorks &middot; Onshape &middot; Flow Simulation</span>
                 <span class="proj-arrow">&rarr;</span>
               </div>
             </div>
