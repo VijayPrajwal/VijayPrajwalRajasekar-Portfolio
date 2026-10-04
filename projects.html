@@ -9,7 +9,6 @@
     content="All engineering projects by Vijay Prajwal Rajasekar — school coursework, UBCO Aerospace club builds, and personal prototypes.">
   <link rel="stylesheet" href="assets/style.css">
   <style>
-
     /* ---- Page header ---- */
     .page-head {
       padding: clamp(2.5rem, 6vw, 4rem) 0 1rem;
@@ -118,13 +117,16 @@
       opacity: 0.72;
       position: relative;
     }
+
     .proj-card--wip:hover {
       border-color: var(--border);
       transform: none;
     }
+
     .proj-card--wip:hover .proj-thumb img {
       transform: none;
     }
+
     .wip-badge {
       display: inline-flex;
       align-items: center;
@@ -138,6 +140,7 @@
       padding: 2px 7px;
       align-self: flex-start;
     }
+
     .wip-badge::before {
       content: '';
       display: inline-block;
@@ -147,11 +150,18 @@
       background: var(--signal);
       animation: wip-pulse 1.4s ease-in-out infinite;
     }
-    @keyframes wip-pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
 
+    @keyframes wip-pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
+    }
   </style>
 </head>
 
@@ -179,7 +189,8 @@
       <div class="wrap">
         <p class="eyebrow">All Projects</p>
         <h1>Projects &amp; Engineering Work</h1>
-        <p class="section-lede">Everything I have built so far — school coursework, UBCO Aerospace club builds, and personal prototypes I made just to figure out how they work.</p>
+        <p class="section-lede">Everything I have built so far — school coursework, UBCO Aerospace club builds, and
+          personal prototypes I made just to figure out how they work.</p>
 
         <div class="proj-grid">
 
@@ -227,7 +238,8 @@
             <div class="proj-info">
               <span class="tag tag-personal" style="align-self:flex-start;">PERSONAL</span>
               <h3>Hand Gesture Controlled LED System</h3>
-              <p>Used Python, OpenCV, and MediaPipe to detect hand landmarks from a webcam, then mapped the five finger states to individual LEDs on an Arduino via PyFirmata2.</p>
+              <p>Used Python, OpenCV, and MediaPipe to detect hand landmarks from a webcam, then mapped the five finger
+                states to individual LEDs on an Arduino via PyFirmata2.</p>
               <div class="proj-footer">
                 <span>Python &middot; OpenCV &middot; MediaPipe &middot; Arduino &middot; PyFirmata2</span>
                 <span class="wip-badge">Write-up in progress</span>
@@ -238,12 +250,15 @@
           <!-- Personal: S1233 Airfoil Flow Simulation (WIP — write-up not ready) -->
           <div class="proj-card proj-card--wip">
             <div class="proj-thumb">
-              <img src="images/S1233 Airfoil Flow Simulation.png" alt="S1233 Airfoil Flow Simulation SolidWorks screenshot">
+              <img src="images/S1233 Airfoil Flow Simulation.png"
+                alt="S1233 Airfoil Flow Simulation SolidWorks screenshot">
             </div>
             <div class="proj-info">
               <span class="tag tag-personal" style="align-self:flex-start;">PERSONAL</span>
               <h3>S1233 Airfoil Flow Simulation</h3>
-              <p>A SolidWorks flow simulation study on a single-element S1233 airfoil to analyze downforce generation for an FSAE rear wing. The focus is on testing different Angles of Attack (AoA) to understand pressure changes, with plans to simulate a multi-element wing setup next.</p>
+              <p>A SolidWorks flow simulation study on a single-element S1233 airfoil to analyze downforce generation
+                for an FSAE rear wing. The focus is on testing different Angles of Attack (AoA) to understand pressure
+                changes, with plans to simulate a multi-element wing setup next.</p>
               <div class="proj-footer">
                 <span>SolidWorks &middot; Flow Simulation &middot; FSAE</span>
                 <span class="wip-badge">Write-up in progress</span>
@@ -254,12 +269,14 @@
           <!-- School: DABS -->
           <a href="buoy-system.html" class="proj-card">
             <div class="proj-thumb">
-              <img src="images/Buoy Images/dabs-hero.jpg" alt="Data Acquisition Buoy System (DABS) Final CAD Prototype" style="object-fit: contain; background: var(--surface-raised);">
+              <img src="images/Buoy Images/dabs-hero.jpg" alt="Data Acquisition Buoy System (DABS) Final CAD Prototype"
+                style="object-fit: contain; background: var(--surface-raised);">
             </div>
             <div class="proj-info">
               <span class="tag tag-school" style="align-self:flex-start;">SCHOOL · UBC</span>
               <h3>Data Acquisition Buoy System (DABS)</h3>
-              <p>Developed a conceptual environmental buoy system to support nutrient monitoring in aquatic ecosystems. Nominated in the Design Process Category at Aquahacking Binational 2026.</p>
+              <p>Developed a conceptual environmental buoy system to support nutrient monitoring in aquatic ecosystems.
+                Nominated in the Design Process Category at Aquahacking Binational 2026.</p>
               <div class="proj-footer">
                 <span>APSC 169 — Fundamentals of Sustainable Engineering Design</span>
                 <span class="proj-arrow">→</span>
@@ -275,7 +292,8 @@
             <div class="proj-info">
               <span class="tag tag-personal" style="align-self:flex-start;">PERSONAL</span>
               <h3>SolidWorks &amp; Onshape CAD Portfolio</h3>
-              <p>A collection of my CAD assemblies and flow simulations. Includes an S1233 airfoil flow simulation for an FSAE rear wing, a compound gear train designed for 3D printing, and a centering attachment vise.</p>
+              <p>A collection of my CAD assemblies and flow simulations. Includes an S1233 airfoil flow simulation for
+                an FSAE rear wing, a compound gear train designed for 3D printing, and a centering attachment vise.</p>
               <div class="proj-footer">
                 <span>SolidWorks &middot; Onshape &middot; Flow Simulation</span>
                 <span class="proj-arrow">&rarr;</span>
