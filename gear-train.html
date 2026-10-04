@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -523,7 +523,8 @@
               scratch. I set up SolidWorks Global Variables and equations so that the gear geometry was fully
               parametric — changing the tooth count would update the whole model automatically.</p>
             <p>The involute tooth profile was generated using a SolidWorks Equation Driven Curve:</p>
-            <pre style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.85rem 1.1rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.5rem 0 1rem;"><code>x = D2@Sketch2 * 0.5 * (cos(t) + t*sin(t))
+            <pre
+              style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.85rem 1.1rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.5rem 0 1rem;"><code>x = D2@Sketch2 * 0.5 * (cos(t) + t*sin(t))
 y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
 
             <div class="process-note">
@@ -534,8 +535,11 @@ y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
             </div>
 
             <h3>Building the 10:1 gear train</h3>
-            <p>My target was a 10:1 overall gear ratio. I used four gears across three axles to create three reduction stages: 12T → 30T, 14T → 28T, and 14T → 28T, with the intermediate gears coupled on their respective axles.</p>
-            <pre style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.85rem 1.1rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.5rem 0 1rem;line-height:1.7;"><code><span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">STAGE 1</span>   12T → 30T    30/12  =  2.5 : 1
+            <p>My target was a 10:1 overall gear ratio. I used four gears across three axles to create three reduction
+              stages: 12T → 30T, 14T → 28T, and 14T → 28T, with the intermediate gears coupled on their respective
+              axles.</p>
+            <pre
+              style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.85rem 1.1rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.5rem 0 1rem;line-height:1.7;"><code><span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">STAGE 1</span>   12T → 30T    30/12  =  2.5 : 1
 <span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">STAGE 2</span>   14T → 28T    28/14  =  2   : 1
 <span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">STAGE 3</span>   14T → 28T    28/14  =  2   : 1
 
@@ -633,7 +637,8 @@ y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
           <figure>
             <img src="images/Equations manager screenshot.jpg"
               alt="SolidWorks Equations Manager showing global variables and equations defining gear geometry">
-            <figcaption>SolidWorks Equations Manager used to parameterize the gear geometry and generate different tooth counts.
+            <figcaption>SolidWorks Equations Manager used to parameterize the gear geometry and generate different tooth
+              counts.
             </figcaption>
           </figure>
           <figure>
@@ -738,7 +743,7 @@ y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
         <a href="https://github.com/VijayPrajwal/Projects-" target="_blank" rel="noopener">GitHub</a>
         <a href="contact.html">Resume</a>
       </div>
-      <div class="footer-meta">Vijay Prajwal Rajasekar · UBC Okanagan</div>
+      <div class="footer-meta">Vijay Prajwal Rajasekar · UBC</div>
     </div>
   </footer>
 
