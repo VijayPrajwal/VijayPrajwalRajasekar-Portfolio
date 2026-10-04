@@ -530,23 +530,21 @@ nav.main-nav a.active::after {
 
 /* ---------- Modern Pill-Shaped Metric Badges ---------- */
 .stat-box {
-  background: rgba(21, 24, 27, 0.65);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 117, 66, 0.2);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 1.1rem 1.25rem;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  box-shadow: var(--card-shadow);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .stat-box:hover,
 .stat-box:focus-within {
   transform: translateY(-3px);
-  border-color: rgba(255, 117, 66, 0.5);
-  box-shadow: 0 8px 24px rgba(255, 117, 66, 0.18), 0 2px 6px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: var(--signal-dim);
+  box-shadow: 0 8px 24px rgba(230, 81, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
 .stat-box .num,
@@ -559,23 +557,50 @@ nav.main-nav a.active::after {
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--signal);
-  background: linear-gradient(135deg, rgba(255, 117, 66, 0.15) 0%, rgba(255, 117, 66, 0.05) 100%);
-  border: 1px solid rgba(255, 117, 66, 0.3);
+  background: rgba(230, 81, 0, 0.08);
+  border: 1px solid rgba(230, 81, 0, 0.25);
   border-radius: 999px;
   padding: 4px 14px;
   margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(230, 81, 0, 0.08);
+}
+
+.stat-box .label {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.35;
+}
+
+[data-theme="dark"] .stat-box {
+  background: rgba(21, 24, 27, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-color: rgba(255, 117, 66, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+[data-theme="dark"] .stat-box:hover,
+[data-theme="dark"] .stat-box:focus-within {
+  border-color: rgba(255, 117, 66, 0.5);
+  box-shadow: 0 8px 24px rgba(255, 117, 66, 0.18), 0 2px 6px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .stat-box .num,
+[data-theme="dark"] .metric-badge {
+  color: var(--signal);
+  background: linear-gradient(135deg, rgba(255, 117, 66, 0.15) 0%, rgba(255, 117, 66, 0.05) 100%);
+  border-color: rgba(255, 117, 66, 0.3);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   box-shadow: 0 2px 8px rgba(255, 117, 66, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
-.stat-box .label {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 500;
-  color: var(--text-dim);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+[data-theme="dark"] .stat-box .label {
+  color: #c9d1d9;
 }
 
 /* ---------- Typography ---------- */
