@@ -149,6 +149,30 @@
       transform: translateX(3px);
     }
 
+    .btn-slot-resume {
+      background: transparent;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      font-weight: 500;
+    }
+
+    .btn-slot-resume:hover,
+    .btn-slot-resume:focus-visible {
+      border-color: var(--text-dim);
+      color: var(--text);
+      background: var(--surface-raised);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    }
+
+    .btn-slot-resume svg {
+      transition: transform 0.18s ease;
+    }
+
+    .btn-slot-resume:hover svg,
+    .btn-slot-resume:focus-visible svg {
+      transform: translateY(2px);
+    }
+
     /* ---- About section ---- */
     .about {
       border-top: 1px solid var(--border-soft);
@@ -453,10 +477,17 @@
       <div class="wrap">
         <h1 class="hero-name"><span>Vijay Prajwal</span> Rajasekar</h1>
         <p class="lede">Mechanical Engineering Student at UBC. Focused on CAD modeling, mechanical design, and
-          prototyping across coursework, club builds, and personal projects — actively seeking Summer / Fall 2027 internship and co-op opportunities.</p>
+          prototyping across coursework, club builds, and personal projects — actively seeking Summer / Fall 2027
+          internship and co-op opportunities.</p>
         <div class="hero-cta">
           <a href="#projects" class="btn-slot btn-slot-primary">View my work <span class="arrow">→</span></a>
           <a href="contact.html" class="btn-slot btn-slot-secondary">Get in touch</a>
+          <a href="assets/resume/Vijay_Prajwal_Resume.pdf" download class="btn-slot btn-slot-resume" id="hero-resume-download" aria-label="Download Vijay's résumé PDF">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M7 1v7.5M4.5 6l2.5 2.5L9.5 6M2 11h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Download my Résumé
+          </a>
         </div>
       </div>
     </section>
@@ -512,7 +543,8 @@
       <div class="wrap">
         <p class="eyebrow">Career &amp; Industry</p>
         <h2 class="section-title">Experience</h2>
-        <p class="section-lede">Industry roles, co-ops, and club leadership focused on mechanical design, manufacturing, and systems engineering.</p>
+        <p class="section-lede">Industry roles, co-ops, and club leadership focused on mechanical design, manufacturing,
+          and systems engineering.</p>
 
         <div class="proj-list fade-in">
           <a href="experience.html" class="proj-list-item exp-preview-item">
@@ -554,7 +586,8 @@
           <h2 class="section-title">Bridging CAD design with physical prototyping.</h2>
           <p class="section-lede">I spend most of my time taking ideas from CAD and turning them into physical parts. My
             recent work includes doing carbon fiber layups for UBCO Aerospace and 3D printing.</p>
-          <p class="section-lede">I am seeking a Summer / Fall 2027 mechanical or aerospace engineering internship/co-op where
+          <p class="section-lede">I am seeking a Summer / Fall 2027 mechanical or aerospace engineering internship/co-op
+            where
             I can contribute to mechanical design, analysis, and prototyping while learning alongside an experienced
             engineering team.</p>
         </div>
@@ -628,7 +661,7 @@
         <a href="mailto:vj0501@student.ubc.ca">Email</a>
         <a href="https://www.linkedin.com/in/vijayprajwalrajasekar/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://github.com/VijayPrajwal/Projects-" target="_blank" rel="noopener">GitHub</a>
-        <a href="contact.html">Resume</a>
+        <a href="assets/resume/Vijay_Prajwal_Resume.pdf" target="_blank" rel="noopener">Resume</a>
       </div>
       <div class="footer-meta">Vijay Prajwal Rajasekar · UBC</div>
     </div>
