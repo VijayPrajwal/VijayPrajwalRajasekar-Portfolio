@@ -1,10 +1,10 @@
-Ôªø<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Involute Gear Train ‚Äî Vijay Prajwal Rajasekar</title>
+  <title>Involute Gear Train ó Vijay Prajwal Rajasekar</title>
   <link rel="stylesheet" href="assets/style.css">
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.1.1/model-viewer.min.js"></script>
   <style>
@@ -328,7 +328,7 @@
       flex-shrink: 0;
     }
 
-    /* Legend panel ‚Äî overlays the model-viewer using viewer-wrap as anchor */
+    /* Legend panel ó overlays the model-viewer using viewer-wrap as anchor */
     .viewer-legend {
       position: absolute;
       bottom: 16px;
@@ -494,7 +494,7 @@
 
   <main>
     <div class="wrap">
-      <a href="personal.html" class="back-link">‚Üê Back to Personal projects</a>
+      <a href="personal.html" class="back-link">? Back to Personal projects</a>
     </div>
 
     <section class="case-head">
@@ -506,7 +506,7 @@
         <div class="case-meta">
           <div>TYPE<b>Personal build</b></div>
           <div>CAD<b>SolidWorks (equation-driven)</b></div>
-          <div>MANUFACTURING<b>FDM 3D printing ‚Äî Prusa i3</b></div>
+          <div>MANUFACTURING<b>FDM 3D printing ó Prusa i3</b></div>
           <div>LOCATION<b>UBCO Makerspace</b></div>
         </div>
 
@@ -521,7 +521,7 @@
             <h3>Parametric involute gear design</h3>
             <p>Rather than pulling a gear from a library, I learned how to construct an involute tooth profile from
               scratch. I set up SolidWorks Global Variables and equations so that the gear geometry was fully
-              parametric ‚Äî changing the tooth count would update the whole model automatically.</p>
+              parametric ó changing the tooth count would update the whole model automatically.</p>
             <p>The involute tooth profile was generated using a SolidWorks Equation Driven Curve:</p>
             <pre
               style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.85rem 1.1rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.5rem 0 1rem;"><code>x = D2@Sketch2 * 0.5 * (cos(t) + t*sin(t))
@@ -529,21 +529,21 @@ y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
 
             <div class="process-note">
               <b>Why bother with equations?</b> Once the sketch was set up this way, I could generate gears with
-              different tooth counts without rebuilding anything from scratch ‚Äî just update the variable and
+              different tooth counts without rebuilding anything from scratch ó just update the variable and
               SolidWorks would regenerate the profile automatically. I also used a gear-ratio website to help
               figure out which tooth combinations would give me the ratio I wanted.
             </div>
 
             <h3>Building the 10:1 gear train</h3>
             <p>My target was a 10:1 overall gear ratio. I used four gears across three axles to create three reduction
-              stages: 12T ‚Üí 30T, 14T ‚Üí 28T, and 14T ‚Üí 28T, with the intermediate gears coupled on their respective
+              stages: 12T ? 30T, 14T ? 28T, and 14T ? 28T, with the intermediate gears coupled on their respective
               axles.</p>
             <pre
-              style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.85rem 1.1rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.5rem 0 1rem;line-height:1.7;"><code><span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">STAGE 1</span>   12T ‚Üí 30T    30/12  =  2.5 : 1
-<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">STAGE 2</span>   14T ‚Üí 28T    28/14  =  2   : 1
-<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">STAGE 3</span>   14T ‚Üí 28T    28/14  =  2   : 1
+              style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.85rem 1.1rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.5rem 0 1rem;line-height:1.7;"><code><span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">STAGE 1</span>   12T ? 30T    30/12  =  2.5 : 1
+<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">STAGE 2</span>   14T ? 28T    28/14  =  2   : 1
+<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">STAGE 3</span>   14T ? 28T    28/14  =  2   : 1
 
-<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">OVERALL</span>   30/12 √ó 28/14 √ó 28/14  =  <strong style="color:var(--telemetry);">10 : 1</strong></code></pre>
+<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">OVERALL</span>   30/12 ◊ 28/14 ◊ 28/14  =  <strong style="color:var(--telemetry);">10 : 1</strong></code></pre>
 
             <h3>Taking the CAD to the printer</h3>
             <p>I printed the gears at the UBCO Makerspace on a Prusa i3 MK3S using PLA at 0.1 mm layer height.
@@ -551,7 +551,7 @@ y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
               PLA usage down.</p>
 
             <h3>Iterating on the print</h3>
-            <p>One of the prints failed partway through ‚Äî likely due to bed adhesion.</p>
+            <p>One of the prints failed partway through ó likely due to bed adhesion.</p>
             <p>Once I had a complete set, I found the gears were too tight to rotate freely. I added approximately
               0.15 mm clearance around the gear interfaces and reprinted. After that adjustment, the gears spun
               without binding.</p>
@@ -593,7 +593,7 @@ y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
                     stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
                 </svg>
               </span>
-              <span>Drag ‚Äî Rotate</span>
+              <span>Drag ó Rotate</span>
             </div>
             <div class="legend-row">
               <span class="legend-icon">
@@ -606,7 +606,7 @@ y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
                     stroke-linecap="round" />
                 </svg>
               </span>
-              <span>Scroll ‚Äî Zoom</span>
+              <span>Scroll ó Zoom</span>
             </div>
             <div class="legend-row">
               <span class="legend-icon">
@@ -616,7 +616,7 @@ y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
                     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </span>
-              <span>Right-drag ‚Äî Pan</span>
+              <span>Right-drag ó Pan</span>
             </div>
           </div>
 
@@ -631,7 +631,7 @@ y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
           <figure>
             <img src="images/gear-involute-sketch.jpg"
               alt="SolidWorks sketch showing involute gear tooth profile with equation-driven dimensions and pitch circles">
-            <figcaption>Equation-driven involute sketch in SolidWorks ‚Äî pitch, base and tip circles visible.
+            <figcaption>Equation-driven involute sketch in SolidWorks ó pitch, base and tip circles visible.
             </figcaption>
           </figure>
           <figure>
@@ -650,7 +650,7 @@ y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
           <figure>
             <img src="images/gear-isometric-3d.jpg"
               alt="Isometric SolidWorks render of four-gear assembly in red, blue, orange and green">
-            <figcaption>Isometric render of the full assembly ‚Äî all four gears positioned on their centre distances.
+            <figcaption>Isometric render of the full assembly ó all four gears positioned on their centre distances.
             </figcaption>
           </figure>
         </div>
@@ -660,16 +660,16 @@ y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
           <figure>
             <img src="images/gear-printing-prusa.jpg"
               alt="Prusa i3 MK3S 3D printer mid-print with red gear on the build plate">
-            <figcaption>First print attempt failed partway through ‚Äî likely due to bed adhesion.</figcaption>
+            <figcaption>First print attempt failed partway through ó likely due to bed adhesion.</figcaption>
           </figure>
           <figure>
             <img src="images/gear-printed-layout.jpg"
-              alt="All four 3D printed gears laid out on a notebook ‚Äî red, blue, orange and green">
-            <figcaption>Final four gears ‚Äî each colour corresponds to a different stage in the gear train.</figcaption>
+              alt="All four 3D printed gears laid out on a notebook ó red, blue, orange and green">
+            <figcaption>Final four gears ó each colour corresponds to a different stage in the gear train.</figcaption>
           </figure>
           <figure>
             <img src="images/gear-printed-closeup.jpg"
-              alt="Close-up of all four printed gears meshing together showing tooth detail ‚Äî orange, blue, red and green">
+              alt="Close-up of all four printed gears meshing together showing tooth detail ó orange, blue, red and green">
             <figcaption>Close-up showing tooth mesh detail across all four gears.</figcaption>
           </figure>
         </div>
@@ -681,7 +681,7 @@ y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
             <video controls playsinline preload="metadata">
               <source src="images/gear-video-1.mp4" type="video/mp4">
             </video>
-            <div class="video-caption">Gear train running ‚Äî all four gears meshing under hand input.</div>
+            <div class="video-caption">Gear train running ó all four gears meshing under hand input.</div>
           </div>
           <div class="video-wrap">
             <video controls playsinline preload="metadata">
@@ -693,7 +693,7 @@ y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
             <video controls playsinline preload="metadata">
               <source src="images/gear-video-3.mp4" type="video/mp4">
             </video>
-            <div class="video-caption">Compound stage ‚Äî 14T driving 28T, showing the speed reduction.</div>
+            <div class="video-caption">Compound stage ó 14T driving 28T, showing the speed reduction.</div>
           </div>
           <div class="video-wrap">
             <video controls playsinline preload="metadata">
@@ -722,13 +722,13 @@ y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
     <div class="wrap">
       <div class="page-nav-inner">
         <a href="personal.html" class="page-nav-prev" id="nav-prev-personal">
-          <span class="pn-label"><span class="pn-arrow">‚Üê</span> Previous</span>
+          <span class="pn-label"><span class="pn-arrow">?</span> Previous</span>
           <span class="pn-title">Personal Projects</span>
         </a>
         <span class="page-nav-center"></span>
         <a href="experience.html">Experience</a>
         <a href="certifications.html" class="page-nav-next" id="nav-next-certs">
-          <span class="pn-label">Next <span class="pn-arrow">‚Üí</span></span>
+          <span class="pn-label">Next <span class="pn-arrow">?</span></span>
           <span class="pn-title">Certs &amp; Awards</span>
         </a>
       </div>
@@ -741,9 +741,9 @@ y = D2@Sketch2 * 0.5 * (sin(t) - t*cos(t))</code></pre>
         <a href="mailto:vj0501@student.ubc.ca">Email</a>
         <a href="https://www.linkedin.com/in/vijayprajwalrajasekar/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://github.com/VijayPrajwal/Projects-" target="_blank" rel="noopener">GitHub</a>
-        <a href="assets/resume/Vijay_Prajwal_Resume.pdf" target="_blank" rel="noopener">Resume</a>
+        <a href="assets/resume/Vijay_Prajwal_Resume_2026_co-op.pdf" target="_blank" rel="noopener">Resume</a>
       </div>
-      <div class="footer-meta">Vijay Prajwal Rajasekar ¬∑ UBC</div>
+      <div class="footer-meta">Vijay Prajwal Rajasekar ∑ UBC</div>
     </div>
   </footer>
 
