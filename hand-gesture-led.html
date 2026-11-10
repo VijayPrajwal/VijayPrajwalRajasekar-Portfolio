@@ -344,12 +344,11 @@
       margin-top: 1rem;
     }
 
-    .demo-video-wrap video {
+    .demo-video-wrap iframe {
       width: 100%;
+      aspect-ratio: 16 / 9;
       display: block;
-      max-height: 540px;
-      object-fit: contain;
-      background: #000;
+      border: none;
     }
 
     .demo-video-caption {
@@ -816,9 +815,7 @@ led_5 = board.get_pin('d:2:o')  <span style="color:var(--text-faint);"># Pinky</
             <p>When ready, replace this placeholder with a &lt;video&gt; element or a hosted video embed.</p>
           </div>
           <div class="demo-video-wrap">
-            <video controls playsinline preload="metadata">
-              <source src="images/Demonstration Recording.mp4" type="video/mp4">
-            </video>
+            <iframe src="https://www.youtube.com/embed/cnySIcEl0rg" title="Hand Gesture LED Demonstration" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <div class="demo-video-caption">Webcam detecting raised fingers — LEDs switching on and off in real time as hand gesture changes.</div>
           </div>
         </div>
