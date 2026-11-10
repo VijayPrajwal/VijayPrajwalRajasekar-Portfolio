@@ -554,17 +554,22 @@
               vision work here.
             </div>
 
-            <!-- Image placeholder — replace with actual MediaPipe landmark diagram when available -->
-            <div
-              style="border:1px dashed var(--border);border-radius:8px;padding:2rem;text-align:center;background:var(--surface);margin:1.5rem 0;">
-              <p
-                style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-faint);letter-spacing:0.05em;margin:0 0 0.4rem;">
-                LANDMARK DIAGRAM</p>
-              <p style="font-size:0.88rem;color:var(--text-dim);margin:0;">MediaPipe hand landmark diagram will be added
-                here. Replace this block with an <code
-                  style="font-family:var(--font-mono);font-size:0.9em;">&lt;img&gt;</code> once the image is available.
-              </p>
-            </div>
+            <!-- MediaPipe landmark diagram -->
+            <figure class="landmark-diagram"
+              style="margin:1.5rem 0;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#202124;">
+              <a href="https://developers.google.com/edge/mediapipe/solutions/vision/hand_landmarker" target="_blank"
+                rel="noopener" style="display:block;" title="Open MediaPipe Hand Landmarker documentation">
+                <img src="images/Mediapipe Hand-Landmarks.png"
+                  alt="MediaPipe Hand Landmarks model showing 21 3D hand coordinates"
+                  style="width:100%;height:auto;display:block;transition:opacity 0.2s ease;">
+              </a>
+              <figcaption
+                style="padding:8px 12px;background:var(--surface);border-top:1px solid var(--border-soft);display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:0.72rem;color:var(--text-dim);">
+                <span>MediaPipe 21 Hand Landmarks Model (0–20)</span>
+                <a href="https://developers.google.com/edge/mediapipe/solutions/vision/hand_landmarker" target="_blank"
+                  rel="noopener" style="color:var(--signal);text-decoration:none;">Documentation ↗</a>
+              </figcaption>
+            </figure>
 
             <!-- Finger Detection Logic -->
             <h3>Finger Detection Logic</h3>
