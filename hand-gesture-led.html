@@ -339,6 +339,80 @@
       align-self: center;
     }
 
+    /* ---- Hero tagline ---- */
+    .hero-tagline {
+      font-size: clamp(0.95rem, 2vw, 1.08rem);
+      color: var(--text-dim);
+      margin: 0.6rem 0 1.1rem;
+      max-width: 56ch;
+      line-height: 1.65;
+    }
+
+    /* ---- Tech pill tags ---- */
+    .tech-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .tech-pill {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.25rem 0.65rem;
+      letter-spacing: 0.03em;
+    }
+
+    /* ---- Quick overview cards ---- */
+    .overview-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border-soft);
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 0 0 2.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .overview-strip {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .overview-card {
+      background: var(--surface);
+      padding: 1.25rem 1.4rem;
+    }
+
+    .overview-card-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      color: var(--signal);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+
+    .overview-card-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .overview-card-desc {
+      font-size: 0.84rem;
+      color: var(--text-dim);
+      line-height: 1.55;
+      margin: 0;
+    }
+
     /* ---- Full-width sections below the two-col ---- */
     .full-section {
       margin-top: 3rem;
@@ -397,12 +471,45 @@
         <span class="tag tag-personal">PERSONAL</span>
         <h1>Hand Gesture Controlled LED System</h1>
         <p class="case-subtitle">Python + Computer Vision + Arduino</p>
+        <p class="hero-tagline">A webcam reads my hand in real time. Python and MediaPipe identify which fingers are
+          raised. An Arduino switches five individual LEDs on or off — one per finger.</p>
+
+        <div class="tech-pills">
+          <span class="tech-pill">Python</span>
+          <span class="tech-pill">OpenCV</span>
+          <span class="tech-pill">MediaPipe</span>
+          <span class="tech-pill">PyFirmata2</span>
+          <span class="tech-pill">Arduino</span>
+          <span class="tech-pill">Serial Communication</span>
+        </div>
 
         <div class="case-meta">
           <div>TYPE<b>Personal Project</b></div>
           <div>FOCUS<b>Computer Vision + Hardware</b></div>
           <div>LANGUAGE<b>Python</b></div>
           <div>TOOLS<b>OpenCV · MediaPipe · Arduino · PyFirmata2</b></div>
+        </div>
+
+        <!-- Quick overview strip -->
+        <div class="overview-strip">
+          <div class="overview-card">
+            <div class="overview-card-label">Input</div>
+            <div class="overview-card-title">Webcam</div>
+            <p class="overview-card-desc">OpenCV captures live video and passes each frame to MediaPipe for hand
+              detection.</p>
+          </div>
+          <div class="overview-card">
+            <div class="overview-card-label">Processing</div>
+            <div class="overview-card-title">Python + MediaPipe</div>
+            <p class="overview-card-desc">21 hand landmarks are identified. Coordinate comparisons determine which of
+              the five fingers are raised.</p>
+          </div>
+          <div class="overview-card">
+            <div class="overview-card-label">Output</div>
+            <div class="overview-card-title">Arduino + LEDs</div>
+            <p class="overview-card-desc">PyFirmata2 sends the finger states over USB. Each LED switches on or off
+              independently.</p>
+          </div>
         </div>
 
         <!-- Two-column layout: main content + sidebar -->
@@ -599,6 +706,19 @@ led_5 = board.get_pin('d:2:o')  <span style="color:var(--text-faint);"># Pinky</
 
         <!-- Full-width sections -->
 
+        <!-- See It in Action (demo video — first so recruiters see the result immediately) -->
+        <div class="full-section">
+          <h2>See It in Action</h2>
+          <p>Raising different numbers of fingers switches the corresponding LEDs on and off in real time.</p>
+
+          <div class="demo-video-wrap">
+            <video controls playsinline preload="metadata">
+              <source src="images/Demonstration Recording Compressed.mp4" type="video/mp4">
+            </video>
+            <div class="demo-video-caption">Webcam detecting raised fingers — LEDs switching on and off in real time as hand gesture changes.</div>
+          </div>
+        </div>
+
         <!-- Hardware -->
         <div class="full-section">
           <h2>Hardware</h2>
@@ -633,21 +753,6 @@ led_5 = board.get_pin('d:2:o')  <span style="color:var(--text-faint);"># Pinky</
             </div>
           </div>
 
-        </div>
-
-        <!-- Demonstration -->
-        <div class="full-section">
-          <h2>Project Demonstration</h2>
-          <p>The demonstration shows the webcam feed detecting different numbers of raised fingers, with the
-            corresponding LEDs switching on and off in real time as the hand gesture changes.</p>
-
-          <div class="demo-video-wrap">
-            <video controls playsinline preload="metadata">
-              <source src="images/Demonstration Recording Compressed.mp4" type="video/mp4">
-            </video>
-            <div class="demo-video-caption">Webcam detecting raised fingers — LEDs switching on and off in real time as
-              hand gesture changes.</div>
-          </div>
         </div>
 
         <!-- What I Learned -->
