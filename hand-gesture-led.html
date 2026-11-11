@@ -644,7 +644,7 @@
               accordingly.</p>
 
             <!-- Computer Vision -->
-            <h3>Computer Vision</h3>
+            <h3>Vision Library</h3>
             <p>I used OpenCV to capture frames from my laptop's webcam. OpenCV is a computer vision library that helps
               process images and videos. The captured frames are converted from BGR to RGB because MediaPipe requires
               RGB input. MediaPipe Hands then processes each frame and detects the hand when it appears in front of the
@@ -679,20 +679,24 @@
 # 1 = raised,  0 = not raised</code></pre>
 
             <p>For the index, middle, ring, and pinky fingers, the code compares the y-coordinate of the
-              <strong>fingertip</strong> landmark to the y-coordinate of the <strong>PIP joint</strong> (the proximal
-              interphalangeal joint — the middle knuckle). Because y increases downward in image coordinates, a
-              fingertip that is higher in the frame has a <em>smaller</em> y value than its PIP joint. So:
+              fingertip landmark to the y-coordinate of the PIP joint. Mediapipe considers top left of the webcam feed
+              as the origin (0, 0). Then y-coordinate of TIP is smaller than y-coordinate of PIP. So:
             </p>
 
             <pre
-              style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.6rem 0.85rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.25rem 0 0.45rem;line-height:1.6;"><code><span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">FINGER</span>   TIP landmark    COMPARISON landmark
-<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">Index</span>    8               6   (PIP)
-<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">Middle</span>   12              10  (PIP)
-<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">Ring</span>     16              14  (PIP)
-<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">Pinky</span>    20              18  (PIP)
+              style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.6rem 0.85rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.25rem 0 0.45rem;line-height:1.6;"><code><span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">FINGER</span>    TIP landmark    COMPARISON landmark
+<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">Index</span>     8               6 (PIP)
+<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">Middle</span>    12              10 (PIP)
+<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">Ring</span>      16              14 (PIP)
+<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">Pinky</span>     20              18 (PIP)
 
-<span style="color:var(--text-faint);font-size:0.72rem;letter-spacing:0.06em;">CONDITION</span>  tip.y &lt; pip.y  →  finger raised  (append 1)
-           tip.y &gt;= pip.y →  finger down    (append 0)</code></pre>
+for i in range(4):
+  tip = hand_landmark.landmark[tips[i]] #tips = [8, 12, 16, 20]
+  pip = hand_landmark.landmark[pips[i]] #pips = [6, 10, 14, 18]
+    if tip.y &lt; pip.y: #PIP y-coordinates is greater than TIP y-coordinate  
+      fingers.append(1) # finger raised
+    else:
+      fingers.append(0) # finger folded</code></pre>
 
             <p>The thumb is handled differently because it moves horizontally rather than vertically. The code
               compares the <strong>x-coordinate</strong> of the thumb tip (landmark 4) against the x-coordinate
@@ -706,8 +710,10 @@ if thumb_tip.x &lt; thumb_pip.x:
 else:
     fingers.append(0)   # thumb not extended</code></pre>
 
-            <p>This is a simple coordinate-based rule, not a general-purpose pose classifier. It works well when the
-              hand is held upright facing the camera, but tilting or rotating the hand can cause incorrect results.</p>
+            <p>There are multiple ways to determine whether fingers are pointing up. I used coordinate-based rule to
+              identify whether each finger is pointing up. This coordinate rule works well when the
+              hand is held upright facing the camera, but tilting or rotating the hand can affect the x- and
+              y-coordinate comparisons.</p>
 
             <p>Once all five values are set, the total number of raised fingers is:</p>
 
@@ -786,7 +792,8 @@ led_5 = board.get_pin('d:2:o')  <span style="color:var(--text-faint);"># Pinky</
         <!-- Hardware -->
         <div class="full-section">
           <h2>Hardware</h2>
-          <p>The hardware side of the project is minimal by design — the focus was on the software. The physical
+          <p>The hardware side of the project is simple — the focus was on the software: python & libraries used:
+            Mediapipe and OpenCV. The physical
             components are:</p>
 
           <div class="hardware-layout">
