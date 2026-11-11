@@ -512,6 +512,19 @@
           </div>
         </div>
 
+        <!-- See It in Action — video appears here, before all technical content -->
+        <div style="margin-bottom: 2rem;">
+          <h2 style="font-size:1.35rem;margin-bottom:0.5rem;">See It in Action</h2>
+          <p style="color:var(--text-dim);font-size:0.98rem;margin-bottom:1rem;">A real-time hand gesture recognition
+            system that detects raised fingers using computer vision and controls corresponding LEDs through Arduino.</p>
+          <div class="demo-video-wrap">
+            <video controls playsinline preload="metadata">
+              <source src="images/Demonstration Recording Compressed.mp4" type="video/mp4">
+            </video>
+            <div class="demo-video-caption">Webcam detecting raised fingers — LEDs switching on and off in real time as hand gesture changes.</div>
+          </div>
+        </div>
+
         <!-- Two-column layout: main content + sidebar -->
         <div class="case-body">
           <div>
@@ -522,13 +535,12 @@
               learned. I decided to try a project that would combine Python with something physical — so I built a
               system that uses a webcam to detect which fingers I'm holding up and turns corresponding LEDs on and off
               through an Arduino.</p>
-            <p>I used online tutorials, documentation, and AI tools to learn the libraries involved. The project gave me
-              hands-on experience with OpenCV for video capture, MediaPipe for hand detection, and PyFirmata2 for
-              communicating with Arduino — all things I hadn't worked with before.</p>
+            <p>The project gave me hands-on experience with OpenCV for video capture, MediaPipe for hand detection, and
+              PyFirmata2 for communicating with Arduino — all things I hadn't worked with before.</p>
 
             <!-- How It Works -->
             <h3>How It Works</h3>
-            <p>The webcam captures my hand, and MediaPipe identifies 21 landmark points on it. My Python code then
+            <p>The webcam captures my hand, and MediaPipe identifies 21 landmark points on it. Python code then
               checks which fingers are raised by comparing the y-coordinates of fingertips to their knuckles. Those
               results are sent to an Arduino through PyFirmata2, and the Arduino switches the five LEDs on or off
               accordingly.</p>
@@ -705,19 +717,6 @@ led_5 = board.get_pin('d:2:o')  <span style="color:var(--text-faint);"># Pinky</
         </div>
 
         <!-- Full-width sections -->
-
-        <!-- See It in Action (demo video — first so recruiters see the result immediately) -->
-        <div class="full-section">
-          <h2>See It in Action</h2>
-          <p>Raising different numbers of fingers switches the corresponding LEDs on and off in real time.</p>
-
-          <div class="demo-video-wrap">
-            <video controls playsinline preload="metadata">
-              <source src="images/Demonstration Recording Compressed.mp4" type="video/mp4">
-            </video>
-            <div class="demo-video-caption">Webcam detecting raised fingers — LEDs switching on and off in real time as hand gesture changes.</div>
-          </div>
-        </div>
 
         <!-- Hardware -->
         <div class="full-section">
