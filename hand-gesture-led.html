@@ -146,21 +146,6 @@
       text-align: right;
     }
 
-    /* ---- Process note callout ---- */
-    .process-note {
-      background: rgba(255, 107, 53, 0.06);
-      border: 1px solid var(--signal-dim);
-      border-radius: 8px;
-      padding: 1.1rem 1.3rem;
-      margin: 1.5rem 0;
-      font-size: 0.92rem;
-      color: var(--text);
-    }
-
-    .process-note b {
-      color: var(--signal);
-    }
-
     /* ---- Section labels ---- */
     .gallery-section-label {
       font-family: var(--font-mono);
@@ -169,52 +154,6 @@
       color: var(--text-faint);
       text-transform: uppercase;
       margin: 3rem 0 0.75rem;
-    }
-
-    /* ---- Workflow pipeline ---- */
-    .pipeline {
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0;
-      margin: 1.5rem 0 1rem;
-    }
-
-    .pipeline-step {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 0.65rem 1rem;
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      color: var(--text);
-      white-space: nowrap;
-      transition: border-color 0.15s ease;
-    }
-
-    .pipeline-step:hover {
-      border-color: var(--signal-dim);
-    }
-
-    .pipeline-arrow {
-      color: var(--signal);
-      font-size: 1rem;
-      padding: 0 0.35rem;
-      flex-shrink: 0;
-    }
-
-    @media (max-width: 680px) {
-      .pipeline {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.3rem;
-      }
-
-      .pipeline-arrow {
-        padding: 0;
-        transform: rotate(90deg);
-        align-self: center;
-      }
     }
 
     /* ---- LED state visual ---- */
@@ -472,71 +411,28 @@
 
             <!-- Overview -->
             <h3>Overview</h3>
-            <p>I built this project in my first year as a hands-on way to learn Python, explore computer vision, and
-              figure out how software running on a computer can communicate with physical hardware. The goal was
-              simple: capture video from a webcam, work out which fingers I'm holding up, and use that information to
-              switch individual LEDs on an Arduino on or off.</p>
-            <p>The system uses OpenCV to handle video capture, MediaPipe's hand landmark detection to locate the hand
-              in each frame, a small piece of coordinate-based logic to interpret finger states, and PyFirmata2 to
-              send those states to the Arduino over USB.</p>
+            <p>After completing my introductory Python course in first year, I wanted to keep building on what I'd
+              learned. I decided to try a project that would combine Python with something physical — so I built a
+              system that uses a webcam to detect which fingers I'm holding up and turns corresponding LEDs on and off
+              through an Arduino.</p>
+            <p>I used online tutorials, documentation, and AI tools to learn the libraries involved. The project gave me
+              hands-on experience with OpenCV for video capture, MediaPipe for hand detection, and PyFirmata2 for
+              communicating with Arduino — all things I hadn't worked with before.</p>
 
             <!-- How It Works -->
             <h3>How It Works</h3>
-            <p>The overall pipeline from camera to LED is:</p>
-
-            <div class="pipeline">
-              <div class="pipeline-step">Webcam</div>
-              <span class="pipeline-arrow">→</span>
-              <div class="pipeline-step">OpenCV</div>
-              <span class="pipeline-arrow">→</span>
-              <div class="pipeline-step">MediaPipe Hands</div>
-              <span class="pipeline-arrow">→</span>
-              <div class="pipeline-step">Finger Detection</div>
-              <span class="pipeline-arrow">→</span>
-              <div class="pipeline-step">[1, 0, 1, 0, 0]</div>
-              <span class="pipeline-arrow">→</span>
-              <div class="pipeline-step">LEDControl.py</div>
-              <span class="pipeline-arrow">→</span>
-              <div class="pipeline-step">PyFirmata2</div>
-              <span class="pipeline-arrow">→</span>
-              <div class="pipeline-step">Arduino</div>
-              <span class="pipeline-arrow">→</span>
-              <div class="pipeline-step">5 LEDs</div>
-            </div>
-
-            <p>Each stage has a distinct role:</p>
-            <ul>
-              <li><strong>Webcam</strong> — captures the live video feed of the user's hand.</li>
-              <li><strong>OpenCV</strong> — reads frames from the webcam and converts them from BGR to RGB for
-                MediaPipe.</li>
-              <li><strong>MediaPipe Hands</strong> — detects the hand in the frame and returns 21 landmark coordinates.
-              </li>
-              <li><strong>Finger Detection</strong> — my Python logic compares selected landmark coordinates and
-                produces a five-element list: <code
-                  style="font-family:var(--font-mono);font-size:0.88em;">[Thumb, Index, Middle, Ring, Pinky]</code>.
-              </li>
-              <li><strong>LEDControl.py</strong> — receives the five-element list and maps each value to the
-                corresponding Arduino pin.</li>
-              <li><strong>PyFirmata2</strong> — communicates the pin states from Python to the Arduino over USB using
-                the Firmata protocol.</li>
-              <li><strong>Arduino + LEDs</strong> — switches each LED on or off based on the received pin state.</li>
-            </ul>
+            <p>The webcam captures my hand, and MediaPipe identifies 21 landmark points on it. My Python code then
+              checks which fingers are raised by comparing the y-coordinates of fingertips to their knuckles. Those
+              results are sent to an Arduino through PyFirmata2, and the Arduino switches the five LEDs on or off
+              accordingly.</p>
 
             <!-- Computer Vision -->
             <h3>Computer Vision</h3>
-            <p>OpenCV reads frames from the webcam. Each frame arrives in BGR colour order, so the program converts
-              it to RGB before passing it to MediaPipe — MediaPipe expects RGB input.</p>
-            <p>MediaPipe Hands processes the RGB frame and, when it detects a hand, returns 21 landmark
-              coordinates — one for each joint and fingertip. I didn't train a model or implement any detection
-              algorithm myself; MediaPipe provides that out of the box. My contribution was interpreting the returned
-              landmark positions with a simple set of coordinate-based rules to decide which fingers are raised.</p>
-
-            <div class="process-note">
-              <b>MediaPipe Hands provides:</b> A list of normalised (x, y, z) positions for each of the 21 hand
-              landmarks. The x and y values are scaled to the frame dimensions (0.0–1.0). My code reads specific
-              landmark indices from this list and compares their coordinates — that is the extent of my computer
-              vision work here.
-            </div>
+            <p>OpenCV reads frames from the webcam and converts them from BGR to RGB, since MediaPipe expects RGB
+              input. MediaPipe Hands then processes each frame and, when it detects a hand, returns 21 landmark
+              coordinates — one for each joint and fingertip. I didn't train the model or write any detection
+              algorithm; MediaPipe provides that. My part was reading the returned landmark positions and writing
+              simple coordinate comparisons to decide which fingers are raised.</p>
 
             <!-- MediaPipe landmark diagram -->
             <figure class="landmark-diagram"
@@ -591,11 +487,8 @@ if thumb_tip.x &lt; thumb_pip.x:
 else:
     fingers.append(0)   # thumb not extended</code></pre>
 
-            <div class="process-note">
-              <b>Note:</b> This is a simple coordinate-based rule, not a general-purpose pose classifier. It works
-              well when the hand is held in a standard upright position facing the camera, but the result is
-              orientation-dependent — tilting or rotating the hand can cause the thumb to be misclassified.
-            </div>
+            <p>This is a simple coordinate-based rule, not a general-purpose pose classifier. It works well when the
+              hand is held upright facing the camera, but tilting or rotating the hand can cause incorrect results.</p>
 
             <p>Once all five values are set, the total number of raised fingers is:</p>
 
@@ -604,22 +497,14 @@ else:
 
             <!-- Software → Hardware -->
             <h3>Software → Hardware</h3>
-            <p>Once the finger states are calculated, the main script calls
+            <p>When a hand is detected, the main script calls
               <code
-                style="font-family:var(--font-mono);font-size:0.9em;color:var(--text);">LEDControl.LED(fingers)</code>
-              inside the <code
-                style="font-family:var(--font-mono);font-size:0.9em;color:var(--text);">if results.multi_hand_landmarks:</code>
-              block — so LED updates happen when a hand is actually detected and the finger states have been
-              computed. A separate <code
+                style="font-family:var(--font-mono);font-size:0.9em;color:var(--text);">LEDControl.LED(fingers)</code>,
+              passing the five-element list. The <code
                 style="font-family:var(--font-mono);font-size:0.9em;color:var(--text);">LEDControl.py</code> module
-              handles all Arduino communication.
+              uses PyFirmata2 to send each value to the corresponding Arduino pin over USB. The five LEDs are mapped
+              to digital pins 2–6:
             </p>
-            <p>PyFirmata2 allows the Python program to communicate with the Arduino over USB using the Firmata
-              protocol. When a hand is detected, the calculated finger states are sent to the Arduino, which
-              switches the corresponding LEDs on or off.</p>
-            <p>The five LEDs are mapped to digital pins as follows
-              (<code style="font-family:var(--font-mono);font-size:0.9em;color:var(--text);">d:6:o</code> means digital
-              pin 6, output mode):</p>
 
             <pre
               style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:0.85rem 1.1rem;font-family:var(--font-mono);font-size:0.82rem;color:var(--text-dim);overflow-x:auto;margin:0.5rem 0 1rem;line-height:1.7;"><code>led_1 = board.get_pin('d:6:o')  <span style="color:var(--text-faint);"># Thumb</span>
@@ -748,12 +633,6 @@ led_5 = board.get_pin('d:2:o')  <span style="color:var(--text-faint);"># Pinky</
             </div>
           </div>
 
-          <div class="process-note" style="margin-top:1rem;">
-            <b>Hardware photos:</b> A photo of the breadboard and LED wiring can be added here once available.
-            Replace this note with an <code style="font-size:0.88em;">&lt;img&gt;</code> tag inside a
-            <code style="font-size:0.88em;">.case-gallery</code> element, following the same pattern as the Gear Train
-            page.
-          </div>
         </div>
 
         <!-- Demonstration -->
@@ -766,106 +645,39 @@ led_5 = board.get_pin('d:2:o')  <span style="color:var(--text-faint);"># Pinky</
             <video controls playsinline preload="metadata">
               <source src="images/Demonstration Recording Compressed.mp4" type="video/mp4">
             </video>
-            <div class="demo-video-caption">Webcam detecting raised fingers — LEDs switching on and off in real time as hand gesture changes.</div>
-          </div>
-        </div>
-
-        <!-- Implementation -->
-        <div class="full-section">
-          <h2>Implementation</h2>
-          <p>The program runs a continuous loop: capture a frame, detect the hand, compute finger states, update the
-            Arduino, and display feedback — all in real time.</p>
-
-          <div class="feature-grid">
-            <div class="feature-item">
-              <div class="feature-dot"></div>
-              <p><strong style="color:var(--text);">Real-time webcam capture</strong> — OpenCV reads a new frame on
-                every iteration of the main loop.</p>
-            </div>
-            <div class="feature-item">
-              <div class="feature-dot"></div>
-              <p><strong style="color:var(--text);">Hand landmark detection</strong> — MediaPipe processes the RGB frame
-                and returns 21 landmark positions when a hand is found.</p>
-            </div>
-            <div class="feature-item">
-              <div class="feature-dot"></div>
-              <p><strong style="color:var(--text);">Finger-state detection</strong> — Coordinate comparisons between tip
-                and PIP landmarks determine each finger's binary state.</p>
-            </div>
-            <div class="feature-item">
-              <div class="feature-dot"></div>
-              <p><strong style="color:var(--text);">Finger counting</strong> — <code
-                  style="font-family:var(--font-mono);font-size:0.85em;">sum(fingers)</code> gives the total number of
-                detected raised fingers.</p>
-            </div>
-            <div class="feature-item">
-              <div class="feature-dot"></div>
-              <p><strong style="color:var(--text);">Python-to-Arduino comms</strong> — PyFirmata2 communicates pin
-                states to the Arduino over USB via Firmata. LED states are updated when a hand is detected and finger
-                states have been calculated.</p>
-            </div>
-            <div class="feature-item">
-              <div class="feature-dot"></div>
-              <p><strong style="color:var(--text);">Individual LED control</strong> — Each of the five digital pins is
-                set independently based on its finger's state value.</p>
-            </div>
-            <div class="feature-item">
-              <div class="feature-dot"></div>
-              <p><strong style="color:var(--text);">Real-time visual feedback</strong> — The OpenCV window draws the
-                detected hand landmarks, finger count, current FPS, and the <code
-                  style="font-family:var(--font-mono);font-size:0.85em;">fingers</code> list on the live video frame.
-              </p>
-            </div>
+            <div class="demo-video-caption">Webcam detecting raised fingers — LEDs switching on and off in real time as
+              hand gesture changes.</div>
           </div>
         </div>
 
         <!-- What I Learned -->
         <div class="full-section">
           <h2>What I Learned</h2>
-          <p>This was my first time combining Python libraries, computer vision, and physical hardware in one project.
-            A few things I picked up along the way:</p>
+          <p>This was my first time combining multiple Python libraries with physical hardware. A few things I took away
+            from it:</p>
           <ul>
-            <li>Working with Python libraries I hadn't used before — OpenCV, MediaPipe, and PyFirmata2 all at once.</li>
-            <li>How to open a webcam in OpenCV, read frames in a loop, and draw overlays such as the landmark skeleton
-              and finger count on the live feed.</li>
-            <li>How MediaPipe represents a hand as a set of numbered landmark coordinates, and what each index actually
-              refers to on the hand.</li>
-            <li>How to turn visual information (landmark positions) into simple logical conditions — if this coordinate
-              is less than that coordinate, the finger is up.</li>
-            <li>How PyFirmata2 allows Python to control individual Arduino pins over USB without needing to write any
-              Arduino C code.</li>
-            <li>Why splitting hardware control into a separate module (<code
-                style="font-family:var(--font-mono);font-size:0.9em;">LEDControl.py</code>) makes the code easier to
-              read and debug — the vision code and the hardware code don't need to know about each other's internals.
-            </li>
-            <li>What it's like to debug a real-time system where a mistake in the software immediately shows up as wrong
-              physical behaviour — a great way to learn.</li>
-            <li>That a simple software decision (<code
-                style="font-family:var(--font-mono);font-size:0.9em;">fingers[1] == 1</code>) can directly switch on a
-              physical LED — which made the connection between code and hardware feel very concrete.</li>
+            <li>How to use OpenCV to capture webcam video and draw overlays on the live feed.</li>
+            <li>How MediaPipe represents a hand as 21 numbered landmark coordinates, and how to use those coordinates
+              to determine finger positions.</li>
+            <li>How PyFirmata2 lets Python control Arduino pins over USB without needing to write Arduino C code.</li>
+            <li>Why splitting hardware control into a separate module makes the code easier to read and debug.</li>
+            <li>What it's like to debug a real-time system where a mistake in software immediately shows up as wrong
+              physical behaviour.</li>
           </ul>
         </div>
 
         <!-- Limitations / Next Steps -->
         <div class="full-section">
           <h2>Limitations &amp; Next Steps</h2>
-          <p>The finger detection uses simple coordinate comparisons rather than a pose-classification model.
-            The rules are orientation-dependent: they work reliably when the hand is held upright and facing the
-            camera, but different hand angles, partial occlusion, or varied lighting can all cause incorrect
-            classifications. The current system also only controls individual LEDs — it has no debouncing or
-            state-change filtering, so the Arduino receives an update every time a hand is detected regardless of
-            whether the finger state actually changed.</p>
-          <p>Possible future improvements — none of which have been implemented yet:</p>
+          <p>The finger detection relies on simple coordinate comparisons, so it works best when the hand is held
+            upright facing the camera. Different angles, partial occlusion, or varied lighting can cause incorrect
+            results. The system also sends updates to the Arduino on every frame, even when the finger state hasn't
+            changed.</p>
+          <p>Possible improvements I haven't implemented yet:</p>
           <ul>
-            <li>Make the finger detection more reliable across different hand orientations and tilt angles.</li>
-            <li>Add debouncing or state-change filtering so the Arduino is not repeatedly updated when the finger state
-              hasn't changed.</li>
-            <li>Handle partial occlusion and edge-of-frame positions more gracefully.</li>
-            <li>Improve robustness under different lighting conditions and backgrounds.</li>
+            <li>Make detection more reliable across different hand orientations.</li>
+            <li>Add debouncing so the Arduino only updates when the state actually changes.</li>
             <li>Support more gesture types beyond counting raised fingers.</li>
-            <li>Produce more useful hardware outputs — for example PWM-controlled brightness, sequences, or different
-              actuators.</li>
-            <li>Improve the interface and add clearer visual feedback in the OpenCV window.</li>
           </ul>
         </div>
 
