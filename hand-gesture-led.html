@@ -256,6 +256,7 @@
       cursor: pointer;
       opacity: 1;
       color: var(--text);
+      text-decoration: none;
     }
 
     .proj-link-btn.available:hover {
@@ -999,24 +1000,20 @@ led_5 = board.get_pin('d:2:o')  <span style="color:var(--text-faint);"># Pinky</
         <!-- Project Links -->
         <div class="full-section" style="margin-bottom:0.5rem;">
           <h2>Project Links</h2>
-          <p>Links will be added here as the project is documented and published.</p>
+          <p>Check out my documentation on GitHub.</p>
           <div class="proj-links">
-            <span class="proj-link-btn" aria-label="GitHub repository — coming soon">
+            <a class="proj-link-btn available"
+              href="https://github.com/VijayPrajwal/Hand-Gesture-LED-Control---OpenCV-Mediapipe-python" target="_blank"
+              rel="noopener" aria-label="GitHub repository">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
                 <path
                   d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
                   stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
               GitHub Repository
-            </span>
-            <span class="proj-link-btn" aria-label="Demo video — coming soon">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                <polygon points="5,3 19,12 5,21" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
-              </svg>
-              Demo Video
-            </span>
+            </a>
+
           </div>
-          <p class="proj-link-coming">— Links will be added when available —</p>
         </div>
 
       </div><!-- /.wrap -->
