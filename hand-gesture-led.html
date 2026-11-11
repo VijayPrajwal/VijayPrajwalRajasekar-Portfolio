@@ -110,8 +110,7 @@
       border-radius: 10px;
       padding: 0.8rem 1rem;
       align-self: start;
-      position: sticky;
-      top: 90px;
+      position: static;
     }
 
     .spec-sidebar h4 {
@@ -385,12 +384,112 @@
       color: var(--signal);
     }
 
-    /* ---- Hardware layout (image left, bullet points right) ---- */
+    /* ---- Landmark & web demo side-by-side grid ---- */
+    .landmark-grid {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin: 0.65rem 0;
+      align-items: stretch;
+    }
+
+    @media (max-width: 680px) {
+      .landmark-grid {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+      }
+    }
+
+    .landmark-card {
+      margin: 0;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .landmark-card:hover {
+      border-color: var(--signal-dim);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .landmark-card-imgwrap {
+      display: block;
+      background: #202124;
+      overflow: hidden;
+    }
+
+    .landmark-card-imgwrap img {
+      width: 100%;
+      height: 280px;
+      object-fit: contain;
+      display: block;
+      background: #202124;
+      transition: opacity 0.15s ease;
+    }
+
+    @media (max-width: 820px) {
+      .landmark-card-imgwrap img {
+        height: 220px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .landmark-card-imgwrap img {
+        height: 180px;
+      }
+    }
+
+    .landmark-card:hover .landmark-card-imgwrap img {
+      opacity: 0.95;
+    }
+
+    .landmark-card figcaption {
+      padding: 8px 12px;
+      background: var(--surface);
+      border-top: 1px solid var(--border-soft);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.35rem;
+      flex: 1;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      line-height: 1.45;
+    }
+
+    .landmark-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--signal);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.72rem;
+      margin-top: auto;
+      padding-top: 0.2rem;
+    }
+
+    .landmark-card-link:hover {
+      text-decoration: underline;
+    }
+
+    .case-detection-col {
+      grid-column: 1 / -1;
+      max-width: 860px;
+    }
+
+    /* ---- Hardware layout (two images side-by-side) ---- */
     .hardware-layout {
       display: grid;
-      grid-template-columns: 1.1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 1.25rem;
-      align-items: center;
+      align-items: start;
       margin-top: 0.5rem;
     }
 
@@ -625,7 +724,7 @@
 
         <!-- Two-column layout: main content + sidebar -->
         <div class="case-body">
-          <div>
+          <div class="case-overview-col">
 
             <!-- Overview -->
             <h3>Overview</h3>
@@ -633,7 +732,8 @@
               learned. I decided to try a project that would combine Python with something physical — so I built a
               system that uses a webcam to detect which fingers I'm holding up and turns corresponding LEDs on and off
               through an Arduino.</p>
-            <p>The project gave me hands-on experience with OpenCV for video capture, MediaPipe for hand detection, and
+            <p>The project gave me hands-on experience with OpenCV for video capture, MediaPipe for hand detection,
+              and
               PyFirmata2 for communicating with Arduino — all things I hadn't worked with before.</p>
 
             <!-- How It Works -->
@@ -647,28 +747,58 @@
             <h3>Vision Library</h3>
             <p>I used OpenCV to capture frames from my laptop's webcam. OpenCV is a computer vision library that helps
               process images and videos. The captured frames are converted from BGR to RGB because MediaPipe requires
-              RGB input. MediaPipe Hands then processes each frame and detects the hand when it appears in front of the
-              camera. It identifies 21 hand landmarks, including the finger joints and fingertips, as shown in the image
+              RGB input. MediaPipe Hands then processes each frame and detects the hand when it appears in front of
+              the
+              camera. It identifies 21 hand landmarks, including the finger joints and fingertips, as shown in the
+              image
               below. These landmark positions are already defined by MediaPipe, so we can access their coordinates and
               use them in our code. By comparing the coordinates of specific landmarks, we can determine which fingers
               are raised or folded.</p>
 
-            <!-- MediaPipe landmark diagram -->
-            <figure class="landmark-diagram"
-              style="margin:0.55rem 0;border:1px solid var(--border);border-radius:8px;overflow:hidden;background:#202124;">
-              <a href="https://developers.google.com/edge/mediapipe/solutions/vision/hand_landmarker" target="_blank"
-                rel="noopener" style="display:block;" title="Open MediaPipe Hand Landmarker documentation">
+          </div>
+
+          <!-- Sidebar -->
+          <aside class="spec-sidebar">
+            <h4>PROJECT SPECS</h4>
+            <div class="spec-row"><span>Language</span><span>Python</span></div>
+            <div class="spec-row"><span>Libraries</span><span>OpenCV, MediaPipe, pyFirmata2</span></div>
+            <div class="spec-row"><span>Hardware</span><span>Arduino, Webcam, 5 LEDs</span></div>
+            <div class="spec-row"><span>Hand Tracking</span><span>Single hand, 21 landmarks</span></div>
+          </aside>
+
+          <!-- MediaPipe landmark & web task demo (full width across the container) -->
+          <div class="landmark-grid">
+            <figure class="landmark-card">
+              <a href="https://developers.google.com/edge/mediapipe/solutions/vision/hand_landmarker" rel="noopener"
+                class="landmark-card-imgwrap" title="Open MediaPipe Hand Landmarker documentation">
                 <img src="images/Mediapipe Hand-Landmarks.png"
-                  alt="MediaPipe Hand Landmarks model showing 21 3D hand coordinates"
-                  style="width:100%;height:auto;display:block;transition:opacity 0.2s ease;">
+                  alt="MediaPipe Hand Landmarks model showing 21 3D hand coordinates">
               </a>
-              <figcaption
-                style="padding:6px 12px;background:var(--surface);border-top:1px solid var(--border-soft);display:flex;justify-content:space-between;align-items:center;font-family:var(--font-mono);font-size:0.72rem;color:var(--text-dim);">
-                <span>MediaPipe 21 Hand Landmarks Model (0–20)</span>
+              <figcaption>
+                <span>MediaPipe 21 Hand Landmarks Model (0–20) mapped to key joints and fingertips.</span>
                 <a href="https://developers.google.com/edge/mediapipe/solutions/vision/hand_landmarker" target="_blank"
-                  rel="noopener" style="color:var(--signal);text-decoration:none;">Documentation ↗</a>
+                  rel="noopener" class="landmark-card-link">Documentation ↗</a>
               </figcaption>
             </figure>
+
+            <figure class="landmark-card">
+              <a href="https://google-ai-edge.github.io/mediapipe-samples-web/#/vision/hand_landmarker" target="_blank"
+                rel="noopener" class="landmark-card-imgwrap" title="Open Google MediaPipe Hand Landmarker web demo">
+                <img src="images/Hand Landmarker - MediaPipe Web Task Demo - Google.png"
+                  alt="Google MediaPipe Web Task interactive demo showing live hand landmark tracking">
+              </a>
+              <figcaption>
+                <span>Google's interactive MediaPipe demo lets you use your webcam to visualize how hand tracking
+                  works
+                  in real time, showing the 21 hand landmarks and their connections.</span>
+                <a href="https://google-ai-edge.github.io/mediapipe-samples-web/#/vision/hand_landmarker"
+                  target="_blank" rel="noopener" class="landmark-card-link">Try it out ↗</a>
+              </figcaption>
+            </figure>
+          </div>
+
+          <!-- Detection & Code Logic -->
+          <div class="case-detection-col">
 
             <!-- Finger Detection Logic -->
             <h3>Finger Detection Logic</h3>
@@ -679,7 +809,8 @@
 # 1 = raised,  0 = not raised</code></pre>
 
             <p>For the index, middle, ring, and pinky fingers, the code compares the y-coordinate of the
-              fingertip landmark to the y-coordinate of the PIP joint. Mediapipe considers top left of the webcam feed
+              fingertip landmark to the y-coordinate of the PIP joint. Mediapipe considers top left of the webcam
+              feed
               as the origin (0, 0). Then y-coordinate of TIP is smaller than y-coordinate of PIP. So:
             </p>
 
@@ -777,14 +908,6 @@ led_5 = board.get_pin('d:2:o')  <span style="color:var(--text-faint);"># Pinky</
 
           </div>
 
-          <!-- Sidebar -->
-          <aside class="spec-sidebar">
-            <h4>PROJECT SPECS</h4>
-            <div class="spec-row"><span>Language</span><span>Python</span></div>
-            <div class="spec-row"><span>Libraries</span><span>OpenCV, MediaPipe, pyFirmata2</span></div>
-            <div class="spec-row"><span>Hardware</span><span>Arduino, Webcam, 5 LEDs</span></div>
-            <div class="spec-row"><span>Hand Tracking</span><span>Single hand, 21 landmarks</span></div>
-          </aside>
         </div>
 
         <!-- Full-width sections -->
@@ -807,18 +930,14 @@ led_5 = board.get_pin('d:2:o')  <span style="color:var(--text-faint);"># Pinky</
               </figcaption>
             </figure>
 
-            <ul class="hardware-points">
-              <li><strong style="color:var(--text);">Arduino board</strong> — receives pin states from the computer via
-                USB using the Firmata protocol.</li>
-              <li><strong style="color:var(--text);">5 LEDs</strong> — one per finger, wired to digital pins 2–6 with
-                current-limiting resistors.</li>
-              <li><strong style="color:var(--text);">Webcam</strong> — provides the real-time video feed that OpenCV
-                reads frame by frame.</li>
-              <li><strong style="color:var(--text);">Computer</strong> — runs the Python script and handles all vision
-                processing; the Arduino only receives the final on/off commands.</li>
-              <li><strong style="color:var(--text);">PyFirmata2</strong> — communicates between Python and the Arduino's
-                Firmata firmware over USB serial.</li>
-            </ul>
+            <figure class="hardware-photo-figure" id="simFigure">
+              <img src="images/Virtual Simulation of Hardware.png" alt="Virtual Simulation of Hardware"
+                class="hardware-photo" id="simImg">
+              <figcaption>
+                <span>Virtual Simulation of Hardware</span>
+                <span class="zoom-hint">Click to enlarge ⤢</span>
+              </figcaption>
+            </figure>
           </div>
 
         </div>
@@ -826,16 +945,36 @@ led_5 = board.get_pin('d:2:o')  <span style="color:var(--text-faint);"># Pinky</
         <!-- What I Learned -->
         <div class="full-section">
           <h2>What I Learned</h2>
-          <p>This was my first time combining multiple Python libraries with physical hardware. A few things I took away
-            from it:</p>
+          <p>This project was my first experience combining computer vision with Arduino hardware. Some key things I
+            learned:</p>
           <ul>
-            <li>How to use OpenCV to capture webcam video and draw overlays on the live feed.</li>
-            <li>How MediaPipe represents a hand as 21 numbered landmark coordinates, and how to use those coordinates
-              to determine finger positions.</li>
-            <li>How PyFirmata2 lets Python control Arduino pins over USB without needing to write Arduino C code.</li>
-            <li>Why splitting hardware control into a separate module makes the code easier to read and debug.</li>
-            <li>What it's like to debug a real-time system where a mistake in software immediately shows up as wrong
-              physical behaviour.</li>
+            <li>Using OpenCV and MediaPipe to track hand movements and detect finger positions using landmarks.</li>
+            <li>Understanding how MediaPipe uses 21 hand landmarks and how their coordinates can be used to detect
+              raised or folded fingers.</li>
+            <li>Organizing code into separate modules to make it easier to understand and troubleshoot.</li>
+            <li>Troubleshooting software and hardware issues while working this project.</li>
+          </ul>
+        </div>
+
+        <!-- Challenges & Troubleshooting -->
+        <div class="full-section">
+          <h2>Challenges &amp; Troubleshooting</h2>
+          <p>A few issues I ran into while working on this project and how I worked through them:</p>
+          <ul>
+            <li><strong style="color:var(--text);">Python Compatibility:</strong> Faced compatibility issues with
+              different Python versions and library versions. Checked Python 3.10/3.12 vs 3.14 and switched
+              interpreters
+              in VS Code to get a
+              compatible setup.</li>
+            <li><strong style="color:var(--text);">Thumb Detection:</strong> The same vertical (y) coordinate logic
+              used
+              for other fingers did not work well for the thumb. Used horizontal (x) coordinates instead to detect its
+              position.</li>
+            <li><strong style="color:var(--text);">MediaPipe AttributeError:</strong> Encountered the <code
+                style="font-family:var(--font-mono);font-size:0.88em;color:var(--text);">module 'mediapipe' has no attribute 'solutions'</code>
+              error. Tried different versions of MediaPipe and had to completely uninstall and reinstall the library
+              to
+              get it working.</li>
           </ul>
         </div>
 
@@ -843,7 +982,8 @@ led_5 = board.get_pin('d:2:o')  <span style="color:var(--text-faint);"># Pinky</
         <div class="full-section">
           <h2>Limitations &amp; Next Steps</h2>
           <p>The current finger detection relies on simple coordinate comparisons, so it works when the fingers
-            are pointing up and facing the camera. Different hand angles, or poor lighting can affect the hand landmark
+            are pointing up and facing the camera. Different hand angles, or poor lighting can affect the hand
+            landmark
             detection. Although MediaPipe can detect multiple hands, the current python code is set to detect one hand
             at a time.</p>
           <p>Possible improvements I'd like to explore in the future:</p>
@@ -925,19 +1065,20 @@ led_5 = board.get_pin('d:2:o')  <span style="color:var(--text-faint);"># Pinky</
 
   <script>
     (function () {
-      var fig = document.getElementById('hardwareFigure');
-      var img = document.getElementById('hardwareImg');
+      var figs = document.querySelectorAll('.hardware-photo-figure');
       var lb = document.getElementById('lightbox');
       var lbImg = document.getElementById('lbImg');
       var lbCap = document.getElementById('lbCaption');
       var lbClose = document.getElementById('lbClose');
 
-      if (!fig || !img || !lb) return;
+      if (!figs.length || !lb) return;
 
-      function open() {
+      function openFromFig(figure) {
+        var img = figure.querySelector('img');
+        if (!img) return;
         lbImg.src = img.src;
         lbImg.alt = img.alt;
-        var cap = fig.querySelector('figcaption span');
+        var cap = figure.querySelector('figcaption span');
         lbCap.textContent = cap ? cap.textContent.trim() : img.alt;
         lb.classList.add('open');
         document.body.style.overflow = 'hidden';
@@ -948,7 +1089,12 @@ led_5 = board.get_pin('d:2:o')  <span style="color:var(--text-faint);"># Pinky</
         document.body.style.overflow = '';
       }
 
-      fig.addEventListener('click', open);
+      figs.forEach(function (fig) {
+        fig.addEventListener('click', function () {
+          openFromFig(fig);
+        });
+      });
+
       if (lbClose) lbClose.addEventListener('click', close);
 
       lb.addEventListener('click', function (e) {
