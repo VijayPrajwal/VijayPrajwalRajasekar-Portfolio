@@ -293,48 +293,6 @@
       border-bottom: none;
     }
 
-    /* ---- Video placeholder ---- */
-    .video-placeholder {
-      border: 1px dashed var(--border);
-      border-radius: 10px;
-      padding: 3.5rem 2rem;
-      text-align: center;
-      background: var(--surface);
-      margin: 1.5rem 0;
-    }
-
-    .video-placeholder .vp-icon {
-      width: 52px;
-      height: 52px;
-      margin: 0 auto 1rem;
-      border-radius: 50%;
-      background: var(--surface-raised);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .video-placeholder .vp-icon svg {
-      opacity: 0.5;
-    }
-
-    .video-placeholder p {
-      color: var(--text-faint);
-      font-family: var(--font-mono);
-      font-size: 0.78rem;
-      letter-spacing: 0.04em;
-      margin: 0;
-    }
-
-    .video-placeholder .vp-title {
-      color: var(--text-dim);
-      font-family: var(--font-body);
-      font-size: 0.95rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
-
     /* ---- Demo video ---- */
     .demo-video-wrap {
       border-radius: 8px;
@@ -344,11 +302,12 @@
       margin-top: 1rem;
     }
 
-    .demo-video-wrap iframe {
+    .demo-video-wrap video {
       width: 100%;
-      aspect-ratio: 16 / 9;
       display: block;
-      border: none;
+      max-height: 540px;
+      object-fit: contain;
+      background: #000;
     }
 
     .demo-video-caption {
@@ -803,19 +762,10 @@ led_5 = board.get_pin('d:2:o')  <span style="color:var(--text-faint);"># Pinky</
           <p>The demonstration shows the webcam feed detecting different numbers of raised fingers, with the
             corresponding LEDs switching on and off in real time as the hand gesture changes.</p>
 
-          <!-- Video placeholder — replace with real <video> or embed when ready -->
-          <div class="video-placeholder" id="demo-video-placeholder">
-            <div class="vp-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="5,3 19,12 5,21" stroke="#e8e6e1" stroke-width="1.6" stroke-linejoin="round"
-                  fill="none" />
-              </svg>
-            </div>
-            <p class="vp-title">Video demonstration coming soon</p>
-            <p>When ready, replace this placeholder with a &lt;video&gt; element or a hosted video embed.</p>
-          </div>
           <div class="demo-video-wrap">
-            <iframe src="https://www.youtube.com/embed/cnySIcEl0rg" title="Hand Gesture LED Demonstration" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <video controls playsinline preload="metadata">
+              <source src="images/Demonstration Recording Compressed.mp4" type="video/mp4">
+            </video>
             <div class="demo-video-caption">Webcam detecting raised fingers — LEDs switching on and off in real time as hand gesture changes.</div>
           </div>
         </div>
