@@ -598,56 +598,58 @@
             <!-- ACTION: Iterations -->
             <hr class="section-rule">
             <h3>How the mold evolved</h3>
-            <p>The first pulls off the mold showed real problems. Each one pointed to a specific design decision
-              that needed to change. I pulled the part, identified what the defect was telling me, updated the
-              mold, and ran the next iteration:</p>
+            <p>I went through four versions of the mold while working on the carbon fiber mount. Each version helped me
+              figure out what needed to change for the next one.</p>
 
-            <table class="iteration-table" aria-label="Mold iteration log">
-              <thead>
-                <tr>
-                  <th>Ver.</th>
-                  <th>What I observed</th>
-                  <th>What I changed</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="iter-num">v1</td>
-                  <td>Part stuck in the mold on demolding — side wall draft was too shallow to release cleanly</td>
-                  <td class="iter-fix">Added draft angle to the cavity side walls</td>
-                </tr>
-                <tr>
-                  <td class="iter-num">v2</td>
-                  <td>Resin-starved patches near the thin mounting arm — resin likely migrating away from the arm under
-                    clamp pressure</td>
-                  <td class="iter-fix">Repositioned the vent path to redirect resin flow back toward the arm section
-                  </td>
-                </tr>
-                <tr>
-                  <td class="iter-num">v3</td>
-                  <td>Inconsistent fiber distribution around the bolt holes — most likely from uneven hand-packing
-                    before mold closure</td>
-                  <td class="iter-fix">Changed packing sequence to fill the bolt-hole area first before closing the mold
-                  </td>
-                </tr>
-                <tr>
-                  <td class="iter-num">v4</td>
-                  <td>Thick, uneven flash at the parting line — mold not closing evenly across its length</td>
-                  <td class="iter-fix">Refined the parting line geometry and added clamp points to distribute closing
-                    force</td>
-                </tr>
-              </tbody>
-            </table>
+            <h4 style="font-size:0.98rem;margin:0.85rem 0 0.25rem;">V1 — Initial Testing</h4>
+            <p style="margin-bottom:0.65rem;">I started with a preliminary mold to test the forged carbon fiber process
+              and
+              get familiar with working with chopped carbon fiber and resin before making the actual motor mount.</p>
 
-            <p class="process-note">
-              <b>The decision pattern:</b> I didn't guess at fixes. Each revision started from what the previous
-              part was physically showing me — a stuck part means insufficient draft; a resin-starved zone means
-              the flow path is wrong; uneven flash means the mold isn't closing consistently. The change followed
-              the observation.
-            </p>
+            <h4 style="font-size:0.98rem;margin:0.85rem 0 0.25rem;">V2 — First Motor Mount Mold</h4>
+            <p style="margin-bottom:0.65rem;">After the initial testing, I designed a mold for the actual motor mount.
+              The
+              part came out, but removing it from the mold wasn't as smooth as expected, so I decided to increase the
+              draft
+              angle for the next version.</p>
+
+            <h4 style="font-size:0.98rem;margin:0.85rem 0 0.25rem;">V3 — Updated Draft Angle</h4>
+            <p style="margin-bottom:0.65rem;">I increased the draft angle, which made removing the part easier. The mold
+              worked better this time, but I hadn't used enough resin for the part, so I needed to recalculate the resin
+              quantity for the next attempt.</p>
+
+            <h4 style="font-size:0.98rem;margin:0.85rem 0 0.25rem;">V4 — Final Mold Updates</h4>
+            <p style="margin-bottom:0.65rem;">For the next version, I updated the mold to include the mounting hole
+              features
+              directly in the mold itself. I also adjusted the resin quantity based on what I learned from V3.</p>
 
             <p>Manufacturing cycle for each part: hand-pack chopped carbon tow with resin into the mold, clamp,
               cure 24 hours, demold, trim the flash, and compare the result against the previous version.</p>
+
+            <!-- FEA -->
+            <hr class="section-rule">
+            <h3>Finite Element Analysis (FEA)</h3>
+            <p>I also wanted to see how the mount would behave under the motor's maximum thrust, so I ran a static
+              simulation in SolidWorks. For our drone, we use the <a
+                href="https://store.tmotor.com/product/mn8012-motor-antigravity-type.html" target="_blank"
+                rel="noopener" style="color:var(--signal);text-decoration:none;">T-Motor MN8012 KV100</a>, which has a
+              maximum rated thrust of 11.8 kgf. I used approximately 116 N as the total upward force, distributed
+              equally across the four motor mounting points (29 N each), while fixing the rear mounting holes.</p>
+            <h3 style="font-size:1rem;margin:0.65rem 0 0.2rem;">Custom Material Setup in SolidWorks</h3>
+            <p>Since the mount was made using CT12 chopped carbon fiber tow, IN2 epoxy resin, and AT30 hardener, I
+              created a custom material in SolidWorks using estimated mechanical properties for the composite. For the
+              simulation, I used a Young's modulus of 35.5 GPa and a Poisson's ratio of 0.30.</p>
+            <h3 style="font-size:1rem;margin:0.65rem 0 0.2rem;">Simulation Results</h3>
+            <ul style="color:var(--text-dim);font-size:0.95rem;padding-left:1.1rem;margin:0.25rem 0 0.5rem;">
+              <li style="margin-bottom:0.2rem;">Maximum displacement: <strong style="color:var(--text);">0.087
+                  mm</strong></li>
+              <li style="margin-bottom:0.2rem;">Maximum von Mises stress: <strong style="color:var(--text);">28.20
+                  MPa</strong></li>
+              <li style="margin-bottom:0.2rem;">Maximum first principal stress: <strong style="color:var(--text);">35.37
+                  MPa</strong></li>
+            </ul>
+            <p style="font-size:0.88rem;color:var(--text-faint);margin:0.25rem 0 0;">These are theoretical results based
+              on estimated material properties and the simulation setup — not physical test measurements.</p>
 
             <!-- RESULT -->
             <hr class="section-rule">
@@ -671,6 +673,10 @@
             <p>The carbon mount fits the same bolt pattern and mounting arm as the aluminum original. No
               changes were needed anywhere else on the airframe. The scale photos below show both parts
               weighed against each other.</p>
+
+            <p>I also used SolidWorks Simulation to get an idea of how the mount would behave under the motor's
+              maximum thrust. It gave me a better understanding of the expected displacement and stress
+              distribution, although these are only theoretical results based on the material properties I used.</p>
 
             <!-- REFLECTION -->
             <hr class="section-rule">
@@ -773,6 +779,7 @@
               loaded before installation to verify the part held under hand force.</div>
           </div>
         </div>
+
       </div>
     </section>
   </main>
@@ -781,15 +788,15 @@
   <nav class="page-nav" aria-label="Portfolio navigation">
     <div class="wrap">
       <div class="page-nav-inner">
-          <a href="projects.html" class="page-nav-prev" id="nav-prev-all">
-            <span class="pn-label"><span class="pn-arrow">←</span> All Projects</span>
-            <span class="pn-title">Projects Overview</span>
-          </a>
-          <span class="page-nav-center"></span>
-            <a href="gear-train.html" class="page-nav-next" id="nav-next-gear">
-              <span class="pn-label">Next <span class="pn-arrow">→</span></span>
-              <span class="pn-title">Involute Gear Train</span>
-            </a>
+        <a href="projects.html" class="page-nav-prev" id="nav-prev-all">
+          <span class="pn-label"><span class="pn-arrow">←</span> All Projects</span>
+          <span class="pn-title">Projects Overview</span>
+        </a>
+        <span class="page-nav-center"></span>
+        <a href="gear-train.html" class="page-nav-next" id="nav-next-gear">
+          <span class="pn-label">Next <span class="pn-arrow">→</span></span>
+          <span class="pn-title">Involute Gear Train</span>
+        </a>
       </div>
     </div>
   </nav>
